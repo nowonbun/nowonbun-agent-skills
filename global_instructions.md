@@ -53,6 +53,7 @@
 
 - AI 에이전트 구조 설계, MCP 연동, LLM 파이프라인, 상태 관리, 관측 가능성 설계가 필요하면 `ai_agent.md`를 우선 참조한다.
 - 코드·문서·설정 변경 시 Claude 협업 절차가 필요하면 `coding_assistant.md`를 우선 참조한다.
+- 구현 협업 전체 흐름은 `coding_assistant.md`, Claude CLI 리뷰 실행 규칙은 `claude-review.md`를 따른다.
 
 ## 선호되는 형태
 
@@ -74,10 +75,7 @@
 7. Claude 검토가 반영된 경우 최종 답변에 논점, 결론, 채택 이유를 간단히 정리한다.
 8. Claude 협업 세부 규칙은 `coding_assistant.md`를 우선 참조한다.
 9. 코드, 문서, 설정을 변경하는 작업은 가능하면 Claude 리뷰를 먼저 시도하고, 실패 시 실패 원인과 대체 검증 결과를 반드시 보고한다.
-10. 여기서 Claude 리뷰는 현재 세션과 별도로 실행한 Claude CLI 검토를 의미한다.
-11. PowerShell에서는 `claude.ps1` 대신 `claude.cmd` 실행을 우선 사용한다.
-12. 이 환경에서는 Claude CLI를 샌드박스에서 먼저 시도하지 말고, `claude.cmd`를 권한 상승으로 바로 실행하는 것을 기본값으로 본다.
-13. 권한 상승 실행도 실패하면 리뷰 생략 사유와 대체 검증 결과를 명시한다.
+10. Claude 리뷰의 호출 방식, 실패 처리, 보고 형식은 `claude-review.md`를 따른다.
 
 ---
 
@@ -98,12 +96,7 @@
 - CLI에서 git으로 사용하는 커맨드는 별도의 권한 요청 없이 실행할 수 있다.
 - git commit 메시지는 가능하면 한글로 작성한다.
 - commit/push 전에 항상 Readme.md가 사양에 맞게 수정되었는지 확인한다.
-- PowerShell에서 Claude 확인/리뷰는 아래 명령을 우선 사용한다.
-
-```powershell
-& 'C:\Users\nowonbun\AppData\Roaming\npm\claude.cmd' --version
-& 'C:\Users\nowonbun\AppData\Roaming\npm\claude.cmd' -p "Return exactly: OK"
-```
+- PowerShell에서 Claude 확인/리뷰는 `claude-review.md`의 규칙을 따른다.
 
 ---
 
@@ -120,6 +113,9 @@
 - 추측으로 툴 호출하지 않는다.
 
 # 사용 가능한 skill:
+- ai_agent.md: AI 에이전트 설계, MCP 연동, 상태 관리, 관측 가능성 설계용
+- coding_assistant.md: 구현 협업, Claude 협업 흐름, 대체 검증 절차용
+- claude-review.md: Claude CLI 리뷰 호출, 실패 처리, 보고 형식용
 - skill_create_rule.md: Skills 파일 만들때의 형식
 - stock-mcp.md: 주식 MCP 조회/예측용
 - mariadb-mcp.md: DB 조회용

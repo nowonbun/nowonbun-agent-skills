@@ -25,7 +25,9 @@
 5. 문서 작성 후 형식 일관성을 점검한다.
 
 ## 저장소 성격
+- `global_instructions.md`: 전역 공통 지침
 - `ai_agent.md`, `automation.md`, `coding_assistant.md`, `engineer.md`, `research.md`: 역할/상황별 지침
+- `claude-review.md`: Claude CLI 리뷰 규칙
 - `github-mcp.md`, `mariadb-mcp.md`, `stock-mcp.md`: MCP 사용 규칙
 - `stock_analysis.md`, `reality_check.md`: 분석 및 검증 프레임
 - `skill_create_rule.md`: 스킬 작성 규칙
@@ -33,8 +35,10 @@
 - `list.md`, `reference.txt`: 레퍼런스 목록
 
 ## 문서 선택 기준
+- 전역 응답 원칙, 사용자 호칭, 답변 스타일, 공통 판단 기준: `global_instructions.md`
 - AI 에이전트 설계, 오케스트레이션, MCP 구조, 상태 관리, 관측 가능성: `ai_agent.md`
 - 코딩 구현 협업 및 검토 절차: `coding_assistant.md`
+- Claude CLI 리뷰 호출 절차, 실패 처리, 보고 형식: `claude-review.md`
 - 반복 작업 자동화, 스크립트, CI/CD: `automation.md`
 - 일반 소프트웨어 설계, 구현, 디버깅: `engineer.md`
 - 조사형 분석, 배경 정리, 쟁점 구조화: `research.md`

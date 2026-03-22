@@ -379,3 +379,6 @@ mcp/
 - 외부 도구 연결은 `mcp/`
 
 이렇게 나누면 구조가 가장 덜 꼬인다.
+
+### 11.2 Skills 보충 예시
+- `coding_assistant.md`는 Codex/Claude 협업 구현 절차를 고정하는 skill이다.

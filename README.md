@@ -1,35 +1,52 @@
-This is private source store.
+﻿이 저장소는 개인 소스 저장소다.
 =============================
 
-> The kind of source is C#, Java, Javascript, Php.
-> The source of C# is private household ledger, tester winform, my work system framework, websocket and webserver and etc.
-> The private household ledger is operating it that url is "http://household.nowonbun.com".
+> 소스 종류는 C#, Java, Javascript, PHP다.
+> C# 소스는 개인 가계부, 테스트용 WinForms, 회사 업무 시스템 프레임워크, WebSocket, 웹서버 등이 포함된다.
+> 개인 가계부는 현재 운영 중이며 URL은 "http://household.nowonbun.com" 이다.
 
-> Java have been created by Jsp servlet. in now, the kind of source is migration system, css web mock and something. It's like that restAPI
+> Java는 JSP/Servlet 기반으로 만들어졌다. 현재는 마이그레이션 시스템, CSS 웹 목업 등 REST API 성격의 소스가 있다.
 
-> Javascript is basic framework.
+> Javascript는 기본 프레임워크 용도다.
 
-> Php is private household ledger. It's data connecter of househod.It's like restAPI.
+> PHP는 개인 가계부용 데이터 연결 계층이다. REST API와 비슷한 역할을 한다.
 
 # C#
 
-* AisWebServices - my work system framework (Not completed)
-* DataChecker - URL Connecter 
-* Household - The private household ledger. the first version. (Not completed)
-* Household2 - The private household ledger. the second version. (Not completed)
-* RefreshRouter - Scrapping Engine -> the system is my router is refreshed. (Not completed)
-* WebScraping - Scrapping Engine -> the system is my router is refreshed. (Not completed)
-* WorkAdminProgram - http and websocket server (Not completed)
+* AisWebServices - 회사 업무 시스템 프레임워크 (미완성)
+* DataChecker - URL 연결 도구
+* Household - 개인 가계부 1차 버전 (미완성)
+* Household2 - 개인 가계부 2차 버전 (미완성)
+* RefreshRouter - 스크래핑 엔진 -> 공유기 새로고침 시스템 (미완성)
+* WebScraping - 스크래핑 엔진 -> 공유기 새로고침 시스템 (미완성)
+* WorkAdminProgram - HTTP 및 WebSocket 서버 (미완성)
 
 # Java
 
-* DataTransfer - (Not completed)
-* HouseholdData - (Not completed)
-* Other	clean up - It's source of reference.
-* WebMock -  It's source css and javascript (Not completed)
+* DataTransfer - (미완성)
+* HouseholdData - (미완성)
+* Other clean up - 참고용 소스
+* WebMock - CSS 및 Javascript 소스 (미완성)
 
 # Javascript
 
 # PHP
 
-* Household - It's data connecter of househod.It's like restAPI.
+* Household - 개인 가계부용 데이터 연결 계층. REST API와 비슷한 역할을 한다.
+
+## Agent Skill Documents
+
+이 저장소에는 로컬 에이전트 스킬 문서와 운영 가이드도 함께 보관한다.
+
+- `global_instructions.md`: 전역 동작 규칙
+- `ai_agent.md`: AI 에이전트 설계 스킬
+- `coding_assistant.md`: Codex/Claude 협업, 리뷰, 대체 검증 스킬
+- `github-mcp.md`: GitHub MCP 사용 규칙
+- `skill_create_rule.md`: 스킬 작성 규칙
+
+### Claude review policy
+
+- 코드, 문서, 설정 변경 시 Claude 리뷰를 먼저 시도한다.
+- PowerShell에서는 `claude.ps1` 대신 `claude.cmd`를 우선 사용한다.
+- 샌드박스 실행이 실패하면 권한 상승으로 재시도하고 결과를 보고한다.
+- 상세 워크플로와 대체 검증 규칙은 `coding_assistant.md`를 따른다.

@@ -1,0 +1,6 @@
+*.md text eol=lf working-tree-encoding=UTF-8
+*.txt text eol=lf
+*.cs text eol=lf
+*.java text eol=lf
+*.js text eol=lf
+*.php text eol=lf

@@ -1,4 +1,4 @@
-﻿이 저장소는 개인 소스 저장소다.
+이 저장소는 개인 소스와 로컬 에이전트 문서를 함께 관리하는 저장소다.
 =============================
 
 > 소스 종류는 C#, Java, Javascript, PHP다.
@@ -38,10 +38,12 @@
 
 이 저장소에는 로컬 에이전트 스킬 문서와 운영 가이드도 함께 보관한다.
 
+- `AGENTS.md`: 이 저장소 작업 시 우선순위와 최소 변경 원칙
 - `global_instructions.md`: 전역 동작 규칙
+- `CLAUDE.md`: Claude용 시스템 지침 문서
 - `ai_agent.md`: AI 에이전트 설계 스킬
 - `automation.md`: 반복 작업 자동화, 스크립트, CI/CD 스킬
-- `coding_assistant.md`: Codex/Claude 협업, 리뷰, 대체 검증 스킬
+- `coding_assistant.md`: Claude 협업, 리뷰, 대체 검증 스킬
 - `engineer.md`: 소프트웨어 설계, 구현, 디버깅 스킬
 - `research.md`: 조사형 분석, 배경 정리, 쟁점 구조화 스킬
 - `stock_analysis.md`: 주식 분석 스킬
@@ -51,6 +53,8 @@
 - `mariadb-mcp.md`: MariaDB MCP 조회 규칙
 - `stock-mcp.md`: Stock MCP 조회·예측 규칙
 - `skill_create_rule.md`: 스킬 작성 규칙
+- `skills-설명-정리.md`: Claude/Skills/MCP 구조 메모
+- `list.md`: 관련 저장소 및 참고 리포지토리 목록
 
 ### Claude review policy
 

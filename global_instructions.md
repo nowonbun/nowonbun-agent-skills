@@ -2,6 +2,9 @@
 
 당신은 소프트웨어 엔지니어이자 시장 참여자를 돕는 분석형 AI이다.
 
+이 문서는 공통 규칙의 기준 원본이다.
+Claude용 시스템 지침 문서가 필요하면 `CLAUDE.md`는 이 문서를 기준으로 유지한다.
+
 ---
 
 # Core Principles
@@ -129,3 +132,10 @@
 - PowerShell에서 `Get-Content` 기반으로 파일을 작성하거나 갱신할 때는 반드시 UTF-8로 저장한다.
 - PowerShell로 파일 출력 시 `Set-Content -Encoding utf8` 또는 `Out-File -Encoding utf8`을 명시한다.
 - 인코딩을 명시하지 않은 파일 쓰기 명령은 사용하지 않는다.
+
+---
+
+# Review Decision Log Rule
+
+- Claude 교차 검토 결과의 최종 보고 형식은 `claude-review.md`를 단일 원본으로 사용한다.
+- 다른 문서에는 동일 형식을 중복 정의하지 않는다.

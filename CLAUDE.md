@@ -12,7 +12,7 @@
 4. 설명은 구조적으로 한다.
 5. 결론을 먼저 말하고 이유를 설명한다.
 6. 가능하면 실행 가능한 방법을 제시한다.
-7. 답변은 항상 한국어로 대답한다.
+7. 답변은 항상 한국어로 한다.
 8. 사용자를 항상 언니라고 부른다.
 9. 문서와 소스 주석은 가능하면 한글로 작성한다.
 
@@ -52,8 +52,8 @@
 ## 참조 규칙
 
 - AI 에이전트 구조 설계, MCP 연동, LLM 파이프라인, 상태 관리, 관측 가능성 설계가 필요하면 `ai_agent.md`를 우선 참조한다.
-- 코드·문서·설정 변경 시 Claude 협업 절차가 필요하면 `coding_assistant.md`를 우선 참조한다.
-- 구현 협업 전체 흐름은 `coding_assistant.md`, Claude CLI 리뷰 실행 규칙은 `claude-review.md`를 따른다.
+- 코드·문서·설정 변경 시 협업 절차가 필요하면 `coding_assistant.md`를 우선 참조한다.
+- 구현 협업 전체 흐름은 `coding_assistant.md`를 따르고, 리뷰/교차 검토는 Codex 기준으로 수행한다.
 
 ## 선호되는 형태
 
@@ -71,11 +71,11 @@
 3. 현실적인 조언을 제공한다.
 4. 기술 질문에는 구체적인 예시를 제공한다.
 5. 추측을 사실처럼 말하지 않는다.
-6. 의사결정이 필요한 작업에서는 Claude를 함께 활용할 수 있으면 교차 검토한다.
-7. Claude 검토가 반영된 경우 최종 답변에 논점, 결론, 채택 이유를 간단히 정리한다.
-8. Claude 협업 세부 규칙은 `coding_assistant.md`를 우선 참조한다.
-9. 코드, 문서, 설정을 변경하는 작업은 가능하면 Claude 리뷰를 먼저 시도하고, 실패 시 실패 원인과 대체 검증 결과를 반드시 보고한다.
-10. Claude 리뷰의 호출 방식, 실패 처리, 보고 형식은 `claude-review.md`를 따른다.
+6. 의사결정이 필요한 작업에서는 Codex를 활용할 수 있으면 교차 검토한다.
+7. Codex 검토가 반영된 경우 최종 답변에 논점, 결론, 채택 이유를 간단히 정리한다.
+8. 구현 협업 세부 규칙은 `coding_assistant.md`를 우선 참조한다.
+9. 코드, 문서, 설정을 변경하는 작업은 가능하면 Codex 리뷰를 먼저 시도하고, 실패 시 실패 원인과 대체 검증 결과를 반드시 보고한다.
+10. 리뷰 호출 방식, 실패 처리, 보고 형식은 Codex 기준 협업 절차를 따른다.
 
 ---
 
@@ -96,7 +96,7 @@
 - CLI에서 git으로 사용하는 커맨드는 별도의 권한 요청 없이 실행할 수 있다.
 - git commit 메시지는 가능하면 한글로 작성한다.
 - commit/push 전에 항상 Readme.md가 사양에 맞게 수정되었는지 확인한다.
-- PowerShell에서 Claude 확인/리뷰는 `claude-review.md`의 규칙을 따른다.
+- PowerShell 기준으로 검토가 필요하면 Codex 세션/에이전트를 우선 사용한다.
 
 ---
 
@@ -115,17 +115,43 @@
 # 사용 가능한 skill
 
 - ai_agent.md: AI 에이전트 설계, MCP 연동, 상태 관리, 관측 가능성 설계용
-- coding_assistant.md: 구현 협업, Claude 협업 흐름, 대체 검증 절차용
-- claude-review.md: Claude CLI 리뷰 호출, 실패 처리, 보고 형식용
-- skill_create_rule.md: Skills 파일 만들 때의 형식
+- coding_assistant.md: 구현 협업, Codex 협업 흐름, 대체 검증 절차용
+- skill_create_rule.md: Skills 파일 작성 규칙
 - stock-mcp.md: 주식 MCP 조회/예측용
 - mariadb-mcp.md: DB 조회용
 - github-mcp.md: GitHub 작업용
 
+
 ---
 
-# PowerShell File Encoding Rule
+# Review Decision Log Rule
 
-- PowerShell에서 `Get-Content` 기반으로 파일을 작성하거나 갱신할 때는 반드시 UTF-8로 저장한다.
-- PowerShell로 파일 출력 시 `Set-Content -Encoding utf8` 또는 `Out-File -Encoding utf8`을 명시한다.
-- 인코딩을 명시하지 않은 파일 쓰기 명령은 사용하지 않는다.
+Claude와 교차 검토를 수행한 경우 최종 보고에는 반드시 `Codex와 claude의 의사결정록` 섹션을 포함한다.
+
+## 기록 규칙
+
+1. Claude에게 어떤 리뷰를 의뢰했는지 구체적으로 적는다.
+2. Claude의 답변은 결론과 핵심 지적 사항 중심으로 정리한다.
+3. Codex의 최종 행동을 반드시 기록한다.
+4. Codex의 행동 분류는 아래 셋 중 하나로 통일한다.
+   - 수렴
+   - 다시 수정
+   - 거절
+5. 거절 시에는 거절 이유를 반드시 적는다.
+6. 최종 답변에서는 가능하면 반영 파일, 조치 내용, 채택 이유까지 함께 적는다.
+
+## 권장 형식
+
+```text
+[Codex와 claude의 의사결정록]
+- 리뷰 의뢰 내용:
+  - <검토 요청 1>
+  - <검토 요청 2>
+- Claude의 답변:
+  - <결론>
+  - <지적 사항>
+- Codex의 행동:
+  - 분류: 수렴 | 다시 수정 | 거절
+  - 조치 내용: <실제 반영 여부와 수정 내용>
+  - 최종 결론: <채택 또는 미채택 이유>
+```

@@ -1,4 +1,4 @@
-﻿# AGENTS.md
+# AGENTS.md
 
 ## 목적
 - 이 저장소는 에이전트 작업용 지침/스킬 문서를 관리하는 문서 저장소다.
@@ -26,28 +26,30 @@
 
 ## 저장소 성격
 - `global_instructions.md`: 전역 공통 지침
-- `ai_agent.md`, `automation.md`, `coding_assistant.md`, `engineer.md`, `research.md`: 역할/상황별 지침
+- `ai-agent.md`, `automation.md`, `coding-assistant.md`, `engineer.md`, `research.md`: 역할/상황별 지침
 - `claude-review.md`: Claude CLI 리뷰 규칙
 - `github-mcp.md`, `mariadb-mcp.md`, `stock-mcp.md`: MCP 사용 규칙
-- `stock_analysis.md`, `reality_check.md`: 분석 및 검증 프레임
-- `skill_create_rule.md`: 스킬 작성 규칙
+- `stock-analysis.md`, `reality-check.md`: 분석 및 검증 프레임
+- `skill-create-rule.md`: 스킬 작성 규칙
+- `init-workspace-skills.md`: 워크스페이스/프로젝트에 공통 지침과 스킬 시트를 복사·갱신하는 초기화 규칙
 - `skills-설명-정리.md`: Codex/Skills/MCP 구조 메모 (참조용)
 - `list.md`, `reference.txt`: 레퍼런스 목록
 
 ## 문서 선택 기준
 - 전역 응답 원칙, 사용자 호칭, 답변 스타일, 공통 판단 기준: `global_instructions.md`
-- AI 에이전트 설계, 오케스트레이션, MCP 구조, 상태 관리, 관측 가능성: `ai_agent.md`
-- 코딩 구현 협업 및 검토 절차: `coding_assistant.md`
+- AI 에이전트 설계, 오케스트레이션, MCP 구조, 상태 관리, 관측 가능성: `ai-agent.md`
+- 코딩 구현 협업 및 검토 절차: `coding-assistant.md`
 - Claude CLI 리뷰 호출 절차, 실패 처리, 보고 형식: `claude-review.md`
 - 반복 작업 자동화, 스크립트, CI/CD: `automation.md`
 - 일반 소프트웨어 설계, 구현, 디버깅: `engineer.md`
 - 조사형 분석, 배경 정리, 쟁점 구조화: `research.md`
-- 주식 분석: `stock_analysis.md`
-- 과도한 낙관이나 편향 검증: `reality_check.md`
+- 주식 분석: `stock-analysis.md`
+- 과도한 낙관이나 편향 검증: `reality-check.md`
 - GitHub 작업 규칙: `github-mcp.md`
 - MariaDB MCP 조회 규칙: `mariadb-mcp.md`
 - StockSearcher MCP 조회/예측 규칙: `stock-mcp.md`
-- 스킬 작성 규칙: `skill_create_rule.md`
+- 스킬 작성 규칙: `skill-create-rule.md`
+- 프로젝트별 공통 지침/스킬 초기화 및 동기화: `init-workspace-skills.md`
 
 ## 문서 작성 규칙
 - 새 문서는 반드시 UTF-8로 저장한다.

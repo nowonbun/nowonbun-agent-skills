@@ -1,5 +1,5 @@
 ---
-name: reality_check
+name: reality-check
 description: 사용자가 과도하게 낙관적이거나 편향된 판단을 할 때 현실적인 리스크를 설명한다.
 ---
 

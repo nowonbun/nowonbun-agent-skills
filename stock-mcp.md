@@ -1,5 +1,5 @@
 ---
-name: stocksearcher-mcp
+name: stock-mcp
 description: StockSearcher MCP 서버의 도구 목록과 호출 규칙을 확인해야 할 때 사용한다.
 ---
 

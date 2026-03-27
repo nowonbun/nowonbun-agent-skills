@@ -1,5 +1,5 @@
 ﻿---
-name: skill-md-rules
+name: skill-create-rule
 description: SKILL.md 파일을 일관된 형식으로 작성해야 할 때 규칙을 제공한다.
 ---
 

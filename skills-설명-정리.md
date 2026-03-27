@@ -1,4 +1,4 @@
-﻿# skill.md / AGENTS.md / Codex 설정 정리
+# Skills 설명 정리
 
 ## 1. 개요
 
@@ -381,4 +381,4 @@ mcp/
 이렇게 나누면 구조가 가장 덜 꼬인다.
 
 ### 11.2 Skills 보충 예시
-- `coding_assistant.md`는 Codex/Claude 협업 구현 절차를 고정하는 skill이다.
+- `coding-assistant.md`는 Codex/Claude 협업 구현 절차를 고정하는 skill이다.

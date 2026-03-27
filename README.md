@@ -41,18 +41,19 @@
 - `AGENTS.md`: 이 저장소 작업 시 우선순위와 최소 변경 원칙
 - `global_instructions.md`: 전역 동작 규칙
 - `CLAUDE.md`: Claude용 시스템 지침 문서
-- `ai_agent.md`: AI 에이전트 설계 스킬
+- `ai-agent.md`: AI 에이전트 설계 스킬
 - `automation.md`: 반복 작업 자동화, 스크립트, CI/CD 스킬
-- `coding_assistant.md`: Claude 협업, 리뷰, 대체 검증 스킬
+- `coding-assistant.md`: Claude 협업, 리뷰, 대체 검증 스킬
 - `engineer.md`: 소프트웨어 설계, 구현, 디버깅 스킬
 - `research.md`: 조사형 분석, 배경 정리, 쟁점 구조화 스킬
-- `stock_analysis.md`: 주식 분석 스킬
-- `reality_check.md`: 과도한 낙관과 편향 검증 스킬
+- `stock-analysis.md`: 주식 분석 스킬
+- `reality-check.md`: 과도한 낙관과 편향 검증 스킬
 - `claude-review.md`: Claude CLI 리뷰 호출, 실패 처리, 보고 형식
 - `github-mcp.md`: GitHub MCP 사용 규칙
 - `mariadb-mcp.md`: MariaDB MCP 조회 규칙
 - `stock-mcp.md`: Stock MCP 조회·예측 규칙
-- `skill_create_rule.md`: 스킬 작성 규칙
+- `skill-create-rule.md`: 스킬 작성 규칙
+- `init-workspace-skills.md`: 프로젝트 루트와 `~/.codex/skills`에 공통 지침/스킬 시트를 복사·동기화하는 초기화 규칙
 - `skills-설명-정리.md`: Claude/Skills/MCP 구조 메모
 - `list.md`: 관련 저장소 및 참고 리포지토리 목록
 
@@ -61,5 +62,5 @@
 - 코드, 문서, 설정 변경 시 Claude 리뷰를 먼저 시도한다.
 - PowerShell에서는 `claude.ps1` 대신 `claude.cmd`를 우선 사용한다.
 - 샌드박스 실행이 실패하면 권한 상승으로 재시도하고 결과를 보고한다.
-- 상세 워크플로와 대체 검증 규칙은 `coding_assistant.md`를 따른다.
+- 상세 워크플로와 대체 검증 규칙은 `coding-assistant.md`를 따른다.
 - Claude CLI 리뷰 호출 방식, 실패 처리, 보고 형식은 `claude-review.md`를 따른다.

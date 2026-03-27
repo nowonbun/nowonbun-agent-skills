@@ -54,9 +54,9 @@
 
 ## 참조 규칙
 
-- AI 에이전트 구조 설계, MCP 연동, LLM 파이프라인, 상태 관리, 관측 가능성 설계가 필요하면 `ai_agent.md`를 우선 참조한다.
-- 코드·문서·설정 변경 시 교차 검토 절차가 필요하면 `coding_assistant.md`를 우선 참조한다.
-- 구현 협업 전체 흐름은 `coding_assistant.md`, 교차 검토 실행 규칙은 `claude-review.md`를 따른다.
+- AI 에이전트 구조 설계, MCP 연동, LLM 파이프라인, 상태 관리, 관측 가능성 설계가 필요하면 `ai-agent.md`를 우선 참조한다.
+- 코드·문서·설정 변경 시 교차 검토 절차가 필요하면 `coding-assistant.md`를 우선 참조한다.
+- 구현 협업 전체 흐름은 `coding-assistant.md`, 교차 검토 실행 규칙은 `claude-review.md`를 따른다.
 
 ## 선호되는 형태
 
@@ -76,7 +76,7 @@
 5. 추측을 사실처럼 말하지 않는다.
 6. 의사결정이 필요한 작업에서는 가능하면 교차 검토를 함께 수행한다.
 7. 교차 검토 결과가 반영된 경우 최종 답변에 논점, 결론, 채택 이유를 간단히 정리한다.
-8. 구현 협업과 교차 검토 세부 규칙은 `coding_assistant.md`를 우선 참조한다.
+8. 구현 협업과 교차 검토 세부 규칙은 `coding-assistant.md`를 우선 참조한다.
 9. 코드, 문서, 설정을 변경하는 작업은 가능하면 교차 검토를 먼저 시도하고, 실패 시 실패 원인과 대체 검증 결과를 반드시 보고한다.
 10. 교차 검토의 호출 방식, 실패 처리, 보고 형식은 `claude-review.md`를 따른다.
 
@@ -117,13 +117,19 @@
 
 # 사용 가능한 skill
 
-- ai_agent.md: AI 에이전트 설계, MCP 연동, 상태 관리, 관측 가능성 설계용
-- coding_assistant.md: 구현 협업, Claude 협업 흐름, 대체 검증 절차용
-- claude-review.md: Claude CLI 리뷰 호출, 실패 처리, 보고 형식용
-- skill_create_rule.md: Skills 파일 만들 때의 형식
-- stock-mcp.md: 주식 MCP 조회/예측용
-- mariadb-mcp.md: DB 조회용
-- github-mcp.md: GitHub 작업용
+- ai-agent: AI 에이전트 설계, MCP 연동, 상태 관리, 관측 가능성 설계용
+- coding-assistant: 구현 협업, Claude 협업 흐름, 대체 검증 절차용
+- claude-review: Claude CLI 리뷰 호출, 실패 처리, 보고 형식용
+- skill-create-rule: Skills 파일 만들 때의 형식
+- stock-mcp: 주식 MCP 조회/예측용
+- mariadb-mcp: DB 조회용
+- github-mcp: GitHub 작업용
+- automation: 반복 작업 자동화, 스크립트 작성, CI/CD 구성용
+- engineer: 소프트웨어 설계·구현·디버깅·운영 문제 분석 및 해결용
+- research: 역사·지정학·경제·기술 주제 조사/분석 정리용
+- stock-analysis: 주식 분석(기업, 재무, 차트, 시장 흐름) 및 리스크 평가용
+- reality-check: 과도한 낙관 또는 편향된 판단에 현실적 리스크 제시용
+- init-workspace-skills: 워크스페이스에 공통 지침·스킬 시트 초기화/업데이트용
 
 ---
 
@@ -132,3 +138,10 @@
 - PowerShell에서 `Get-Content` 기반으로 파일을 작성하거나 갱신할 때는 반드시 UTF-8로 저장한다.
 - PowerShell로 파일 출력 시 `Set-Content -Encoding utf8` 또는 `Out-File -Encoding utf8`을 명시한다.
 - 인코딩을 명시하지 않은 파일 쓰기 명령은 사용하지 않는다.
+
+---
+
+# Review Decision Log Rule
+
+- 교차 검토 결과의 최종 보고 형식은 `claude-review.md`를 단일 원본으로 사용한다.
+- 다른 문서에는 동일 형식을 중복 정의하지 않는다.

@@ -37,6 +37,7 @@ Claude에서 사용자가 실제 경로를 `~/.claude/skils/...`로 운영하면
 - `github-mcp.md`, `mariadb-mcp.md`, `stock-mcp.md`: MCP 사용 규칙
 - `stock-analysis.md`, `reality-check.md`: 분석 및 검증 프레임
 - `skill-create-rule.md`: 스킬 작성 규칙
+- `markdown-safe-writing.md`: Markdown/문서 작성 시 UTF-8 저장, 셸 입력 손상 방지, 검증 절차 규칙
 - `init-workspace-skills.md`: 워크스페이스/프로젝트에 공통 지침과 스킬 시트를 복사·갱신하는 초기화 규칙
 - `skills-설명-정리.md`: Codex/Skills/MCP 구조 메모 (참조용, 배포 대상 없음)
 - `list.md`, `reference.txt`: 레퍼런스 목록 (배포 대상 없음)
@@ -57,6 +58,7 @@ Claude에서 사용자가 실제 경로를 `~/.claude/skils/...`로 운영하면
 - MariaDB MCP 조회 규칙: `mariadb-mcp.md`
 - StockSearcher MCP 조회/예측 규칙: `stock-mcp.md`
 - 스킬 작성 규칙: `skill-create-rule.md`
+- Markdown/문서 작성 시 한글 인코딩 안전 규칙: `markdown-safe-writing.md`
 - 프로젝트별 공통 지침/스킬 초기화 및 동기화: `init-workspace-skills.md`
 
 ## 문서 작성 규칙

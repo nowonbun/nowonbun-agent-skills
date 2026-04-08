@@ -1,6 +1,7 @@
 param(
     [string]$TargetDir,
-    [string]$SourceRoot
+    [string]$SourceRoot,
+    [string]$SkillSourceDir
 )
 
 Set-StrictMode -Version Latest
@@ -8,8 +9,11 @@ $ErrorActionPreference = "Stop"
 
 # ===== 설정 =====
 # 경로 예시
-# - SourceRoot: 스킬 시트 원본 md 파일이 있는 루트
+# - SourceRoot: 저장소 루트 경로
 #   예) D:\work\nownobun-agent-skills
+# - SkillSourceDir: SourceRoot 기준 스킬 원본 폴더(기본값: codex-skills)
+#   예) codex-skills
+# - 실제 스킬 원본 탐색 경로: <SourceRoot>\<SkillSourceDir> (루트 + 하위 폴더 포함)
 # - TargetDir: .codex 디렉토리의 "상위" 루트
 #   예) C:\Users\nowonbun
 # - 위 예시라면 실제 복사 경로는 아래처럼 된다.
@@ -21,6 +25,7 @@ $ErrorActionPreference = "Stop"
 # $DefaultSourceRoot = (Split-Path -Parent $PSScriptRoot)
 $DefaultTargetDir = "C:\Users\nowonbun\"
 $DefaultSourceRoot = "D:\work\nownobun-agent-skills"
+$DefaultSkillSourceDir = "codex-skills"
 
 if (-not $PSBoundParameters.ContainsKey("TargetDir")) {
     $TargetDir = $DefaultTargetDir
@@ -28,6 +33,10 @@ if (-not $PSBoundParameters.ContainsKey("TargetDir")) {
 
 if (-not $PSBoundParameters.ContainsKey("SourceRoot")) {
     $SourceRoot = $DefaultSourceRoot
+}
+
+if (-not $PSBoundParameters.ContainsKey("SkillSourceDir")) {
+    $SkillSourceDir = $DefaultSkillSourceDir
 }
 
 function Convert-ToForwardSlashPath {
@@ -96,7 +105,19 @@ enabled = true
 }
 
 $sourceRootResolved = (Resolve-Path -LiteralPath $SourceRoot).Path
+
+if ([System.IO.Path]::IsPathRooted($SkillSourceDir)) {
+    $skillSourceRoot = (Resolve-Path -LiteralPath $SkillSourceDir).Path
+}
+else {
+    $skillSourceRoot = Join-Path $sourceRootResolved $SkillSourceDir
+}
+
 $targetDirResolved = $TargetDir
+
+if (-not (Test-Path -LiteralPath $skillSourceRoot)) {
+    throw "스킬 원본 경로를 찾지 못했습니다. expected=$skillSourceRoot"
+}
 
 if (-not (Test-Path -LiteralPath $targetDirResolved)) {
     New-Item -ItemType Directory -Path $targetDirResolved -Force | Out-Null
@@ -108,12 +129,24 @@ $configPath = Join-Path $codexRoot "config.toml"
 
 New-Item -ItemType Directory -Path $skillsRoot -Force | Out-Null
 
-$skillFiles = Get-ChildItem -LiteralPath $sourceRootResolved -File -Filter "*.md" |
+$skillFiles = Get-ChildItem -LiteralPath $skillSourceRoot -Recurse -File -Filter "*.md" |
     Sort-Object Name |
     Where-Object { Test-SkillSheet -FilePath $_.FullName }
 
 if (-not $skillFiles) {
-    throw "메타(name, description)가 있는 스킬 시트를 찾지 못했습니다. sourceRoot=$sourceRootResolved"
+    throw "메타(name, description)가 있는 스킬 시트를 찾지 못했습니다. skillSourceRoot=$skillSourceRoot"
+}
+
+$duplicateGroups = $skillFiles |
+    Group-Object { [System.IO.Path]::GetFileNameWithoutExtension($_.Name) } |
+    Where-Object { $_.Count -gt 1 }
+
+if ($duplicateGroups) {
+    $lines = foreach ($g in $duplicateGroups) {
+        $paths = ($g.Group | ForEach-Object { $_.FullName }) -join ", "
+        "$($g.Name): $paths"
+    }
+    throw "중복 스킬 이름(.md 제외)이 존재합니다.`n$($lines -join [Environment]::NewLine)"
 }
 
 foreach ($file in $skillFiles) {
@@ -123,7 +156,8 @@ foreach ($file in $skillFiles) {
 
     New-Item -ItemType Directory -Path $skillDir -Force | Out-Null
     Copy-Item -LiteralPath $file.FullName -Destination $skillTargetPath -Force
-    Write-Host "[COPY] $($file.Name) -> $skillTargetPath"
+    $relativePath = $file.FullName.Substring($skillSourceRoot.Length).TrimStart('\')
+    Write-Host "[COPY] $relativePath -> $skillTargetPath"
 
     $skillTargetPathForToml = Convert-ToForwardSlashPath -Path $skillTargetPath
     Ensure-SkillConfig -ConfigPath $configPath -SkillPath $skillTargetPathForToml
@@ -131,6 +165,7 @@ foreach ($file in $skillFiles) {
 
 Write-Host ""
 Write-Host "완료:"
-Write-Host "- sourceRoot: $sourceRootResolved"
+Write-Host "- sourceRoot     : $sourceRootResolved"
+Write-Host "- skillSourceRoot: $skillSourceRoot"
 Write-Host "- targetDir : $targetDirResolved"
 Write-Host "- config    : $configPath"

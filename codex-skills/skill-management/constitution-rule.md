@@ -1,6 +1,6 @@
 ---
 name: constitution-rule
-description: Authors who create or revise global_instructions.md as the primary constitution target and align CLAUDE.md and AGENTS.md must apply this rule to define priority, prohibition, and operation boundaries.
+description: Authors who create or revise global_instructions.md as the primary constitution target and align AGENTS.md must apply this rule to define priority, prohibition, and operation boundaries.
 ---
 
 # Constitution Rule
@@ -8,18 +8,16 @@ description: Authors who create or revise global_instructions.md as the primary 
 # Must
 
 ## Scope
-- You must apply this document when creating or revising `global_instructions.md`, `CLAUDE.md`, or `AGENTS.md`.
+- You must apply this document when creating or revising `global_instructions.md` or `AGENTS.md`.
 - You must treat this document as a content-governance rule for constitution documents, not as a markdown-format rule.
 
 ## Target Documents
 - You must define system-level identity, global principles, response principles, and non-negotiable safety rules in `global_instructions.md`.
-- You must define model-specific execution protocol, collaboration boundaries, and review workflow in `CLAUDE.md`.
 - You must define repository or workspace execution triggers, folder roles, and task-operational rules in `AGENTS.md`.
 
 ## Constitution Layers
-- You must define exactly three constitution layers: global, model, and workspace.
+- You must define exactly two constitution layers: global and workspace.
 - You must map `global_instructions.md` to the global layer.
-- You must map `CLAUDE.md` to the model layer.
 - You must map `AGENTS.md` to the workspace layer.
 
 ## Global Principles
@@ -31,7 +29,7 @@ description: Authors who create or revise global_instructions.md as the primary 
 
 ## Priority Model
 - You must define one closed priority order across constitution documents.
-- You must set priority as `global_instructions.md` > `CLAUDE.md` > `AGENTS.md` when no stricter repository rule is declared.
+- You must set priority as `global_instructions.md` > `AGENTS.md` when no stricter repository rule is declared.
 - You must declare one conflict-resolution rule for equal-priority collisions.
 - You must declare one fallback rule for missing instructions.
 
@@ -98,7 +96,7 @@ description: Authors who create or revise global_instructions.md as the primary 
 ## Scope Mixing
 - You must not place workspace-trigger details in `global_instructions.md`.
 - You must not place global identity or universal behavior principles only in `AGENTS.md`.
-- You must not duplicate the same rule text across `global_instructions.md`, `CLAUDE.md`, and `AGENTS.md`.
+- You must not duplicate the same rule text across `global_instructions.md` and `AGENTS.md`.
 
 ## Priority Omission
 - You must not publish constitution documents without an explicit conflict-resolution order.
@@ -113,11 +111,11 @@ description: Authors who create or revise global_instructions.md as the primary 
 
 ## Constitution Authoring
 1. Verify availability of required source-of-truth files before rule authoring.
-2. Classify each target rule into global, model, or workspace layer.
+2. Classify each target rule into global or workspace layer.
 3. Check whether `global_instructions.md` exists before selecting create or revision flow.
 4. Run global create flow when `global_instructions.md` is missing.
 5. Run global revision flow when `global_instructions.md` already exists.
-6. Assign each classified rule to `global_instructions.md`, `CLAUDE.md`, or `AGENTS.md`.
+6. Assign each classified rule to `global_instructions.md` or `AGENTS.md`.
 7. Define priority order, conflict resolution, and fallback behavior.
 8. Define prohibited rules and enforcement behavior per layer.
 9. Define AGENTS folder roles and workflow trigger rules.
@@ -150,7 +148,7 @@ description: Authors who create or revise global_instructions.md as the primary 
 - The document contains `## Verification` under `# Definition of Done`.
 - Each rule sentence uses explicit force terms (`must`, `must not`, or equivalent prohibition language).
 - Priority order, conflict resolution, and fallback behavior are explicitly defined.
-- Coverage for `global_instructions.md`, `CLAUDE.md`, and `AGENTS.md` is explicitly defined.
+- Coverage for `global_instructions.md` and `AGENTS.md` is explicitly defined.
 - AGENTS folder-role, trigger, order, failure, and re-run requirements are explicitly defined.
 - Skill and MCP operation rules include source checks, parameter validation, and reporting obligations.
 - Prohibited behaviors and enforcement behavior are explicitly defined.

@@ -85,16 +85,18 @@ description: <One sentence describing what it does and when to apply it>
 
 ## Language and Companion Documentation
 - When creating or revising skill documents, you must write all rule content in English.
-- You must create a Korean explanation document at `harness/doc/<relative-skill-path>/<skill-name>-readme.md`.
+- You must create a Japanese explanation document at `harness/doc/<relative-skill-path>/<skill-name>-readme.md`.
 - `<relative-skill-path>` must match the skill file path relative to `harness/`, including the `codex-harness/...` segments.
-- The Korean explanation document must describe purpose, key rules, and usage cautions without changing the original rule meaning.
+- The Japanese explanation document must describe purpose, key rules, and usage cautions without changing the original rule meaning.
+- When writing or revising history files under `history/<relative-skill-path>/<skill-name>/`, you must inherit the language used by the latest existing history file in the same folder.
+- If no history file exists in the target history folder, you must use Japanese as the default history language.
 
 ## History Recording
 - When revising a skill document, you must leave a modification history record under `history/<relative-skill-path>/<skill-name>/`.
 - `<relative-skill-path>` must match the skill file path relative to `harness/`, including the `codex-harness/...` segments.
 
 ## Completion Gate
-- When creating or revising a skill document, you must complete these artifacts in the same change set: skill rule file, Korean readme, and history record.
+- When creating or revising a skill document, you must complete these artifacts in the same change set: skill rule file, Japanese readme, and history record.
 - Before final completion reporting, you must verify existence of all three artifacts using file-path evidence.
 - If at least one required artifact is missing, you must stop completion reporting and create the missing artifact first.
 
@@ -102,7 +104,7 @@ description: <One sentence describing what it does and when to apply it>
 - This document is the single source of truth for skill document writing format and meaning-preservation standards.
 - `skill-governance-rule.md` is the single source of truth for governance tiers, risk triggers, and strict-vs-baseline control rules.
 - `skill-modify-history.md` is the single source of truth for history recording obligations and creation-time criteria.
-- `claude-review.md` is the single source of truth for cross-review invocation and reporting format.
+- `claude-cross-review-protocol.md` is the single source of truth for cross-review invocation and reporting format.
 - `global_instructions.md` is the single source of truth for global response principles and user profile.
 
 # Must NOT
@@ -155,7 +157,8 @@ description: <One sentence describing what it does and when to apply it>
 - If PlantUML is not used, it does not conflict with non-applicability conditions in `## Structure`.
 - Rules requiring a single source of truth specify document name and scope.
 - Rule strength, condition-first writing, exception handling, and reference-substitution rules follow `Rule Writing` criteria.
-- Rules in `Language and Companion Documentation` are satisfied, including English-only rule authoring and Korean readme placement.
+- Rules in `Language and Companion Documentation` are satisfied, including English-only rule authoring and Japanese readme placement.
+- History file language follows the latest history file in the same folder, or defaults to Japanese when no prior history file exists.
 - Rules in `History Recording` are satisfied, including the history path pattern and per-skill path placement.
 - Rules in `Completion Gate` are satisfied, including three-artifact completion and pre-report existence verification.
 - There are no expressions violating ambiguity/duplication/structure prohibition rules in `Must NOT`.

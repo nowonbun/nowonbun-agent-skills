@@ -1,90 +1,62 @@
 ---
 name: engineer
-description: 소프트웨어 설계·구현·디버깅·운영 문제를 구조적으로 분석하고 해결책을 제시해야 할 때 사용한다.
+description: Engineers solving software problems must use this skill to define the problem, rank root-cause hypotheses, compare fixes, and verify rollback safety.
 ---
 
-# Software Engineering Skill
+# Engineer Skill
 
-## 목적
-소프트웨어 문제를 증상 대응 수준이 아니라, 원인·영향·운영 리스크까지 포함해 재현 가능하고 검증 가능한 방식으로 해결한다.
+# Must
 
-## 규칙
-1. 증상만 보고 바로 수정안부터 제시하지 않는다. 먼저 문제 정의를 고정한다.
-2. 문제는 `증상`, `재현 조건`, `기대 동작`, `실제 동작`, `영향 범위`로 분리해 적는다.
-3. 원인 후보는 우선순위와 반증 방법까지 포함해 제시한다.
-4. 해결책은 임시 우회와 구조적 해결을 구분한다.
-5. 코드 수정은 반드시 영향 범위, 실패 가능성, 롤백 가능성을 함께 설명한다.
-6. 성능, 안정성, 보안, 운영 편의성 중 무엇을 우선하는지 밝힌다.
-7. "이론적으로 맞다"보다 "현재 시스템에서 검증 가능하다"를 우선한다.
-8. 불필요한 대규모 리팩터링은 경계한다.
-9. 재현 방법과 검증 방법이 없으면 해결 완료로 보지 않는다.
+## Scope
+- You must apply this document when analyzing or solving software design, implementation, debugging, or operational problems.
+- You must treat the task as problem solving with verification, not as immediate patch writing.
 
-## 핵심 관점
+## Source of Truth
+- This document is the single source of truth for engineering-analysis structure in `codex-skills/action-management/engineer.md`.
 
-### 1. 문제 정의 관점
-- 아래를 먼저 고정한다.
-  - 어디서 발생하는가
-  - 언제부터 발생했는가
-  - 항상 재현되는가
-  - 누가 영향을 받는가
-  - 지금 당장 막아야 하는가
-- 문제 정의가 흐리면 해결책도 흔들린다.
+## Problem Definition Rules
+- You must define the problem with symptom, reproduction condition, expected behavior, actual behavior, and impact scope.
+- You must state when the problem started or mark the time information as unverified.
+- You must identify whether the task requires immediate mitigation, root-cause removal, or both.
 
-### 2. 원인 분석 관점
-- 원인 후보를 나열만 하지 말고 검증 순서를 준다.
-- 예시:
-  1. 설정 오류 확인
-  2. 배포 변경점 확인
-  3. 데이터 이상 여부 확인
-  4. 코드 경로 확인
-  5. 외부 의존성 확인
-- 가장 빨리 배제 가능한 것부터 검증한다.
+## Hypothesis Rules
+- You must list root-cause hypotheses in priority order.
+- You must define a falsification or confirmation method for each hypothesis.
+- You must test the fastest eliminable hypotheses before high-cost hypotheses when evidence quality is similar.
 
-### 3. 해결 전략 관점
-- 해결책은 아래 셋으로 나눈다.
-  - 즉시 완화
-  - 근본 수정
-  - 재발 방지
-- 운영 장애일수록 완화와 근본 수정을 분리해야 한다.
+## Solution Comparison Rules
+- You must separate temporary mitigation, permanent fix, and recurrence-prevention actions.
+- You must compare candidate fixes by implementation cost, verification depth, rollback ease, and side-effect risk.
+- You must state why the recommended fix is safer than more invasive alternatives.
 
-### 4. 변경 판단 관점
-- 수정안마다 아래를 비교한다.
-  - 변경 난이도
-  - 장애 재발 가능성
-  - 테스트 가능성
-  - 롤백 용이성
-  - 주변 모듈 영향
-- 가장 멋진 설계보다, 지금 시스템에 가장 안전한 설계를 우선한다.
+## Change and Verification Rules
+- You must define how the change will be validated through reproduction, tests, logs, metrics, or operator checks.
+- You must define rollback conditions for changes that can worsen service behavior.
+- You must mark assumptions as unverified when direct evidence is unavailable.
 
-### 5. 검증 관점
-- 검증은 반드시 다음 층위로 나눈다.
-  - 로컬 재현
-  - 단위/통합 테스트
-  - 로그 확인
-  - 운영 지표 확인
-  - 롤백 확인
-- "수정했다"와 "문제가 해결됐다"는 다르다.
+# Must NOT
 
-## 기본 항목
-1. 문제 정의
-2. 영향 범위
-3. 원인 후보와 검증 순서
-4. 해결 전략 비교
-5. 권장 수정안
-6. 코드/명령어
-7. 검증 및 롤백 계획
+## Prohibited Engineering Behavior
+- You must not jump from symptom to fix without a fixed problem statement.
+- You must not present one hypothesis as fact before evidence is collected.
+- You must not recommend large-scale refactoring when a smaller verified fix can solve the problem.
+- You must not declare completion without a verification method or rollback path.
 
-## 출력 작성 규칙
-1. 결론에서 가장 가능성 높은 원인과 권장 대응을 먼저 말한다.
-2. 그 다음 근거를 단계적으로 적는다.
-3. 가능하면 바로 실행 가능한 명령어와 코드 조각을 포함한다.
-4. 추측이면 추측이라고 적고, 확인 방법을 함께 적는다.
-5. 마지막에 운영 반영 전 체크리스트를 넣는다.
+# Flow
 
-## 산출물 형식
-1. 결론 / 권장 대응
-2. 문제 정의와 영향 범위
-3. 원인 분석
-4. 해결안 비교와 채택 이유
-5. 구현/명령어
-6. 검증 / 롤백 체크리스트
+## Analysis Flow
+1. Fix the problem statement and impact scope.
+2. Build prioritized root-cause hypotheses with test methods.
+3. Run the lowest-cost high-value checks first.
+4. Compare mitigation, permanent fix, and recurrence-prevention options.
+5. Select the recommended fix with verification and rollback plan.
+6. Report verified facts, unverified assumptions, and remaining risks.
+
+# Definition of Done
+
+## Verification
+- Problem statement includes symptom, reproduction condition, expected behavior, actual behavior, and impact scope.
+- Root-cause hypotheses are prioritized and testable.
+- Candidate fixes are compared by cost, safety, and rollback ease.
+- Verification and rollback methods are explicit.
+- Unverified items are labeled as unverified.

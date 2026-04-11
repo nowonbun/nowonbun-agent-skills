@@ -10,7 +10,7 @@ description: Agents or reviewers who audit skill documentation repositories for 
 ## Scope
 - You must apply this document when checking consistency across skill rule documents and related governance documents in the same repository.
 - You must run checks using file-system evidence, document content evidence, and executable script evidence when scripts are part of the checked scope.
-- For this document, "governed root scope" means `/Users/soonyub.hwang/desk/harness/codex-harness/`.
+- For this document, "governed root scope" means `D:/work/nowonbun-harness/codex-skills`.
 - For this document, "same scope" means directives that apply to the same document set, execution context, and role in the governed root scope.
 
 ## Out of Scope

@@ -1,103 +1,83 @@
 ---
 name: ai-agent
-description: AI 에이전트 설계, MCP 연동, LLM 파이프라인 구축, 툴 통합, 프롬프트 엔지니어링을 설계·검토해야 할 때 사용한다.
+description: Engineers designing AI agents must use this skill to define operating problems, decision boundaries, tool contracts, and verification plans.
 ---
 
-# AI Agent Development Skill
+# AI Agent Skill
 
-## 목적
-AI 에이전트를 단순 기능 조합이 아니라, 요구사항·제약·운영 리스크를 통제하는 시스템으로 설계하고 검증한다.
+# Must
 
-## 규칙
-1. 기능 설명부터 시작하지 말고, 먼저 해결하려는 운영 문제와 실패 비용을 정의한다.
-2. 설계는 항상 `목표 → 제약 → 흐름 → 책임 경계 → 검증 방식` 순서로 정리한다.
-3. 에이전트의 판단 영역과 규칙 기반 처리 영역을 분리한다.
-4. LLM 호출은 필요한 곳에만 배치하고, 각 호출의 입력·출력 계약을 문장으로 명시한다.
-5. MCP, 외부 API, 내부 서비스 연동은 스키마, 타임아웃, 재시도, 실패 격리 방식을 함께 기술한다.
-6. 메모리, 세션, 캐시, 장기 저장소는 목적별로 분리하고 혼용하지 않는다.
-7. 프롬프트는 성능 설명이 아니라 책임 문서로 다룬다. 무엇을 하게 할지보다 무엇을 하지 않게 할지까지 적는다.
-8. 관측 가능성은 선택 사항이 아니다. 최소한 요청 ID, 호출 단계, 도구 사용 내역, 실패 원인을 추적 가능하게 설계한다.
-9. 사람 승인, 자동 승인, 차단 조건을 구분해 운영 정책으로 명시한다.
-10. 구현 상세가 필요한 경우 `coding-assistant.md`를 우선 참조한다.
+## Scope
+- You must apply this document when designing or reviewing an AI agent that combines LLM reasoning, tools, MCP servers, or workflow orchestration.
+- You must define the agent as an operating system for a task, not as a list of isolated features.
 
-## 핵심 관점
+## Source of Truth
+- This document is the single source of truth for AI-agent design structure in `codex-skills/action-management/ai-agent.md`.
+- `coding-assistant.md` is the single source of truth for implementation-time collaboration, review, and change-reporting rules.
 
-### 1. 문제 정의 관점
-- 이 에이전트가 실제로 줄여야 하는 비용이 무엇인지 먼저 적는다.
-  - 응답 시간
-  - 운영자 판단 부담
-  - 반복 작업
-  - 오류율
-  - 사용자 이탈
-- "무엇을 할 수 있는가"보다 "어떤 문제를 안정적으로 줄일 것인가"를 먼저 설명한다.
+## Problem Definition Rules
+- You must define the operating problem before proposing architecture.
+- You must identify target users, failure cost, and success criteria before tool selection.
+- You must separate business goal, runtime constraint, and non-goal into different bullets.
 
-### 2. 의사결정 관점
-- 에이전트가 스스로 결정해도 되는 범위와 사람이 최종 승인해야 하는 범위를 나눈다.
-- 다음 항목을 분리해서 적는다.
-  - 자동 실행 가능
-  - 조건부 자동 실행
-  - 사용자 확인 필요
-  - 금지
-- 비용이 큰 작업일수록 보수적으로 설계한다.
+## Decision Boundary Rules
+- You must define which decisions the agent can make autonomously.
+- You must define which actions require user approval or operator approval.
+- You must define blocked actions that the agent must never execute.
 
-### 3. 구조 관점
-- 구조는 최소한 아래 흐름으로 분해한다.
-  1. 입력 수집
-  2. 의도 해석
-  3. 컨텍스트 조회
-  4. 계획 수립
-  5. 도구 실행
-  6. 결과 검증
-  7. 응답 생성
-  8. 기록/관측
-- 각 단계마다 실패 시 다음 동작을 적는다.
+## Pipeline Design Rules
+- You must document the pipeline in this order:
+  1. input collection
+  2. intent interpretation
+  3. context retrieval
+  4. plan generation
+  5. tool execution
+  6. result verification
+  7. response generation
+  8. logging and observability
+- You must define entry condition, output contract, and failure handling for each stage.
 
-### 4. 책임 경계 관점
-- 아래 경계를 섞지 않는다.
-  - LLM 추론 책임
-  - 애플리케이션 제어 책임
-  - 외부 도구 실행 책임
-  - 상태 저장 책임
-  - 감사 로그 책임
-- 책임 경계가 모호하면 장애 원인 추적이 어렵다.
+## LLM and Tool Contract Rules
+- You must define each LLM call with explicit input, expected output, and rejection condition.
+- You must place LLM reasoning only on stages that require ambiguity resolution or synthesis.
+- You must define every MCP or external-tool integration with schema, timeout, retry policy, and failure-isolation behavior.
 
-### 5. 운영 관점
-- 실제 운영 문서처럼 아래를 포함한다.
-  - 예상 트래픽
-  - 호출 비용
-  - 평균/최대 지연 시간
-  - 장애 대응 방식
-  - 수동 복구 절차
-  - 위험한 툴 실행 제한
+## State and Memory Rules
+- You must separate session state, cache, and long-term storage by purpose.
+- You must define what data may be persisted and what data must remain ephemeral.
+- You must define how stale state is detected or invalidated.
 
-## 기본 설계 항목
-1. 해결하려는 운영 문제
-2. 성공 기준과 실패 기준
-3. 입력 채널과 데이터 계약
-4. 에이전트 파이프라인
-5. 모델 호출 전략
-6. 툴/MCP 연동 구조
-7. 상태 관리 전략
-8. 승인 정책
-9. 예외 및 복구 절차
-10. 로그·메트릭·추적 설계
-11. 검증 시나리오
+## Observability and Verification Rules
+- You must define traceable identifiers for requests and tool-execution steps.
+- You must define logs or metrics that expose tool usage, model calls, validation failures, and operator interventions.
+- You must provide validation scenarios for success path, failure path, approval path, and rollback path.
 
-## 출력 작성 규칙
-1. 결론을 먼저 적고, 권장 구조를 한 문단으로 요약한다.
-2. 그 다음 `왜 이 구조가 필요한지`를 제약과 리스크 기준으로 설명한다.
-3. 애매한 표현 대신 다음처럼 적는다.
-   - "가능하면"보다 "A 조건이면 사용, 아니면 금지"
-   - "적절히"보다 "최대 3회 재시도"
-   - "상황에 따라"보다 "사용자 승인 전에는 실행 금지"
-4. 다이어그램이 없어도 단계와 책임 경계가 머릿속에 그려지게 써야 한다.
-5. 마지막에는 구현 전 체크리스트와 운영 전 체크리스트를 분리해 제공한다.
+# Must NOT
 
-## 산출물 형식
-1. 결론 / 권장 구조
-2. 문제 정의와 성공 기준
-3. 제약 조건과 리스크
-4. 단계별 아키텍처
-5. 책임 경계
-6. 상태 관리 / 승인 정책 / 장애 대응
-7. 검증 체크리스트
+## Prohibited Design Behavior
+- You must not start with model choice before problem definition is fixed.
+- You must not merge LLM responsibility, application control, and audit responsibility into one undefined block.
+- You must not leave approval boundaries implicit.
+- You must not describe prompt text as the only control mechanism for safety or policy enforcement.
+- You must not omit failure handling for a stage that can call a tool or modify state.
+
+# Flow
+
+## Design Flow
+1. Define the operating problem, target users, and success criteria.
+2. Define constraints, non-goals, and failure cost.
+3. Define autonomous, approval-required, and blocked decisions.
+4. Design the pipeline stages and per-stage contracts.
+5. Define LLM-call placement and tool/MCP contracts.
+6. Define state boundaries, observability, and verification scenarios.
+7. Hand off implementation-specific work to `coding-assistant.md` when coding changes are required.
+
+# Definition of Done
+
+## Verification
+- Problem definition exists before architecture description.
+- Decision boundaries are separated into autonomous, approval-required, and blocked actions.
+- Pipeline stages are documented in the required order with contracts and failure handling.
+- LLM and tool integrations have explicit contracts.
+- State separation and observability rules are documented.
+- Validation scenarios cover success, failure, approval, and rollback paths.

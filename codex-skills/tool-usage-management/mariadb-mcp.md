@@ -1,19 +1,63 @@
 ---
 name: mariadb-mcp
-description: MariaDB MCP 서버 사용 규칙과 스키마 관례를 확인해야 할 때 사용한다.
+description: Engineers using the MariaDB MCP server must use this skill to verify connection scope, respect read-only permissions, and validate SQL before execution.
 ---
 
 # MariaDB MCP Skill
 
-## 목적
-MariaDB MCP 서버를 안전하게 사용하고 데이터베이스 관례를 준수한다.
+# Must
 
-## 규칙
-1. 기본적으로 조회만 수행하고, 데이터 변경은 금지한다.
-1. StockSearcher 관련 데이터베이스 이름은 `stock`이다.
-1. 한국 주식 테이블은 postfix로 `_KR`을 사용한다.
-1. 일본 주식 테이블은 postfix로 `_JP`를 사용한다.
+## Scope
+- You must apply this document when using MariaDB MCP tools for database health checks, permission checks, or SQL queries.
+- You must treat MariaDB MCP as a constrained database interface with explicit permission boundaries.
 
-## 산출물 형식
-1. 수행 가능한 작업 범위를 먼저 명시한다.
-1. 필요한 경우 간단한 조회 SQL 예시를 포함한다.
+## Source of Truth
+- This document is the single source of truth for MariaDB MCP usage rules in `codex-skills/tool-usage-management/mariadb-mcp.md`.
+- `D:/work/nowonbun-harness/AGENTS.md` and `codex-skills/runtime-management/work-runtime.md` are the single source of truth for shared MCP validation and stop conditions.
+
+## Connection and Permission Rules
+- Before running SQL, you must verify server reachability or permission summary when scope or capability is relevant to the task.
+- You must treat the active MariaDB MCP connection as scoped to database `stock` when current MCP responses confirm that database.
+- You must treat the current MariaDB MCP permissions as read-only when MCP responses show `select: true` and all write permissions as false.
+
+## Query Safety Rules
+- You must write SQL as one explicit statement per call.
+- You must use parameterized inputs when user-controlled values are injected into SQL.
+- You must validate table name, filter columns, and row-volume expectation before query execution.
+- You must keep queries inside the current permission boundary and expected result size.
+
+## Schema and Naming Rules
+- You must verify table naming patterns against actual schema evidence before assuming them.
+- You must treat market-specific stock tables as suffix-based only when current schema evidence confirms that convention.
+- You must mark schema assumptions as `unverified` when you cannot verify them from query results or current MCP responses.
+
+## Output Rules
+- You must report the executed SQL purpose before showing results.
+- You must summarize result meaning and row-count impact after execution.
+- When a query cannot be executed because of permission or validation limits, you must report the block reason and next action.
+
+# Must NOT
+
+## Prohibited MariaDB MCP Behavior
+- You must not attempt `INSERT`, `UPDATE`, `DELETE`, DDL, or multi-statement execution when current permissions do not allow them.
+- You must not assume schema names, table names, or market suffixes without evidence.
+- You must not run unrestricted queries when filter or row-limit expectations are undefined.
+- You must not present inferred schema details as verified facts.
+
+# Flow
+
+## Query Flow
+1. Verify connection scope and permission boundary when relevant.
+2. Define the SQL purpose and expected result shape.
+3. Validate table names, filters, and row-volume expectation.
+4. Execute one read-only SQL statement within permission limits.
+5. Report result meaning, row-count impact, and any block reason.
+
+# Definition of Done
+
+## Verification
+- Connection scope and permission boundary are identified before risky or ambiguous SQL use.
+- SQL purpose, target tables, and filters are explicit.
+- The query stays within read-only and single-statement limits.
+- Schema assumptions are evidence-backed or marked `unverified`.
+- Output includes purpose, result meaning, and block reason when applicable.

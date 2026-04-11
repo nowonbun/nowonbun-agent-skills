@@ -1,88 +1,60 @@
 ---
 name: research
-description: 역사·지정학·경제·기술 등 주제의 조사/분석을 구조적으로 정리해야 할 때 사용한다.
+description: Engineers analyzing a topic must use this skill to define the question, separate fact from interpretation, compare viewpoints, and state uncertainty clearly.
 ---
 
 # Research Skill
 
-## 목적
-주어진 주제를 단순 요약이 아니라, 의사결정에 쓸 수 있도록 배경·동인·반론·불확실성을 구조적으로 정리한다.
+# Must
 
-## 규칙
-1. 조사 시작 전에 질문의 범위, 기간, 지역, 관점을 고정한다.
-2. 사실, 해석, 가설, 전망을 한 문단 안에서 섞지 않는다.
-3. 핵심 주장에는 근거 수준을 붙인다.
-   - 확인된 사실
-   - 강한 추정
-   - 약한 추정
-4. 찬반 구도만 만들지 말고, 각 입장이 의존하는 전제를 드러낸다.
-5. 단일 원인 설명을 경계하고 구조적 요인을 함께 본다.
-6. 최신 정보가 필요한 주제는 날짜 기준을 분명히 한다.
-7. 결론은 단정이 아니라 조건부 판단으로 표현한다.
-8. 사용자가 바로 활용할 수 있게 시사점과 추가 확인 필요 항목을 분리한다.
+## Scope
+- You must apply this document when researching or analyzing history, geopolitics, economics, technology, or similar topics for decision support.
+- You must structure the output for use in decisions, not only for summary.
 
-## 핵심 관점
+## Source of Truth
+- This document is the single source of truth for research-structure rules in `codex-skills/action-management/research.md`.
 
-### 1. 질문 정의 관점
-- 아래를 먼저 명시한다.
-  - 정확히 무엇을 알고 싶은가
-  - 왜 지금 이 질문이 중요한가
-  - 어느 기간까지 포함할 것인가
-  - 어떤 수준의 확실성이 필요한가
+## Question Definition Rules
+- You must define the question scope, time range, region, and required confidence level before collecting conclusions.
+- You must state why the question matters for the current decision or mark the purpose as unverified.
 
-### 2. 구조 이해 관점
-- 조사 주제는 보통 다음 층위로 나눈다.
-  - 배경
-  - 직접 원인
-  - 구조적 원인
-  - 이해관계자
-  - 단기 영향
-  - 장기 영향
-- 층위를 섞으면 설명은 길어지지만 판단은 약해진다.
+## Evidence Separation Rules
+- You must separate confirmed facts, interpretation, hypothesis, and forecast into distinct bullets or sections.
+- You must label the strength of a claim as confirmed fact, strong inference, or weak inference.
+- You must attach a date boundary when the topic depends on recent developments.
 
-### 3. 관점 비교 관점
-- 상반된 관점을 최소 두 개 이상 제시한다.
-- 단순 균형 맞추기가 아니라 각 관점의 강점과 약점을 적는다.
-- 특히 아래를 확인한다.
-  - 어떤 데이터에 기대는가
-  - 어떤 전제를 깔고 있는가
-  - 무엇을 설명하지 못하는가
+## Viewpoint Comparison Rules
+- You must present at least two meaningful viewpoints when the topic has live disagreement.
+- You must state the evidence base, assumptions, and explanatory limits of each viewpoint.
+- You must expose structural causes in addition to direct triggers when both exist.
 
-### 4. 불확실성 관점
-- 아래 중 하나라도 해당하면 확실한 결론처럼 쓰지 않는다.
-  - 데이터가 불완전함
-  - 사건이 진행 중임
-  - 이해관계자가 의도적으로 정보를 왜곡할 수 있음
-  - 전문가 해석이 크게 갈림
+## Uncertainty and Output Rules
+- You must express conclusions conditionally when the evidence is incomplete, contested, or time-sensitive.
+- You must separate immediate takeaways from follow-up questions or missing evidence.
+- You must identify what would materially change the conclusion.
 
-### 5. 활용 관점
-- 조사 결과는 요약으로 끝내지 말고 아래 형태로 이어간다.
-  - 의사결정 시사점
-  - 추가 조사 질문
-  - 확인이 필요한 데이터
-  - 반대 시나리오
+# Must NOT
 
-## 기본 분석 항목
-1. 질문 정의
-2. 핵심 배경
-3. 원인과 동인
-4. 이해관계자와 관점 차이
-5. 영향과 파급
-6. 핵심 쟁점
-7. 불확실성과 한계
-8. 시사점과 다음 질문
+## Prohibited Research Behavior
+- You must not mix fact and interpretation in one unlabeled paragraph.
+- You must not force false balance when one view lacks serious evidence.
+- You must not present a time-sensitive conclusion without a date boundary.
+- You must not hide uncertainty behind definitive wording.
 
-## 출력 작성 규칙
-1. 첫 문단에서 핵심 결론과 그 결론의 확실도 수준을 함께 적는다.
-2. 사실과 해석은 구분해서 쓴다.
-3. 중요한 반론은 일부러라도 넣는다.
-4. 문장이 길어지면 표나 bullet 대신 구조를 다시 나눈다.
-5. 마지막에는 "지금 바로 참고할 결론"과 "추가 검증이 필요한 부분"을 분리한다.
+# Flow
 
-## 산출물 형식
-1. 핵심 결론 / 확실도
-2. 질문 정의
-3. 배경과 원인 구조
-4. 관점별 해석 비교
-5. 영향 / 리스크 / 시사점
-6. 불확실성과 추가 조사 항목
+## Research Flow
+1. Define the question scope, purpose, time range, and confidence requirement.
+2. Collect and separate facts, interpretations, hypotheses, and forecasts.
+3. Compare major viewpoints and their assumptions.
+4. State structural causes, direct triggers, impacts, and limits.
+5. Conclude with conditional judgment, date boundary, and follow-up questions.
+
+# Definition of Done
+
+## Verification
+- Question scope, purpose, time range, and confidence level are defined.
+- Facts, interpretations, hypotheses, and forecasts are separated.
+- Claim strength labels are present where conclusions are made.
+- Competing viewpoints and uncertainty limits are documented.
+- Final output separates immediate takeaways from follow-up questions.

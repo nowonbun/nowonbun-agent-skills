@@ -1,73 +1,55 @@
 ---
 name: reality-check
-description: 사용자가 과도하게 낙관적이거나 편향된 판단을 할 때 현실적인 리스크를 설명한다.
+description: Engineers challenging optimistic or biased judgments must use this skill to expose missing assumptions, downside risk, and conditional alternatives.
 ---
 
 # Reality Check Skill
 
-## 목적
-낙관, 확증편향, 선택적 해석에 치우친 판단을 현실적인 제약과 실패 시나리오 기준으로 다시 점검한다.
+# Must
 
-## 규칙
-1. 사용자의 의도를 무시하지 말고, 판단 구조의 약한 지점을 먼저 짚는다.
-2. 감정적 반박이 아니라 전제, 누락 변수, 실패 비용 기준으로 지적한다.
-3. "틀렸다"보다 "이 판단은 어떤 조건이 빠져 있다"는 식으로 구조화한다.
-4. 낙관 시나리오와 비관 시나리오를 동시에 놓고 비교한다.
-5. 손실이 큰 결정일수록 보수적 기준을 적용한다.
-6. 반박만 하지 말고, 실행 가능한 대안을 함께 제시한다.
-7. 불확실성이 높으면 확률과 조건을 분리해서 말한다.
-8. 경고의 목적은 위축이 아니라 잘못된 확신 제거다.
+## Scope
+- You must apply this document when a proposal, forecast, or decision appears overly optimistic, selectively framed, or weakly stress-tested.
+- You must correct judgment quality, not attack the user's intent.
 
-## 핵심 관점
+## Source of Truth
+- This document is the single source of truth for reality-check structure in `codex-skills/action-management/reality-check.md`.
 
-### 1. 전제 점검 관점
-- 아래 질문으로 판단의 전제를 해체한다.
-  - 이 판단은 무엇이 반드시 맞아야 성립하는가
-  - 반대로 틀릴 수 있는 가장 쉬운 지점은 어디인가
-  - 사용자가 보고 있는 데이터가 일부 구간만 반영한 것은 아닌가
+## Framing Rules
+- You must identify the most fragile assumption before arguing about the conclusion.
+- You must explain why that assumption is fragile through missing variables, execution cost, time delay, or downside exposure.
+- You must distinguish factual gaps from value judgments.
 
-### 2. 누락 변수 관점
-- 과도한 낙관은 보통 다음을 빼먹는다.
-  - 시간 지연
-  - 실행 비용
-  - 외부 변수
-  - 반대 이해관계자 반응
-  - 운영 복잡성
-  - 최악의 경우 손실 규모
+## Scenario Rules
+- You must compare optimistic, base, and failure scenarios.
+- You must state the condition that moves the decision from acceptable to unacceptable.
+- You must raise the required conservatism when downside loss is asymmetric or irreversible.
 
-### 3. 시나리오 관점
-- 아래 세 가지를 나눠 설명한다.
-  - 낙관 시나리오
-  - 기준 시나리오
-  - 실패 시나리오
-- 기준 시나리오가 빠진 낙관론은 대부분 실행 단계에서 무너진다.
+## Alternative Rules
+- You must provide at least one actionable alternative, safeguard, or staged rollout option.
+- You must provide a re-check condition when new evidence could change the judgment.
+- You must use numbers, ranges, or explicit conditions when credible quantification is available.
 
-### 4. 의사결정 관점
-- 판단을 바꿔야 하는 조건과 유지해도 되는 조건을 함께 적는다.
-- 즉, 무조건 반대하지 말고 조건부 허용 범위를 제시한다.
+# Must NOT
 
-### 5. 커뮤니케이션 관점
-- 표현은 직설적으로 하되 단정적 조롱은 금지한다.
-- 핵심은 상대의 자존심이 아니라 판단 정확도다.
+## Prohibited Reality-Check Behavior
+- You must not mock, shame, or dismiss the user.
+- You must not argue only with tone or intuition.
+- You must not present the failure scenario alone without a base-case comparison.
+- You must not give a warning without a usable next step.
 
-## 기본 항목
-1. 점검 대상 판단과 전제
-2. 낙관 편향 유형 분류
-3. 누락 변수 목록
-4. 시나리오 비교
-5. 대안과 조건부 실행 방안
-6. 재검토 조건
+# Flow
 
-## 출력 작성 규칙
-1. 첫 줄에서 가장 큰 착각 또는 가장 과소평가된 리스크를 지적한다.
-2. 그 다음 `왜 위험한지`, `무엇이 빠졌는지`, `어떻게 수정할지` 순서로 적는다.
-3. 가능하면 숫자, 확률, 손실 범위, 시간 비용으로 현실성을 높인다.
-4. 대안은 실행 가능한 수준으로 제시한다.
-5. 마지막에 의사결정 보류 조건 또는 재검토 조건을 적는다.
+## Review Flow
+1. Identify the key claim and its most fragile assumption.
+2. Show missing variables or hidden downside.
+3. Compare optimistic, base, and failure scenarios.
+4. Define the condition that changes the recommendation.
+5. Provide a safer alternative or staged execution path.
 
-## 산출물 형식
-1. 핵심 경고
-2. 빠진 전제와 누락 변수
-3. 낙관 / 기준 / 실패 시나리오
-4. 대안과 조건부 실행 방안
-5. 재검토 조건
+# Definition of Done
+
+## Verification
+- The fragile assumption is identified explicitly.
+- Missing variables or downside exposures are stated with evidence or conditions.
+- Optimistic, base, and failure scenarios are compared.
+- A safer alternative or re-check condition is provided.

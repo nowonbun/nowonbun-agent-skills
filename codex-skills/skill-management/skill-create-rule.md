@@ -85,18 +85,18 @@ description: <One sentence describing what it does and when to apply it>
 
 ## Language and Companion Documentation
 - When creating or revising skill documents, you must write all rule content in English.
-- You must create a Japanese explanation document at `harness/doc/<relative-skill-path>/<skill-name>-readme.md`.
-- `<relative-skill-path>` must match the skill file path relative to `harness/`, including the `codex-harness/...` segments.
-- The Japanese explanation document must describe purpose, key rules, and usage cautions without changing the original rule meaning.
+- You must create a Korean explanation document at `doc/<relative-skill-path>/<skill-name>-readme.md`.
+- `<relative-skill-path>` must match the skill file path relative to the repository root.
+- The Korean explanation document must describe purpose, key rules, and usage cautions without changing the original rule meaning.
 - When writing or revising history files under `history/<relative-skill-path>/<skill-name>/`, you must inherit the language used by the latest existing history file in the same folder.
-- If no history file exists in the target history folder, you must use Japanese as the default history language.
+- If no history file exists in the target history folder, you must use Korean as the default history language.
 
 ## History Recording
 - When revising a skill document, you must leave a modification history record under `history/<relative-skill-path>/<skill-name>/`.
-- `<relative-skill-path>` must match the skill file path relative to `harness/`, including the `codex-harness/...` segments.
+- `<relative-skill-path>` must match the skill file path relative to the repository root.
 
 ## Completion Gate
-- When creating or revising a skill document, you must complete these artifacts in the same change set: skill rule file, Japanese readme, and history record.
+- When creating or revising a skill document, you must complete these artifacts in the same change set: skill rule file, Korean readme, and history record.
 - Before final completion reporting, you must verify existence of all three artifacts using file-path evidence.
 - If at least one required artifact is missing, you must stop completion reporting and create the missing artifact first.
 
@@ -157,8 +157,8 @@ description: <One sentence describing what it does and when to apply it>
 - If PlantUML is not used, it does not conflict with non-applicability conditions in `## Structure`.
 - Rules requiring a single source of truth specify document name and scope.
 - Rule strength, condition-first writing, exception handling, and reference-substitution rules follow `Rule Writing` criteria.
-- Rules in `Language and Companion Documentation` are satisfied, including English-only rule authoring and Japanese readme placement.
-- History file language follows the latest history file in the same folder, or defaults to Japanese when no prior history file exists.
+- Rules in `Language and Companion Documentation` are satisfied, including Korean rule authoring and Korean readme placement.
+- History file language follows the latest history file in the same folder, or defaults to Korean when no prior history file exists.
 - Rules in `History Recording` are satisfied, including the history path pattern and per-skill path placement.
 - Rules in `Completion Gate` are satisfied, including three-artifact completion and pre-report existence verification.
 - There are no expressions violating ambiguity/duplication/structure prohibition rules in `Must NOT`.

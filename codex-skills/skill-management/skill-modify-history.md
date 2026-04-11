@@ -55,11 +55,15 @@ description: Agents revising skill or governance documents after expectation mis
 
 ## Skill-Scoped History Language Rule
 - When writing under `history/<relative-skill-path>/<skill-name>/`, you must use the same language as the latest existing history file in that folder.
-- If no history file exists in that folder, you must use Japanese.
+- If no history file exists in that folder, you must use Korean.
 
 ## Cross-Review Requirement Rule
-- You must run cross-review only when at least one accessible source-of-truth document for the current task explicitly marks cross-review as mandatory, or when the user explicitly requests cross-review.
-- When cross-review is not required, you must record `cross-review: not required` in the final execution report.
+- You must run cross-review for every skill, governance, constitution, configuration, code, and document change covered by this harness.
+- You must run `plan-review` after an actionable plan exists and before execution starts.
+- You must run `source-review` when source files are modified and before final completion reporting.
+- You must run `result-review` after execution produced a concrete result.
+- You must run `re-review` after corrective changes were applied in response to a previous NG finding.
+- You must report `cross-review: blocked` when mandatory cross-review cannot be completed.
 
 ## Outputs
 - `history/skill_YYYYMMDD.md` when any daily-history trigger is true.
@@ -83,7 +87,7 @@ description: Agents revising skill or governance documents after expectation mis
 3. Create `history/skill_YYYYMMDD.md` immediately when a trigger is true; otherwise record `daily-history-trigger: no-op` in the final execution report.
 4. Revise related rule documents.
 5. Record root cause, changes, and prevention rules in history artifacts.
-6. Run cross-review only when `## Cross-Review Requirement Rule` conditions are true, and record the result in the final execution report.
+6. Run the mandatory cross-review phases defined in `## Cross-Review Requirement Rule` and record the result in the final execution report.
 7. Cross-check modified rule files and generated history files before completion reporting.
 
 # Definition of Done
@@ -94,4 +98,4 @@ description: Agents revising skill or governance documents after expectation mis
 - The content requirements in `## Required Daily History Content` are satisfied when daily history is created.
 - The writing constraints in `## Recording Rules` are satisfied.
 - The language constraints in `## Skill-Scoped History Language Rule` are satisfied.
-- The execution and reporting behavior in `## Cross-Review Requirement Rule` is satisfied.
+- The execution and reporting behavior in `## Cross-Review Requirement Rule` is satisfied, including mandatory phase coverage.

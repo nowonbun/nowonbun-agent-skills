@@ -1,0 +1,8 @@
+vim ~/.bashrc
+
+codex-local() {
+  export CODEX_HOME=$(pwd)/.codex
+  command codex "$@"
+}
+
+source ~/.bashrc

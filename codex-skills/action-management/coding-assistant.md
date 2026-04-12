@@ -13,7 +13,7 @@ description: Engineers handling coding changes must use this skill to classify c
 
 ## Source of Truth
 - This document is the single source of truth for coding-change coordination in `codex-skills/action-management/coding-assistant.md`.
-- `../runtime-management/claude-review-runtime.md` is the single source of truth for Claude CLI runtime applicability, fallback, and execution handling.
+- `../runtime-management/claude-review-runtime.md` is the single source of truth for Claude review runtime applicability, fallback, and execution handling.
 - `../tool-usage-management/claude-cross-review-protocol.md` is the single source of truth for Claude review output format and review-log schema.
 
 ## Change Classification Rules
@@ -46,7 +46,7 @@ description: Engineers handling coding changes must use this skill to classify c
 
 ## Final Reporting Rules
 - You must report changed files, key modifications, impact scope, verification commands, and remaining issues.
-- You must report whether Claude review was attempted, which command path was used, and whether fallback verification was used.
+- You must report whether Claude review was attempted, which review execution path was used, and whether fallback verification was used.
 - You must distinguish verified facts from unverified assumptions in the final report.
 
 # Must NOT

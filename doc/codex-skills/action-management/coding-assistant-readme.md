@@ -1,16 +1,14 @@
 # coding-assistant 스킬 설명
 
 ## 목적
-- 코딩 변경 작업에서 위험도 분류, Codex와 Claude의 역할 분리, 검증 및 최종 보고 형식을 일관되게 맞추기 위한 스킬이다.
+- 코드·설정·개발 문서 변경에서 Codex 구현과 Claude 검토를 분리하고, 검토 경로와 검증 보고를 일관되게 유지하기 위한 실행 문서다.
 
 ## 핵심 규칙
-- 변경을 비파괴적/파괴적으로 먼저 분류한다.
-- 파괴적 변경은 사용자 승인 전에는 실행하지 않는다.
-- Codex는 구현과 통합을 맡고, Claude는 독립 검토와 검증 제안을 맡는다.
-- Claude 리뷰는 기본 mandatory이며 `plan-review`, `source-review`, `result-review` 순서를 따른다.
-- Claude를 못 쓰면 대체 검증 흐름을 명시적으로 실행하고 기록한다.
+- 변경을 비파괴/파괴적으로 먼저 분류한다.
+- 실행 영향이 있는 문서·설정 변경도 Claude review mandatory gate를 적용한다.
+- Claude review는 `plan-review` → `source-review` → `result-review` 순서를 기본으로 따른다.
+- 최종 보고에는 실제 사용한 review execution path와 fallback 여부를 함께 적는다.
 
 ## 사용 시 주의
-- 설정·문서 변경도 실행 동작에 영향을 주면 같은 검토 규칙을 적용해야 한다.
-- Claude 리뷰 실패나 미실행 사실을 숨기면 안 된다.
-- 최종 보고에는 변경 파일, 검증 명령, 남은 리스크가 빠지면 안 된다.
+- 문서 변경이라도 실행 규칙을 바꾸면 no-review 작업으로 처리하면 안 된다.
+- review 실패나 timeout을 숨기지 말고 대체 검증 흐름과 잔여 리스크를 남겨야 한다.

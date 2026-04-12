@@ -1,6 +1,6 @@
 ---
 name: claude-cross-review-protocol
-description: Agents that need Claude cross-review for changes must invoke Claude with deterministic review axes, normalized findings, and explicit adoption records.
+description: Agents that need Claude cross-review for changes must invoke Claude through MCP with deterministic review axes, normalized findings, and explicit adoption records.
 ---
 
 # Claude Cross Review Protocol
@@ -49,13 +49,14 @@ description: Agents that need Claude cross-review for changes must invoke Claude
 
 ## Invocation Rules
 - You must run one review objective per Claude invocation.
-- You must include review phase, objective, target paths, acceptance criteria, exclusion scope, agreed-items baseline, and mandatory review axes in each Claude prompt.
+- You must include review phase, objective, target paths, acceptance criteria, exclusion scope, agreed-items baseline, and mandatory review axes in each Claude request.
 - You must instruct Claude to return NG-only output and omit agreed items without new risk.
 - You must record invocation timestamp in ISO 8601 format.
 - You must record input summary for each invocation.
 - You must use the review-policy priorities defined in `D:/work/nowonbun-harness/CLAUDE.md` and must not substitute another review-policy file.
 - You must follow timeout, fallback, and prompt-size controls defined in `../runtime-management/ai-collaboration-governance.md`.
-- When Claude invocation fails because of timeout, transport failure, or CLI error, you must apply retry and fallback rules from `../runtime-management/ai-collaboration-governance.md`.
+- You must invoke Claude through `mcp_servers.nowonbun_claude` and must not substitute CLI entry points inside this harness.
+- When Claude invocation fails because of timeout, transport failure, or MCP error, you must apply retry and fallback rules from `../runtime-management/ai-collaboration-governance.md`.
 
 ## Review Normalization Rules
 - You must normalize each Claude finding into these fields: `status`, `severity`, `finding`, `evidence`, `recommendation`, and `decision`.
@@ -115,7 +116,7 @@ description: Agents that need Claude cross-review for changes must invoke Claude
 3. Define mandatory review axes and add UTF-8 integrity checks when text documents are in scope.
 4. Verify runtime-governance readability and apply its prompt-size and timeout controls before invocation.
 5. If a required source document or target path is unreadable, stop and record `cross-review: blocked` with reason.
-6. Invoke Claude with one objective and explicit NG-only instruction.
+6. Invoke Claude through `mcp_servers.nowonbun_claude` with one objective and explicit NG-only instruction.
 7. If invocation fails, apply retry and fallback rules from `../runtime-management/ai-collaboration-governance.md`.
 8. Normalize Claude findings into required fields and allowed values.
 9. Verify evidence for each finding and mark unverifiable items as `unverified`.

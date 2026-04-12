@@ -1,6 +1,6 @@
 ---
 name: ai-collaboration-governance
-description: Agents coordinating Codex and Claude must enforce deterministic timeout, fallback, and prompt-size controls during Claude CLI collaboration.
+description: Agents coordinating Codex and Claude must enforce deterministic timeout, fallback, and request-size controls during Claude MCP collaboration.
 ---
 
 # AI Collaboration Governance
@@ -8,8 +8,8 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 # Must
 
 ## Scope
-- You must apply this document when running Claude CLI collaboration for implementation or review workflows.
-- You must apply this document to runtime controls for timeout prevention, fallback handling, and prompt-size control.
+- You must apply this document when running Claude MCP collaboration for implementation or review workflows.
+- You must apply this document to runtime controls for timeout prevention, fallback handling, and request-size control.
 
 ## Source of Truth
 - This document is the single source of truth for Claude collaboration runtime controls.
@@ -29,14 +29,14 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 - You must classify a request as light when none of the heavy conditions are true.
 
 ## Timeout and Healthcheck Rules
-- You must enforce a maximum wait time of 5 minutes for each claude -p invocation.
-- Before every heavy request, you must run claude --version and `claude -p "Return exactly: OK"`.
+- You must enforce a maximum wait time of 5 minutes for each `mcp_servers.nowonbun_claude` review invocation.
+- Before every heavy request, you must run a `nowonbun_claude` responsiveness check that expects `OK` as the exact output.
 - When either healthcheck does not complete within 5 minutes, you must stop heavy requests and start timeout fallback flow.
 
 ## CLAUDE.md Profile Injection Rules
 - You must extract the review profile block between <!-- REVIEW_PROFILE:START --> and <!-- REVIEW_PROFILE:END --> from `D:/work/nowonbun-harness/CLAUDE.md` when the markers exist.
 - When the review profile markers do not exist, you must derive the review profile from the current `CLAUDE.md` sections that define review position, core review objectives, primary review concerns, review output expectations, review decision guidance, encoding and document review rules, and prohibited review behavior.
-- You must inject only the extracted or derived review profile into claude -p requests.
+- You must inject only the extracted or derived review profile into `mcp_servers.nowonbun_claude` requests.
 - When profile extraction and profile derivation both fail or produce empty content, you must stop execution and report missing profile input.
 - When extracted profile length exceeds 1200 characters, you must compress by keeping this priority order:
   1. Prohibited
@@ -45,8 +45,8 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
   4. Output mode
 - During compression, you must not delete `Prohibited`, `Severity`, or Role sections.
 
-## Prompt Size Control Rules
-- You must keep each claude -p request within these limits:
+## Request Size Control Rules
+- You must keep each `mcp_servers.nowonbun_claude` request within these limits:
   - prompt text: 2000 characters or fewer
   - request items: 5 or fewer
   - target files: 3 or fewer
@@ -60,8 +60,8 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 - Each later review stage must evaluate only the declared handoff inputs plus declared constraints.
 
 ## Timeout Fallback Rules
-- You must treat two consecutive timeouts as two timeouts in the same claude -p call chain.
-- When one timeout occurs, you must wait 10 seconds before the next claude -p invocation in the same call chain.
+- You must treat two consecutive timeouts as two timeouts in the same `mcp_servers.nowonbun_claude` call chain.
+- When one timeout occurs, you must wait 10 seconds before the next `mcp_servers.nowonbun_claude` invocation in the same call chain.
 - When two consecutive timeouts occur in the same call chain, you must switch to a two-session fallback flow.
 - In fallback flow, you must preserve implementation and review steps and must not skip either step.
 - When timeout cause is unknown, you must report cause: unknown and `retry: on-hold`.
@@ -80,7 +80,7 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 # Must NOT
 
 ## Prohibited Runtime Behavior
-- You must not inject full CLAUDE.md content using `claude -p "$(cat ... )"`.
+- You must not inject full CLAUDE.md content into one `mcp_servers.nowonbun_claude` request.
 - You must not skip implementation or review just because timeout occurred.
 - You must not retry immediately with identical conditions after timeout or error.
 - You must not redefine cross-review log schema that belongs to `claude-cross-review-protocol.md`.
@@ -93,7 +93,7 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 3. Extract review profile block from `CLAUDE.md`.
 4. Validate prompt-size limits and request scope.
 5. When limits are exceeded, split into investigation, implementation, and review stages with required handoff structures.
-6. Run claude -p request.
+6. Run `mcp_servers.nowonbun_claude` request.
 7. If timeout occurs, apply cooldown and timeout fallback rules.
 8. If repeated timeout occurs in the same call chain, switch to two-session fallback flow.
 9. Record timeout notice and delegate review-log schema to `claude-cross-review-protocol.md`.
@@ -105,7 +105,7 @@ description: Agents coordinating Codex and Claude must enforce deterministic tim
 - Rules in ## Request Classification Rules are satisfied before healthcheck decision.
 - Rules in ## Timeout and Healthcheck Rules are satisfied before heavy requests.
 - Rules in ## CLAUDE.md Profile Injection Rules are satisfied for each invocation.
-- Rules in ## Prompt Size Control Rules and ## Split-Flow Handoff Rules are satisfied or split flow is applied.
+- Rules in ## Request Size Control Rules and ## Split-Flow Handoff Rules are satisfied or split flow is applied.
 - Rules in ## Timeout Fallback Rules and ## Two-Session Fallback Flow Rules are satisfied for timeout cases.
 - Rules in ## Logging Delegation Rules are satisfied.
 - No prohibited behavior in # Must NOT occurred.

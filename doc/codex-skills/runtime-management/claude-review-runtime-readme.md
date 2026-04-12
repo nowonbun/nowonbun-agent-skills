@@ -1,14 +1,14 @@
 # claude-review-runtime 스킬 설명
 
 ## 목적
-- Claude cross-review를 항상 수행해야 하는 기본 실행 래퍼로 동작하도록 만든 runtime 스킬이다.
+- Claude 교차 검토를 CLI 대신 `mcp_servers.nowonbun_claude` MCP로 실행할 때 적용하는 runtime 진입 규칙이다.
 
 ## 핵심 규칙
-- 변경 작업에서는 기본적으로 Claude review를 mandatory로 본다.
-- 리뷰 단계는 `plan-review`, `source-review`, `result-review`, `re-review`를 사용한다.
-- 실행 전에는 CLI 가용성과 응답성을 확인한다.
-- 각 단계별 입력 범위를 다르게 준비한다.
+- 문서, 설정, 규칙, 코드 변경에서는 Claude review를 기본 검토 단계로 유지한다.
+- 검토 단계는 `plan-review`, `source-review`, `result-review`, `re-review`를 사용한다.
+- 실제 호출 전에 `nowonbun_claude` MCP 가용성과 최소 응답성(`OK`)을 확인한다.
+- 텍스트 문서가 포함되면 UTF-8 무결성과 본문 보존 확인을 검토 목표에 포함한다.
 
 ## 사용 시 주의
-- 더 이상 `cross-review: not required`를 기본값처럼 쓰면 안 된다.
-- 계획이 없으면 review 생략이 아니라 blocked로 처리해야 한다.
+- 실행 경로만 MCP로 바꾸고, finding 정규화와 로그 형식은 protocol 문서에 계속 위임해야 한다.
+- 실행 가능한 계획이 없으면 review를 건너뛰지 말고 blocked로 보고해야 한다.

@@ -1,15 +1,14 @@
 # ai-collaboration-governance 스킬 설명
 
 ## 목적
-- Claude 협업 시 timeout, fallback, prompt-size 제약을 통제하면서 계획/소스/결과 리뷰 단계를 안정적으로 연결하기 위한 스킬이다.
+- Claude MCP 협업에서 timeout, fallback, 요청 크기 제한, 단계별 handoff 규칙을 일관되게 적용하기 위한 runtime 제어 문서다.
 
 ## 핵심 규칙
-- 큰 요청은 분할한다.
-- handoff 구조를 단계별로 고정한다.
-- source-review와 result-review 입력 구조를 구분한다.
-- REVIEW_PROFILE 마커가 없으면 현재 `CLAUDE.md` 본문 섹션에서 review profile을 파생한다.
-- timeout이 나도 review 단계를 생략하지 않는다.
+- 무거운 요청 전에는 `nowonbun_claude` 응답성 확인을 먼저 수행한다.
+- 요청이 크면 단계 분리와 handoff 구조를 유지해 review 품질을 보존한다.
+- `CLAUDE.md`에서 review profile을 추출하거나 파생해 MCP 요청에만 주입한다.
+- timeout이 발생해도 구현 단계와 검토 단계를 생략하지 않는다.
 
 ## 사용 시 주의
-- plan/source/result review 입력을 한 프롬프트로 뭉개면 안 된다.
-- timeout 발생 시 동일 조건 즉시 재시도하면 안 된다.
+- prompt-size 제어는 CLI 길이 제한 대응이 아니라 MCP 요청 크기와 응답 지연 제어 기준으로 해석해야 한다.
+- 동일 조건의 즉시 재시도는 금지되고, 연속 timeout이면 fallback 흐름으로 전환해야 한다.

@@ -1,14 +1,14 @@
 # claude-cross-review-protocol 스킬 설명
 
 ## 목적
-- Claude cross-review의 입력 형식, 결과 정규화, 로그 형식을 고정하기 위한 프로토콜 스킬이다.
+- Claude 교차 검토 요청 형식, finding 정규화, 협업 로그 형식을 `nowonbun_claude` MCP 호출 기준으로 고정하기 위한 프로토콜 문서다.
 
 ## 핵심 규칙
-- 리뷰 단계는 `plan-review`, `source-review`, `result-review`, `re-review`를 지원한다.
-- 각 invocation마다 phase, objective, target paths, acceptance criteria를 명시한다.
-- 결과는 normalized finding과 collaboration log로 남긴다.
-- source 수정이 있으면 `source-review`를 별도 단계로 다룬다.
+- 각 검토 호출마다 `phase`, `objective`, `target paths`, `acceptance criteria`, `exclusion scope`를 명시한다.
+- 호출 경로는 하네스 내부에서 `mcp_servers.nowonbun_claude`로 고정한다.
+- 결과는 normalized finding과 `Claude Collaboration Log`로 기록한다.
+- 텍스트 문서 검토에는 UTF-8 무결성과 본문 보존 확인을 추가한다.
 
 ## 사용 시 주의
-- `cross-review: not required`를 skip 기본값으로 사용하면 안 된다.
-- blocked와 error, unverified를 섞으면 안 된다.
+- blocked, error, unverified 상태를 섞으면 안 된다.
+- 합의된 항목은 새 위험이 없으면 다시 쓰지 말고 NG만 출력해야 한다.

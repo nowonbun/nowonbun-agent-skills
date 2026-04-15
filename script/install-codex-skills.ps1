@@ -249,8 +249,14 @@ function Get-SkillNameFromRelativePath {
         [Parameter(Mandatory = $true)][string]$RelativePath
     )
 
-    $withoutExtension = [System.IO.Path]::ChangeExtension($RelativePath, $null)
-    $normalized = $withoutExtension -replace '[\\/]+', '_'
+    if ([System.IO.Path]::GetFileName($RelativePath).Equals('SKILL.md', [System.StringComparison]::OrdinalIgnoreCase)) {
+        $normalizedInput = Split-Path -Path $RelativePath -Parent
+    }
+    else {
+        $normalizedInput = [System.IO.Path]::ChangeExtension($RelativePath, $null)
+    }
+
+    $normalized = $normalizedInput -replace '[\\/]+', '_'
     $normalized = $normalized -replace '\s+', '_'
     $normalized = $normalized.Trim('_.')
 

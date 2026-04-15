@@ -9,7 +9,7 @@
 - `D:/work/nowonbun-harness/codex-skills/skill-management`
   - role: Reference source for constitution and skill governance
   - ownership boundary: Reference-only unless explicit edit request is provided.
-- `D:/work/nowonbun-harness/codex-skills/runtime-management`
+- `D:/work/nowonbun-harness/codex-skills/runtime-management_work-runtime`
   - role: Definition area for shared runtime controls
   - ownership boundary: Keep workflow-specific rules in AGENTS.md, and manage only shared controls here.
 
@@ -19,7 +19,7 @@
 - Workflows without stop conditions must not be published.
 
 ### 1.3 Runtime Rule Delegation
-- Shared runtime controls (trigger-collision handling, MCP pre-validation, shared stop conditions, and shared report formats) must be referenced from `D:/work/nowonbun-harness/codex-skills/runtime-management/work-runtime.md`.
+- Shared runtime controls (trigger-collision handling, shared review-reference handling, MCP pre-validation, shared stop conditions, shared report formats, and text-document write verification) must be referenced from `D:/work/nowonbun-harness/codex-skills/runtime-management_work-runtime/SKILL.md`.
 - Before workflow execution, the delegated runtime file must be verified as existing and readable.
 - If the delegated runtime file is missing or inaccessible, execution must stop with a Workflow Failure Report.
 
@@ -28,6 +28,7 @@
 - MCP tools must not be called before verifying required source-of-truth IDs/URLs defined by each workflow.
 - Before MCP write operations, required parameters must be validated for existence, format, and target consistency.
 - After MCP write operations, reports must include target id, execution result, failure reason (if any), and re-run necessity.
+- When a workflow revises rule documents, it must reference the shared review-reference rules defined in `work-runtime`.
 
 ## 2) Workspace Workflows
 
@@ -36,7 +37,7 @@
 - source-of-truth files:
   - `D:/work/nowonbun-harness/global_instructions.md`
   - `D:/work/nowonbun-harness/AGENTS.md`
-  - `D:/work/nowonbun-harness/codex-skills/runtime-management/work-runtime.md`
+  - `D:/work/nowonbun-harness/codex-skills/runtime-management_work-runtime/SKILL.md`
 - execution order:
   1. Verify that every source-of-truth file exists, is readable, and resolves to one canonical real path.
   2. Verify that the delegated runtime file is populated before using delegated shared controls.
@@ -57,12 +58,14 @@
 - source-of-truth files:
   - `D:/work/nowonbun-harness/global_instructions.md`
   - `D:/work/nowonbun-harness/AGENTS.md`
-  - `D:/work/nowonbun-harness/codex-skills/runtime-management/work-runtime.md`
+  - `D:/work/nowonbun-harness/codex-skills/runtime-management_work-runtime/SKILL.md`
 - execution order:
   1. Run the `정합성 확인` workflow on the target files.
-  2. Prepare the minimum in-scope patch that resolves confirmed inconsistencies.
-  3. Write only the approved target files and any delegated runtime file required by this AGENTS document.
-  4. Re-run the `정합성 확인` workflow and report the post-write result.
+  2. Prepare the minimum in-scope patch plan that resolves confirmed inconsistencies.
+  3. Before write execution, apply the pre-write review requirements referenced in `skill-modify-history` and `claude-review-runtime`.
+  4. Write only the approved target files and any delegated runtime file required by this AGENTS document.
+  5. Re-run the `정합성 확인` workflow and report the post-write result.
+  6. After write execution, apply the post-write review requirements referenced in `skill-modify-history` and `claude-review-runtime`, and report the final result.
 - stop conditions:
   - The requested write scope is ambiguous.
   - A target path is outside the declared instruction scope.
@@ -76,11 +79,14 @@
 ### 2.3 Shared Runtime Control Update Workflow
 - exact trigger phrase: `runtime 규칙 갱신`
 - source-of-truth file:
-  - `D:/work/nowonbun-harness/codex-skills/runtime-management/work-runtime.md`
+  - `D:/work/nowonbun-harness/codex-skills/runtime-management_work-runtime/SKILL.md`
 - execution order:
   1. Verify that the runtime file path is canonical and writable within the declared instruction scope.
-  2. Update only shared runtime controls delegated by this AGENTS document.
-  3. Re-run the `정합성 확인` workflow for constitution files that reference the runtime file.
+  2. Prepare the minimum in-scope runtime-control patch plan.
+  3. Before write execution, apply the pre-write review requirements referenced in `skill-modify-history` and `claude-review-runtime`.
+  4. Update only shared runtime controls delegated by this AGENTS document.
+  5. Re-run the `정합성 확인` workflow for constitution files that reference the runtime file.
+  6. After write execution, apply the post-write review requirements referenced in `skill-modify-history` and `claude-review-runtime`, and report the final result.
 - stop conditions:
   - The runtime file path is ambiguous or outside the declared instruction scope.
   - The requested change attempts to add workflow-specific rules to the delegated runtime file.

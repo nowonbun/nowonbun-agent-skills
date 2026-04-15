@@ -49,10 +49,16 @@ test_skill_sheet() {
 
 normalize_skill_name() {
     local relative_path="$1"
-    local without_extension="${relative_path%.md}"
+    local normalized_input="$relative_path"
     local normalized
 
-    normalized="$(printf '%s' "$without_extension" | sed -E 's#[/\\]+#_#g; s#[[:space:]]+#_#g; s#^[_\.]+##; s#[_\.]+$##')"
+    if [[ "$(basename "$relative_path")" == 'SKILL.md' ]]; then
+        normalized_input="$(dirname "$relative_path")"
+    else
+        normalized_input="${relative_path%.md}"
+    fi
+
+    normalized="$(printf '%s' "$normalized_input" | sed -E 's#[/\\]+#_#g; s#[[:space:]]+#_#g; s#^[_\.]+##; s#[_\.]+$##')"
 
     if [[ -z "$normalized" ]]; then
         echo "Cannot convert path to skill name. relativePath=$relative_path" >&2

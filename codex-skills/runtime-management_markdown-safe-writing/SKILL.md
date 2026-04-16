@@ -1,6 +1,6 @@
 ---
 name: markdown-safe-writing
-description: Authors revising Markdown or general text documents must use this skill to choose safe write paths and verify UTF-8 preservation when Windows PowerShell can corrupt Korean text.
+description: Markdown 또는 일반 텍스트 문서를 수정하는 작성자는 Windows PowerShell이 ​​한국어 텍스트를 손상시킬 수 있는 경우 안전한 쓰기 경로를 선택하고 UTF-8 보존을 확인하기 위해 이 기술을 사용해야 합니다.
 ---
 
 # Markdown Safe Writing Skill
@@ -8,61 +8,61 @@ description: Authors revising Markdown or general text documents must use this s
 # Must
 
 ## Scope
-- You must apply this document when revising Markdown or other text documents that may be written through Windows PowerShell.
-- You must apply this document to write-path selection, UTF-8 preservation checks, and corruption diagnosis for text documents.
+- Windows PowerShell을 통해 작성된 Markdown 또는 기타 텍스트 문서를 수정할 때 이 문서를 반드시 적용해야 합니다.
+- 텍스트 문서의 쓰기 경로 선택, UTF-8 보존 검사 및 손상 진단에 이 문서를 적용해야 합니다.
 
 ## Core Conclusion
-- Saving a file as UTF-8 alone is not sufficient to prevent Korean-text corruption.
-- When long Korean text is passed directly through Windows PowerShell here-strings, pipes, or standard input, the text can be damaged before file write occurs.
-- Therefore, you must select a write path that is safe before you start document revision.
+- 파일을 UTF-8로 저장하는 것만으로는 한국어 텍스트 손상을 방지하기에 충분하지 않습니다.
+- 긴 한국어 텍스트를 Windows PowerShell의 here-string, 파이프 또는 표준 입력을 통해 직접 전달하는 경우, 파일에 쓰기 전에 텍스트가 손상될 수 있습니다.
+- 따라서 문서 수정을 시작하기 전에 안전한 쓰기 경로를 선택해야 합니다.
 
 ## Priority Order
-- You must prefer direct `apply_patch` edits first.
-- You must use Python `Path(...).write_text(..., encoding='utf-8')` only when Korean payload delivery is kept ASCII-safe.
-- You must use PowerShell `Set-Content -Encoding utf8` or `Out-File -Encoding utf8` only when the content path is already safe and mostly ASCII.
+- `apply_patch`를 사용하여 직접 수정하는 것을 우선적으로 고려해야 합니다.
+- 한국어 페이로드 전달이 ASCII 안전하게 유지되는 경우에만 Python의 `Path(...).write_text(..., encoding='utf-8')`를 사용해야 합니다.
+- 콘텐츠 경로가 이미 안전하고 대부분 ASCII인 경우에만 PowerShell의 `Set-Content -Encoding utf8` 또는 `Out-File -Encoding utf8` 명령을 사용해야 합니다.
 
 ## Required Rules
-- You must treat `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.ini`, and `.cfg` files as UTF-8 text documents.
-- In Windows PowerShell, you must not pass Korean body text directly through here-strings, pipe input, or standard-input redirection.
-- When revising Markdown documents, you must prefer `apply_patch` whenever feasible.
-- Even when rewriting an entire document, you must not build long Korean body text directly inside a PowerShell string.
-- When a document is already corrupted, you must restore the correct original text instead of finishing with a blind overwrite.
-- When `Get-Content` output looks broken, you must distinguish console-display issues from file-content corruption before judging file state.
-- When `read_text(encoding='utf-8')` succeeds, you must still check whether Korean text was replaced with `?` before declaring the file healthy.
-- When requesting Claude cross-review for text-document changes, you must explicitly ask for UTF-8 integrity and Korean-text preservation checks.
+- `.md`, `.txt`, `.json`, `.yaml`, `.yml`, `.ini`, `.cfg` 파일은 UTF-8 텍스트 문서로 처리해야 합니다.
+- Windows PowerShell에서 한국어 본문 텍스트를 here-string, 파이프 입력 또는 표준 입력 리디렉션을 통해 직접 전달해서는 안 됩니다.
+- Markdown 문서를 수정할 때는 가능한 한 `apply_patch` 명령을 사용하는 것이 좋습니다.
+- 문서 전체를 다시 작성하는 경우에도 PowerShell 문자열 내에 긴 한국어 본문 텍스트를 직접 작성해서는 안 됩니다.
+- 문서가 이미 손상된 경우, 덮어쓰기를 하지 않고 원래 텍스트를 복원해야 합니다.
+- `Get-Content` 출력 결과가 손상된 것처럼 보일 경우, 파일 상태를 판단하기 전에 콘솔 표시 문제와 파일 내용 손상을 구분해야 합니다.
+- `read_text(encoding='utf-8')`가 성공하더라도, 파일이 정상이라고 선언하기 전에 한국어 텍스트가 `?`로 대체되었는지 확인해야 합니다.
+- 텍스트 문서 변경에 대한 Claude 교차 검토를 요청할 때, UTF-8 무결성 및 한국어 텍스트 보존 검사를 명시적으로 요청해야 합니다.
 
 ## Source of Truth
-- This document governs safe text-document writing paths, UTF-8 preservation checks, and console-versus-file corruption diagnosis in `./SKILL.md`; it does not govern cross-review log structure, skill-history trigger criteria, or general skill-document section layout outside this skill.
-- `../skill-management_skill-modify-history/SKILL.md` is the single source of truth for history-record obligations when this writing rule is revised; consult it when deciding whether the revision requires daily or skill-scoped history updates, not for UTF-8 verification or write-path selection decisions.
+- 이 문서는 `./SKILL.md`에서 안전한 텍스트 문서 쓰기 경로, UTF-8 보존 검사 및 콘솔/파일 손상 진단에 대한 지침을 제공합니다. 이 문서는 교차 검토 로그 구조, 스킬 기록 트리거 기준 또는 이 스킬 이외의 일반적인 스킬 문서 섹션 레이아웃에 대한 지침은 제공하지 않습니다.
+- 이 쓰기 규칙이 개정될 경우, `../skill-management_skill-modify-history/SKILL.md`는 기록 의무에 대한 유일한 기준 출처입니다. 이 문서는 UTF-8 검증이나 쓰기 경로 선택 결정이 아닌, 수정 사항에 대한 일일 또는 스킬별 기록 업데이트가 필요한지 판단할 때 참고해야 합니다.
 
 ## Incident Handling
-- When a text-corruption incident occurs, you must recover the file from verified correct source text instead of layering partial overwrites on top of corrupted text.
-- You must record whether the cause came from storage encoding, input-path handling, or missing verification.
-- When the incident required rule-document revision, you must create `history/skill_YYYYMMDD.md` immediately.
+- 텍스트 손상 사고가 발생하면, 손상된 텍스트 위에 부분 덮어쓰기를 하는 대신 검증된 올바른 원본 텍스트에서 파일을 복구해야 합니다.
+- 손상 원인이 저장 인코딩, 입력 경로 처리 또는 검증 누락 중 어느 것에 해당하는지 기록해야 합니다.
+- 사고로 인해 규칙 문서 수정이 필요한 경우, `history/skill_YYYYMMDD.md` 파일을 즉시 생성해야 합니다.
 
 ## Reporting Items
-- You must report the modified file list.
-- You must report the write method used.
-- You must report UTF-8 verification results.
-- You must report Korean-text preservation verification results.
-- You must report whether cross-review was run and what range it covered.
+- 수정된 파일 목록을 보고해야 합니다.
+- 사용된 쓰기 방법을 보고해야 합니다.
+- UTF-8 검증 결과를 보고해야 합니다.
+- 한국어 텍스트 보존 검증 결과를 보고해야 합니다.
+- 교차 검토가 실행되었는지 여부와 실행 범위를 보고해야 합니다.
 
 # Must NOT
-- You must not pass Korean Markdown body text into `python -` through a PowerShell heredoc.
-- You must not finish verification after checking only ASCII fragments of a Korean document.
-- You must not assume that a document full of `?` is only a console-display issue without file-based verification.
-- You must not close a text-corruption incident without updating the relevant rule document and history when rule changes were required.
+- PowerShell heredoc을 통해 한국어 Markdown 본문 텍스트를 `python -`에 전달해서는 안 됩니다.
+- 한국어 문서의 ASCII 조각만 확인하고 검증을 완료해서는 안 됩니다.
+- 파일 기반 검증 없이 '?'로 가득 찬 문서를 콘솔 표시 문제라고만 단정해서는 안 됩니다.
+- 규칙 변경이 필요한 경우, 관련 규칙 문서와 기록을 업데이트하지 않고 텍스트 손상 문제를 종결해서는 안 됩니다.
 
 # Flow
-1. Choose the write method in this order: `apply_patch`, ASCII-safe Python write, then limited PowerShell UTF-8 write.
-2. After saving, verify bytes, UTF-8 decoding, abnormal `?` repetition, and at least two representative Korean sentences.
-3. When cross-review is needed, request integrity review for logical consistency, encoding damage, and Korean-text preservation.
+1. 다음 순서로 쓰기 방식을 선택합니다: `apply_patch`, ASCII 안전 Python 쓰기, 그리고 제한적인 PowerShell UTF-8 쓰기.
+2. 저장 후, 바이트, UTF-8 디코딩, 비정상적인 '?' 반복, 그리고 최소 두 개의 대표적인 한국어 문장을 검증합니다.
+3. 교차 검토가 필요한 경우, 논리적 일관성, 인코딩 손상, 한국어 텍스트 보존 여부에 대한 무결성 검토를 요청합니다.
 
 # Definition of Done
 
 ## Verification
-- The selected write path follows the priority order in `## Priority Order`.
-- No prohibited Korean payload path from `## Required Rules` or `# Must NOT` was used.
-- Post-save verification checks bytes, UTF-8 decoding, abnormal `?` repetition, and representative Korean-text presence.
-- Console-display issues and file-content corruption are evaluated separately.
-- Incident handling and reporting items are satisfied when corruption or review events occurred.
+- 선택한 쓰기 경로가 `## Priority Order`의 우선순위를 따릅니다.
+- `## Required Rules` 또는 `# Must NOT`에 명시된 금지된 한국어 페이로드 경로가 사용되지 않았습니다.
+- 저장 후 검증 과정에서 바이트 수, UTF-8 디코딩, 비정상적인 물음표 반복, 그리고 대표적인 한국어 텍스트 존재 여부를 확인합니다.
+- 콘솔 표시 문제와 파일 내용 손상은 별도로 평가합니다.
+- 손상 또는 검토 이벤트 발생 시, 인시던트 처리 및 보고 항목을 충족합니다.

@@ -1,6 +1,6 @@
 ---
 name: constitution-rule
-description: Authors who create or revise global_instructions as the primary constitution target and align AGENTS must apply this rule to define priority, prohibition, and operation boundaries.
+description: global_instructions를 주요 구성 대상으로 생성하거나 수정하고 AGENTS를 선택하는 사람은 우선순위, 보호 사항 및 운영 경계를 정의하기 위해 이 규칙을 적용해야 합니다.
 ---
 
 # Constitution Rule
@@ -8,153 +8,154 @@ description: Authors who create or revise global_instructions as the primary con
 # Must
 
 ## Scope
-- You must apply this document when creating or revising `global_instructions` or `AGENTS`.
-- You must treat this document as a content-governance rule for constitution documents, not as a markdown-format rule.
+- `global_instructions` 또는 `AGENTS`를 생성하거나 수정할 때 이 문서를 반드시 적용해야 합니다.
+- 이 문서는 마크다운 형식 규칙이 아닌, 구성 문서에 대한 콘텐츠 관리 규칙으로 간주해야 합니다.
 
 ## Target Documents
-- You must define system-level identity, global principles, response principles, and non-negotiable safety rules in `global_instructions`.
-- You must define repository or workspace execution triggers, folder roles, and task-operational rules in `AGENTS`.
+- `global_instructions`에는 시스템 수준의 ID, 전역 원칙, 응답 원칙 및 협상 불가능한 안전 규칙을 정의해야 합니다.
+- `AGENTS`에는 저장소 또는 워크스페이스 실행 트리거, 폴더 역할 및 작업 운영 규칙을 정의해야 합니다.
 
 ## Constitution Layers
-- You must define exactly two constitution layers: global and workspace.
-- You must map `global_instructions` to the global layer.
-- You must map `AGENTS` to the workspace layer.
+- 전역 및 워크스페이스, 두 개의 구성 계층을 정의해야 합니다.
+- `global_instructions`는 전역 계층에 매핑해야 합니다.
+- `AGENTS`는 워크스페이스 계층에 매핑해야 합니다.
 
 ## Global Principles
-- You must write global principles as deterministic rules that can be validated from execution logs or file outputs.
-- You must write all normative rules in English.
-- You must define an explicit language rule for assistant responses.
-- You must define an explicit evidence rule that prohibits presenting assumptions as facts.
-- You must define an explicit safety rule for restricted paths and data-protection boundaries.
+- 전역 원칙은 실행 로그 또는 파일 출력에서 ​​유효성을 검사할 수 있는 확정적 규칙으로 작성해야 합니다.
+- 모든 규범적 규칙은 영어로 작성해야 합니다.
+- 어시스턴트 응답에 대한 명시적인 언어 규칙을 정의해야 합니다.
+- 가정을 사실로 제시하는 것을 금지하는 명시적인 증거 규칙을 정의해야 합니다.
+- 제한된 경로 및 데이터 보호 경계에 대한 명시적인 안전 규칙을 정의해야 합니다.
 
 ## Priority Model
-- You must define one closed priority order across constitution documents.
-- You must set priority as `global_instructions` > `AGENTS` when no stricter repository rule is declared.
-- You must declare one conflict-resolution rule for equal-priority collisions.
-- You must declare one fallback rule for missing instructions.
+- 모든 헌법 문서에 걸쳐 하나의 확정된 우선순위 순서를 정의해야 합니다.
+- 더 엄격한 저장소 규칙이 선언되지 않은 경우 `global_instructions` > `AGENTS`로 우선순위를 설정해야 합니다.
+- 우선순위가 같은 충돌에 대한 하나의 충돌 해결 규칙을 선언해야 합니다.
+- 누락된 지침에 대한 하나의 대체 규칙을 선언해야 합니다.
 
 ## Prohibited Rules Definition
-- You must define a closed list of prohibited behaviors for each constitution layer.
-- You must include at least one prohibition for flattery, one for unsupported claims, and one for instruction override without authority.
-- You must define enforcement behavior for prohibition violations.
+- 각 헌법 계층에 대한 확정된 금지 행위 목록을 정의해야 합니다.
+- 최소한 아첨, 근거 없는 주장, 권한 없이 지침을 재정의하는 행위에 대한 금지 조항을 하나씩 포함해야 합니다.
+- 금지 위반에 대한 시행 동작을 정의해야 합니다.
 
 ## AGENTS Folder Role
-- You must define the role of each governed folder before writing folder-specific rules.
-- You must require path-specific trigger rules when an action is intended to run only in a specific folder.
-- You must define one ownership boundary per folder role.
+- 폴더별 규칙을 작성하기 전에 각 관리 대상 폴더의 역할을 정의해야 합니다.
+- 특정 폴더에서만 실행되도록 하려면 경로별 트리거 규칙을 반드시 정의해야 합니다.
+- 폴더 역할별로 하나의 소유권 경계를 정의해야 합니다.
 
 ## AGENTS Core Rules
-- You must define exact trigger phrases for each automated workflow.
-- You must define execution order when a workflow has two or more steps.
-- You must define stop conditions and failure-report format for each workflow.
-- You must define re-run policy when duplicate execution risk exists.
+- 각 자동화 워크플로에 대해 정확한 트리거 문구를 정의해야 합니다.
+- 워크플로에 두 개 이상의 단계가 있는 경우 실행 순서를 정의해야 합니다.
+- 각 워크플로에 대해 중지 조건과 실패 보고서 형식을 정의해야 합니다.
+- 중복 실행 위험이 있는 경우 재실행 정책을 정의해야 합니다.
 
 ## Execution Stop Conditions
-- You must stop execution when a required input is missing.
-- You must stop execution when a required input is ambiguous.
-- You must stop execution when two or more active rules conflict without a defined resolver.
-- You must stop execution when the target file path cannot be resolved to one canonical location.
-- You must stop execution when a write action would modify content outside the declared instruction scope.
-- You must request explicit user confirmation before resuming from a stop condition.
+- 필수 입력이 누락된 경우 실행을 중지해야 합니다.
+- 필수 입력이 모호한 경우 실행을 중지해야 합니다.
+- 정의된 해결 방법 없이 두 개 이상의 활성 규칙이 충돌하는 경우 실행을 중지해야 합니다.
+- 대상 파일 경로를 하나의 표준 위치로 확인할 수 없는 경우 실행을 중지해야 합니다.
+- 쓰기 작업으로 인해 선언된 명령 범위 외부의 콘텐츠가 수정되는 경우 실행을 중지해야 합니다.
+- 중지 조건에서 다시 시작하기 전에 사용자에게 명시적인 확인을 요청해야 합니다.
 
 ## Workflow Report Format
-- You must format every workflow failure report with `finding`, `evidence`, and `next action`.
-- You must format every stop-condition confirmation request with `blocked by`, `requested decision`, and `impact`.
-- You must reject a workflow report that omits any required report field.
+- 모든 워크플로우 실패 보고서는 `finding`, `evidence`, and `next action` 필드를 포함하여 형식을 갖춰야 합니다.
+- 모든 중지 조건 확인 요청은 `blocked by`, `requested decision`, and `impact` 필드를 포함하여 형식을 갖춰야 합니다.
+- 필수 보고서 필드가 누락된 워크플로우 보고서는 거부해야 합니다.
 
 ## Source Reference Availability
-- You must verify that each source-of-truth file is accessible before using it as a normative reference.
-- You must stop the current step when a required source-of-truth file is missing.
-- You must request user confirmation before replacing a missing source-of-truth file with fallback judgment.
+- 각 소스 오브 트루스 파일을 표준 참조로 사용하기 전에 접근 가능한지 확인해야 합니다.
+- 필수 소스 오브 트루스 파일이 없는 경우 현재 단계를 중지해야 합니다.
+- 누락된 소스 오브 트루스 파일을 대체 판단으로 교체하기 전에 사용자 확인을 요청해야 합니다.
 
 ## Re-run and Overwrite Policy
-- You must read the current target file state before each write attempt.
-- You must treat re-running the same instruction on an already compliant file as `no-op`.
-- You must report `no-op` when no file change is required.
-- You must run revision flow instead of creation flow when `global_instructions` already exists.
-- You must not overwrite user-added content outside the declared instruction scope.
-- You must request explicit user approval when re-run changes would touch out-of-scope content.
+- 각 쓰기 시도 전에 대상 파일의 현재 상태를 읽어야 합니다.
+- 이미 규정을 준수하는 파일에 대해 동일한 명령을 다시 실행하는 것은 `no-op`으로 처리해야 합니다.
+- 파일 변경이 필요하지 않은 경우 `no-op`을 보고해야 합니다.
+- `global_instructions`가 이미 존재하는 경우 생성 흐름 대신 수정 흐름을 실행해야 합니다.
+- 선언된 지침 범위 외부에 있는 사용자 추가 콘텐츠를 덮어쓰면 안 됩니다.
+- 재실행 변경 사항이 범위 외부의 콘텐츠에 영향을 미치는 경우 사용자에게 명시적인 승인을 요청해야 합니다.
 
 ## Skill and MCP Operation Rules
-- You must define skill-selection criteria before defining skill execution steps.
-- You must require source verification before invoking MCP tools.
-- You must define parameter-validation rules for each MCP server before write operations.
-- You must define post-action reporting format for each MCP write action.
+- 스킬 실행 단계를 정의하기 전에 스킬 선택 기준을 정의해야 합니다.
+- MCP 도구를 호출하기 전에 소스 코드 검증을 요구해야 합니다.
+- 쓰기 작업을 수행하기 전에 각 MCP 서버에 대한 매개변수 유효성 검사 규칙을 정의해야 합니다.
+- 각 MCP 쓰기 작업에 대한 사후 보고 형식을 정의해야 합니다.
 
 ## Source of Truth
-- This document governs constitution-document content boundaries, layer assignments, priority rules, and operational rule coverage for `global_instructions` and `AGENTS`; it does not govern skill-document authoring format, governance tiers, or per-revision history obligations.
-- `../skill-management_skill-create-rule/SKILL.md` is the single source of truth for structure and writing-format constraints of skill documents; consult it when deciding how to format or structure a skill document, not for constitution-layer priority questions.
-- `../skill-management_skill-governance-rule/SKILL.md` is the single source of truth for governance-tier definitions and strict-trigger controls; consult it when deciding whether a skill requires strict approval, not for constitution authoring questions.
-- `../skill-management_skill-modify-history/SKILL.md` is the single source of truth for history-record creation obligations and day-based criteria; consult it when deciding whether a rule-document revision requires a history file, not for constitution content boundaries.
+- 이 문서는 `global_instructions` 및 `AGENTS`에 대한 헌법 문서 내용 경계, 계층 할당, 우선순위 규칙 및 운영 규칙 적용 범위를 규정합니다. 스킬 문서 작성 형식, 거버넌스 계층 또는 개정 이력 의무는 규정하지 않습니다.
+- `../skill-management_skill-create-rule/SKILL.md`는 스킬 문서의 구조 및 작성 형식 제약 조건에 대한 유일한 기준 문서입니다. 스킬 문서의 형식이나 구조를 결정할 때 이 문서를 참조하십시오. 헌법 계층 우선순위 관련 질문은 이 문서를 참조하지 마십시오.
+- `../skill-management_skill-governance-rule/SKILL.md`는 거버넌스 계층 정의 및 엄격 트리거 제어에 대한 유일한 기준 문서입니다. 스킬에 엄격한 승인이 필요한지 여부를 결정할 때 이 문서를 참조하십시오. 헌법 작성 관련 질문은 이 문서를 참조하지 마십시오.
+- `../skill-management_skill-modify-history/SKILL.md` 파일은 히스토리 기록 생성 의무 및 일별 기준에 대한 유일한 공식 자료입니다. 규칙 문서 개정에 히스토리 파일이 필요한지 여부를 결정할 때 이 파일을 참조해야 하며, 헌법 내용 경계를 판단할 때는 참조하지 마십시오.
 
 # Must NOT
 
 ## Ambiguity
-- You must not use open-ended terms without decision criteria in constitution rules.
-- You must not define priority words such as `important` or `higher` without numeric or ordered ranking.
+- 헌법 규칙에서 결정 기준 없이 모호한 용어를 사용해서는 안 됩니다.
+- `중요` 또는 `높은`과 같은 우선순위 단어를 숫자 또는 순서 없이 정의해서는 안 됩니다.
 
 ## Scope Mixing
-- You must not place workspace-trigger details in `global_instructions`.
-- You must not place global identity or universal behavior principles only in `AGENTS`.
-- You must not duplicate the same rule text across `global_instructions` and `AGENTS`.
+- 워크스페이스 트리거 세부 정보를 `global_instructions`에 배치해서는 안 됩니다.
+- 전역 ID 또는 보편적 동작 원칙을 `AGENTS`에만 배치해서는 안 됩니다.
+- 동일한 규칙 텍스트를 `global_instructions`와 `AGENTS`에 중복해서 배치해서는 안 됩니다.
 
 ## Priority Omission
-- You must not publish constitution documents without an explicit conflict-resolution order.
-- You must not allow lower-priority documents to override higher-priority documents without an explicit authority rule.
+- 명시적인 충돌 해결 순서 없이 헌법 문서를 게시해서는 안 됩니다.
+- 명시적인 권한 규칙 없이 우선순위가 낮은 문서가 우선순위가 높은 문서를 덮어쓰도록 허용해서는 안 됩니다.
 
 ## Operational Gaps
-- You must not define MCP usage rules without tool-parameter validation requirements.
-- You must not define automated workflows without stop conditions.
-- You must not define failure handling without re-run conditions.
+- 도구 매개변수 유효성 검사 요구 사항 없이 MCP 사용 규칙을 정의해서는 안 됩니다.
+- 중지 조건 없이 자동화된 워크플로를 정의해서는 안 됩니다.
+- 재실행 조건 없이 오류 처리를 정의해서는 안 됩니다.
 
 # Flow
 
 ## Constitution Authoring
-1. Verify availability of required source-of-truth files before rule authoring.
-2. Classify each target rule into global or workspace layer.
-3. Check whether `global_instructions` exists before selecting create or revision flow.
-4. Run global create flow when `global_instructions` is missing.
-5. Run global revision flow when `global_instructions` already exists.
-6. Assign each classified rule to `global_instructions` or `AGENTS`.
-7. Define priority order, conflict resolution, and fallback behavior.
-8. Define prohibited rules and enforcement behavior per layer.
-9. Define AGENTS folder roles and workflow trigger rules.
-10. Define skill-selection and MCP operation rules.
-11. Verify cross-document consistency and remove duplicated rule text.
+1. 규칙을 작성하기 전에 필요한 원본 파일의 가용성을 확인합니다.
+2. 각 대상 규칙을 전역 또는 작업 영역 계층으로 분류합니다.
+3. 생성 또는 수정 흐름을 선택하기 전에 `global_instructions`가 있는지 확인합니다.
+4. `global_instructions`가 없는 경우 전역 생성 흐름을 실행합니다.
+5. `global_instructions`가 이미 있는 경우 전역 수정 흐름을 실행합니다.
+6. 분류된 각 규칙을 `global_instructions` 또는 `AGENTS`에 할당합니다.
+7. 우선순위 순서, 충돌 해결 및 대체 동작을 정의합니다.
+8. 계층별 금지 규칙 및 시행 동작을 정의합니다.
+9. AGENTS 폴더 역할 및 워크플로 트리거 규칙을 정의합니다.
+10. 스킬 선택 및 MCP 운영 규칙을 정의합니다.
+11. 문서 간 일관성을 확인하고 중복된 규칙 텍스트를 제거합니다.
 
 ## Global Instructions Create Flow
-1. Create `global_instructions` with constitution layer, principles, priority model, and prohibition set.
-2. Validate that required global sections are present before proceeding to dependent documents.
-3. Stop and report failure with required workflow report fields when required global sections are missing.
+1. 구성 계층, 원칙, 우선순위 모델 및 금지 세트를 포함하는 `global_instructions`를 생성합니다.
+2. 종속 문서로 진행하기 전에 필수 전역 섹션이 있는지 확인합니다.
+3. 필수 전역 섹션이 누락된 경우, 워크플로 보고 필드를 사용하여 실패를 보고하고 작업을 중지합니다.
 
 ## Global Instructions Revision Flow
-1. Diff the current `global_instructions` content against requested changes.
-2. Apply targeted edits only to requested or policy-required sections.
-3. Preserve unaffected sections during revision.
-4. Stop and request user approval when revision scope expands beyond the request.
+1. 현재 `global_instructions` 내용과 요청된 변경 사항을 비교합니다.
+2. 요청되었거나 정책에 따라 필요한 섹션에만 대상 편집을 적용합니다.
+3. 수정하는 동안 영향을 받지 않는 섹션은 유지합니다.
+4. 수정 범위가 요청 범위를 초과하는 경우, 작업을 중지하고 사용자 승인을 요청합니다.
 
 ## Constitution Review
-1. Verify every rule is placed in the correct layer.
-2. Verify priority and conflict handling are deterministic.
-3. Verify each workflow has trigger, order, stop, failure, and re-run coverage.
-4. Verify each MCP rule includes source check, parameter check, and report requirement.
-5. Verify stop-condition confirmation requests follow the required confirmation-request format.
+1. 모든 규칙이 올바른 계층에 배치되었는지 확인합니다.
+2. 우선순위 및 충돌 처리가 확정적인지 확인합니다.
+3. 각 워크플로에 트리거, 순서, 중지, 실패 및 재실행 처리가 포함되어 있는지 확인합니다.
+4. 각 MCP 규칙에 소스 검사, 매개변수 검사 및 보고 요구 사항이 포함되어 있는지 확인합니다.
+5. 중지 조건 확인 요청이 필수 확인 요청 형식을 따르는지 확인합니다.
 
 # Definition of Done
 
 ## Verification
-- The document contains YAML frontmatter with only `name` and `description`.
-- The document contains required H1 sections: `# Must`, `# Must NOT`, `# Flow`, and `# Definition of Done`.
-- The document contains `## Verification` under `# Definition of Done`.
-- Each rule sentence uses explicit force terms (`must`, `must not`, or equivalent prohibition language).
-- Priority order, conflict resolution, and fallback behavior are explicitly defined.
-- Coverage for `global_instructions` and `AGENTS` is explicitly defined.
-- AGENTS folder-role, trigger, order, failure, and re-run requirements are explicitly defined.
-- Skill and MCP operation rules include source checks, parameter validation, and reporting obligations.
-- Prohibited behaviors and enforcement behavior are explicitly defined.
-- Create and revision flows for `global_instructions` are explicitly separated.
-- Execution stop conditions are explicitly defined.
-- Re-run and overwrite policy is explicitly defined.
-- Workflow failure reports and stop-condition confirmation requests follow defined report formats.
-- Source-of-truth availability checks are explicitly defined.
-- No section violates ambiguity, duplication, or scope-mixing prohibitions.
+- 문서에는 `name`과 `description`만 포함된 YAML 형식의 프런트매터가 있습니다.
+- 문서에는 필수 H1 섹션인 `# Must`, `# Must NOT`, `# Flow` 및 `# Definition of Done`이 포함되어 있습니다.
+- 문서에는 `# Definition of Done` 아래에 `## Verification`이 포함되어 있습니다.
+- 각 규칙 문장에는 명시적인 강제 조건(`must`, `must not` 또는 이와 동등한 금지 문구)이 사용됩니다.
+- 우선순위 순서, 충돌 해결 및 대체 동작이 명시적으로 정의되어 있습니다.
+- `global_instructions` 및 `AGENTS`에 대한 적용 범위가 명시적으로 정의되어 있습니다.
+- AGENTS 폴더 역할, 트리거, 순서, 실패 및 재실행 요구 사항이 명시적으로 정의되어 있습니다.
+- 스킬 및 MCP 운영 규칙에는 소스 검사, 매개변수 유효성 검사 및 보고 의무가 포함됩니다.
+- 금지된 행위 및 시행 행위가 명시적으로 정의되어 있습니다.
+- `global_instructions`에 대한 생성 및 수정 흐름이 명확하게 분리되어 있습니다.
+- 실행 중지 조건이 명시적으로 정의되어 있습니다.
+- 재실행 및 덮어쓰기 정책이 명시적으로 정의되어 있습니다.
+- 워크플로 실패 보고서 및 중지 조건 확인 요청은 정의된 보고서 형식을 따릅니다.
+- 출처 확인 가능성 검사가 명시적으로 정의되어 있습니다.
+- 어떤 조항도 모호성, 중복 또는 범위 혼합 금지 조항을 위반하지 않습니다.
+

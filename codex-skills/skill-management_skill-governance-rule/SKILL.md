@@ -1,6 +1,6 @@
 ---
 name: skill-governance-rule
-description: Authors who design or revise skill governance policies must apply these deterministic trigger, control, and verification rules.
+description: 스킬 관리 정책을 설계하거나 수정하는 작성자는 이러한 확정적 트리거, 제어 및 검증 규칙을 적용해야 합니다.
 ---
 
 # Skill Governance Rule
@@ -8,77 +8,78 @@ description: Authors who design or revise skill governance policies must apply t
 # Must
 
 ## Scope
-- You must apply this document when defining governance tiers, risk triggers, approval policies, or execution-control requirements for skills.
-- This document governs risk-based control selection, not markdown formatting structure.
+- 이 문서는 스킬에 대한 거버넌스 계층, 위험 트리거, 승인 정책 또는 실행 제어 요구 사항을 정의할 때 반드시 적용해야 합니다.
+- 이 문서는 위험 기반 제어 선택에 대한 내용을 다루며, 마크다운 서식 구조에 대한 내용은 다루지 않습니다.
 
 ## Governance Model
-- You must use exactly two governance tiers: `baseline` and `strict`.
-- You must select `strict` when at least one strict trigger is true.
-- If no strict trigger is true, you must select `baseline`.
+- 거버넌스 계층은 `baseline`과 `strict` 두 가지만 사용해야 합니다.
+- 엄격 트리거 중 하나라도 참인 경우 `strict`를 선택해야 합니다.
+- 엄격 트리거가 하나도 참이 아닌 경우 `baseline`을 선택해야 합니다.
 
 ## Strict Triggers
-- Strict triggers are exactly the following:
-  - The skill governs destructive operations (`delete`, `reset`, `force`, irreversible overwrite).
-  - The skill governs external write actions to these service systems: Slack, Jira, Confluence, Google Drive, GitHub.
-  - The skill governs authentication, authorization, permission, or credential handling.
-  - The skill changes deployment target, runtime configuration, or externally visible API behavior.
+- 엄격한 트리거는 다음과 같습니다.
+  - 스킬이 파괴적인 작업(`delete`, `reset`, `force`, irreversible overwrite)을 제어하는 ​​경우.
+  - 스킬이 GitHub와 같은 서비스 시스템에 대한 외부 쓰기 작업을 제어하는 ​​경우.
+  - 스킬이 인증, 권한 부여, 권한 또는 자격 증명 처리를 제어하는 ​​경우.
+  - 스킬이 배포 대상, 런타임 구성 또는 외부에서 볼 수 있는 API 동작을 변경하는 경우.
 
 ## Baseline Controls
-- Baseline controls must require only the minimum controls below:
-  - one clear execution path
-  - one clear completion check
-  - one clear failure report path
-- Under baseline, you must not require any of the following:
-  - mandatory multi-stage review cycles
-  - mandatory external approval gates
-  - mandatory cross-system posting or notification steps
+- 기본 제어는 다음의 최소한의 제어만 요구해야 합니다.
+  - 명확한 실행 경로 하나
+  - 명확한 완료 확인 하나
+  - 명확한 실패 보고 경로 하나
+- 기본 제어에서는 다음 사항을 요구해서는 안 됩니다.
+  - 필수 다단계 검토 주기
+  - 필수 외부 승인 게이트
+  - 필수 시스템 간 게시 또는 알림 단계
 
 ## Strict Controls
-- Under strict governance, you must define explicit actor, approval condition, and rollback path for each active strict trigger.
-- Under strict governance, you must define failure handling steps with retry limits and stop conditions.
-- Under strict governance, you must define at least one verification step tied to each active strict trigger.
+- 엄격한 거버넌스에서는 각 활성 엄격 트리거에 대해 명시적인 행위자, 승인 조건 및 롤백 경로를 정의해야 합니다.
+- 엄격한 거버넌스에서는 재시도 횟수 제한 및 중지 조건을 포함하는 실패 처리 단계를 정의해야 합니다.
+- 엄격한 거버넌스에서는 각 활성 엄격 트리거에 연결된 최소 하나의 검증 단계를 정의해야 합니다.
 
 ## Rule Priority
-- When governance rules conflict with format rules, governance rules control risk-handling behavior and format rules control document structure.
-- `## History Recording` is mandatory in skill authoring regardless of governance tier.
+- 거버넌스 규칙과 형식 규칙이 충돌하는 경우, 거버넌스 규칙은 위험 처리 동작을 제어하고 형식 규칙은 문서 구조를 제어합니다.
+- `## History Recording`은 거버넌스 계층과 관계없이 스킬 작성 시 필수입니다.
 
 ## Source of Truth
-- This document governs governance tier selection, strict trigger definitions, and baseline-vs-strict control boundaries; it does not govern skill-document markdown format, section structure, or history-record obligations.
-- `../skill-management_skill-create-rule/SKILL.md` is the single source of truth for skill document format and structure; consult it when deciding how to write or structure a skill document, not for risk classification or approval requirement questions.
+- 이 문서는 거버넌스 계층 선택, 엄격 트리거 정의 및 기본 제어와 엄격 제어의 경계를 규정합니다. 이 문서는 스킬 문서의 마크다운 형식, 섹션 구조 또는 이력 기록 의무를 규정하지 않습니다.
+- `../skill-management_skill-create-rule/SKILL.md`는 스킬 문서 형식 및 구조에 대한 유일한 기준이 되므로, 스킬 문서를 작성하거나 구성하는 방법을 결정할 때 이 문서를 참조하십시오. 위험 분류 또는 승인 요건에 대한 질문은 이 문서를 참조하지 마십시오.
 
 # Must NOT
 
 ## Ambiguity
-- You must not use open-ended governance terms without a closed list or explicit decision criteria.
-- You must not use undefined labels such as `high risk`, `critical`, or `heavyweight` without deterministic criteria.
+- 명확한 목록이나 결정 기준 없이 개방형 관리 용어를 사용해서는 안 됩니다.
+- 확정적인 기준 없이 `high risk`, `critical`, `heavyweight`과 같은 정의되지 않은 레이블을 사용해서는 안 됩니다.
 
 ## Scope Drift
-- You must not define markdown formatting requirements in this document.
-- You must not duplicate format/section layout rules that belong to `../skill-management_skill-create-rule/SKILL.md`.
+- 이 문서에서 마크다운 형식 요건을 정의해서는 안 됩니다.
+- `../skill-management_skill-create-rule/SKILL.md`에 속하는 형식/섹션 레이아웃 규칙을 중복해서 사용해서는 안 됩니다.
 
 ## Over-Governance
-- You must not apply strict-only controls when no strict trigger is active.
-- You must not add strict triggers beyond the closed set in `## Strict Triggers`.
+- 엄격한 트리거가 활성화되지 않은 경우 엄격한 트리거만 적용하는 제어를 사용해서는 안 됩니다.
+- `## Strict Triggers`에 명시된 제한된 집합 외에 엄격한 트리거를 추가해서는 안 됩니다.
 
 # Flow
 
 ## Governance Authoring
-1. Confirm whether the target rule is governance-related.
-2. Select governance tier by evaluating strict triggers.
-3. Write controls for the selected tier.
-4. Define verification for active controls.
-5. Check consistency with `../skill-management_skill-create-rule/SKILL.md`.
+1. 대상 규칙이 거버넌스 관련 규칙인지 확인합니다.
+2. 엄격한 트리거를 평가하여 거버넌스 계층을 선택합니다.
+3. 선택한 계층에 대한 제어를 작성합니다.
+4. 활성화된 제어에 대한 검증을 정의합니다.
+5. `../skill-management_skill-create-rule/SKILL.md`와의 일관성을 확인합니다.
 
 ## Governance Review
-1. Verify strict-trigger evaluation is reproducible.
-2. Verify no strict-only control leaks into baseline.
-3. Verify each active strict trigger has actor/approval/rollback/failure/verification coverage.
+1. 엄격한 트리거 평가의 재현성을 확인합니다.
+2. 엄격한 트리거만 적용된 제어가 기준선에 영향을 미치지 않는지 확인합니다.
+3. 활성화된 각 엄격한 트리거에 대해 행위자/승인/롤백/실패/검증 범위가 충분한지 확인합니다.
 
 # Definition of Done
 
 ## Verification
-- Governance tier selection rules are deterministic and reproducible.
-- Strict trigger set is closed and unchanged.
-- Baseline and strict controls are explicitly separated.
-- Ambiguous governance labels are absent or explicitly defined.
-- Source-of-truth boundaries with `../skill-management_skill-create-rule/SKILL.md` are explicit.
+- 거버넌스 계층 선택 규칙은 확정적이고 재현 가능합니다.
+- 엄격한 트리거 세트는 닫혀 있고 변경되지 않았습니다.
+- 기준선 제어와 엄격한 제어가 명확하게 구분되어 있습니다.
+- 모호한 거버넌스 레이블이 없거나 명확하게 정의되어 있습니다.
+- `../skill-management_skill-create-rule/SKILL.md`와의 소스 경계가 명확하게 설정되어 있습니다.
+

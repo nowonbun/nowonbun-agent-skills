@@ -1,6 +1,6 @@
 ---
 name: stock-analysis
-description: Engineers analyzing stocks must use this skill when structuring company, financial, chart, and market-flow analysis to report risks clearly.
+description: 주식을 분석하는 엔지니어는 기업, 재무, 차트 및 시장 흐름 분석을 구성하여 위험을 명확하게 보고할 때 이 기술을 활용해야 합니다.
 ---
 
 # Stock Analysis Skill
@@ -8,56 +8,56 @@ description: Engineers analyzing stocks must use this skill when structuring com
 # Must
 
 ## Scope
-- You must apply this document when analyzing a stock for investment review, trading review, or learning-oriented comparison.
-- You must use this document to structure evidence-based stock analysis output, not to promise returns or give certainty.
+- 이 문서는 투자 검토, 거래 검토 또는 학습 목적의 비교 분석을 위해 주식을 분석할 때 반드시 적용해야 합니다.
+- 이 문서는 증거 기반 주식 분석 결과를 도출하기 위한 구조화된 도구로 사용해야 하며, 수익을 보장하거나 확실한 결과를 제시하는 용도로 사용해서는 안 됩니다.
 
 ## Source of Truth
-- This document is the single source of truth for stock-analysis structure, evidence presentation, and risk-reporting rules in `./SKILL.md`; it does not govern governance tiers, prompt-routing decisions, or data-fetching tool selection.
-- `../action-management_research/SKILL.md` is the single source of truth for fact-versus-interpretation separation when a stock-analysis request expands into broader topic research, because cross-topic evidence separation belongs to `../action-management_research/SKILL.md` rather than this stock-specific structure rule.
+- 이 문서는 `./SKILL.md`에 있는 주식 분석 구조, 증거 제시 방식 및 위험 보고 규칙에 대한 유일한 기준 문서입니다. 거버넌스 계층, 신속 처리 결정 또는 데이터 검색 도구 선택은 이 문서의 기준이 아닙니다.
+- 주식 분석 요청이 더 광범위한 주제 연구로 확장될 경우, 사실과 해석을 구분하는 데 있어 `../action-management_research/SKILL.md`가 유일한 기준 문서입니다. 이는 주제 간 증거 구분이 이 주식별 구조 규칙이 아닌 `../action-management_research/SKILL.md`에 속하기 때문입니다.
 
 ## Analysis Setup Rules
-- You must define the analysis purpose as investment review, trading review, or learning before presenting conclusions.
-- You must define the analysis horizon as short-term, mid-term, or long-term before presenting conclusions.
-- You must state uncertainty and analytical limits when evidence is incomplete, delayed, or assumption-based.
-- You must reject guaranteed-profit framing when the request asks for certainty or fixed returns.
+- 결론을 제시하기 전에 분석 목적을 투자 검토, 거래 검토 또는 학습으로 명확히 정의해야 합니다.
+- 결론을 제시하기 전에 분석 기간을 단기, 중기 또는 장기로 명확히 정의해야 합니다.
+- 증거가 불완전하거나, 지연되었거나, 가정에 기반한 경우 불확실성과 분석의 한계를 명시해야 합니다.
+- 요청에서 확실성 또는 고정 수익을 요구하는 경우, '수익 보장'이라는 틀을 사용해서는 안 됩니다.
 
 ## Evidence and Method Rules
-- You must attach a source or calculation basis when presenting a number, ratio, or indicator.
-- You must distinguish technical analysis from fundamental analysis when both appear in one answer.
-- You must label unsupported assumptions as `unverified`.
-- You must challenge unrealistic user judgment directly and provide a safer alternative or a narrower interpretation.
+- 숫자, 비율 또는 지표를 제시할 때는 출처 또는 계산 근거를 반드시 명시해야 합니다.
+- 하나의 답변에 기술적 분석과 기본적 분석이 모두 포함될 경우, 두 분석을 구분하여 제시해야 합니다.
+- 근거가 없는 가정은 `unverified`으로 표시해야 합니다.
+- 사용자의 비현실적인 판단에 대해서는 직접적으로 이의를 제기하고, 더 안전한 대안이나 더 좁은 해석을 제시해야 합니다.
 
 ## Minimum Analysis Coverage Rules
-- You must summarize price trend or return trend when trend evidence is available.
-- You must describe volume behavior or volatility behavior when market-action evidence is available.
-- You must explain market-flow, sector-flow, or relative-strength context when comparative evidence is available.
-- You must list major risks as separate items and include macro, industry, or company-specific risk when relevant evidence exists.
+- 추세 관련 증거가 있는 경우 가격 추세 또는 수익률 추세를 요약해야 합니다.
+- 시장 활동 관련 증거가 있는 경우 거래량 추이 또는 변동성 추이를 설명해야 합니다.
+- 비교 관련 증거가 있는 경우 시장 흐름, 업종 흐름 또는 상대적 강도 맥락을 설명해야 합니다.
+- 주요 위험 요소를 별도의 항목으로 나열하고, 관련 증거가 있는 경우 거시적 위험, 산업 위험 또는 기업별 위험을 포함해야 합니다.
 
 ## Output Rules
-- You must state the conclusion first.
-- You must present supporting evidence in bullets or clearly separated sections.
-- You must end with a practical next step such as additional data check, risk review, or scenario comparison.
+- 결론을 먼저 제시해야 합니다.
+- 뒷받침하는 근거는 글머리 기호를 사용하거나 명확하게 구분된 섹션으로 제시해야 합니다.
+- 추가 데이터 확인, 위험 검토 또는 시나리오 비교와 같은 실질적인 다음 단계로 마무리해야 합니다.
 
 # Must NOT
 
-- You must not present stock analysis as guaranteed profit guidance.
-- You must not mix technical-analysis claims and fundamental-analysis claims without labeling the method.
-- You must not present a numeric claim without a source or calculation basis.
-- You must not hide uncertainty or downside risk behind definitive wording.
+- 주식 분석을 확실한 수익 보장 지표로 제시해서는 안 됩니다.
+- 기술적 분석과 기본적 분석을 혼합하여 사용할 경우, 사용 방법을 명확히 밝혀야 합니다.
+- 수치적 주장을 제시할 경우, 출처나 계산 근거를 제시해야 합니다.
+- 불확실성이나 하락 위험을 확정적인 표현 뒤에 숨겨서는 안 됩니다.
 
 # Flow
 
-1. Define the purpose and horizon of the requested stock analysis.
-2. Gather evidence and separate technical, fundamental, and contextual signals.
-3. Summarize trend, volume or volatility, comparative context, and major risks.
-4. State the conclusion first and follow with evidence-backed reasoning.
-5. End with a practical next step or missing-data check.
+1. 요청된 주식 분석의 목적과 기간을 정의합니다.
+2. 증거를 수집하고 기술적, 펀더멘털적, 맥락적 신호를 구분합니다.
+3. 추세, 거래량 또는 변동성, 비교 대상, 주요 위험 요소를 요약합니다.
+4. 결론을 먼저 제시하고 증거에 근거한 추론을 덧붙입니다.
+5. 실질적인 다음 단계 또는 누락된 데이터 확인으로 마무리합니다.
 
 # Definition of Done
 
 ## Verification
-- The analysis purpose and horizon are defined before conclusions.
-- Technical and fundamental analysis are distinguishable when both are used.
-- Numeric claims include a source or calculation basis.
-- Major risks are listed as separate items when relevant evidence exists.
-- The output states the conclusion first and ends with a practical next step.
+- 분석 목적과 분석 기간을 결론을 도출하기 전에 명확히 정의합니다.
+- 기술적 분석과 기본적 분석을 모두 사용할 경우, 두 분석 방법을 구분하여 제시합니다.
+- 수치 자료에는 출처 또는 계산 근거를 명시합니다.
+- 주요 위험 요소는 관련 근거가 있는 경우 별도의 항목으로 나열합니다.
+- 출력 결과는 결론을 먼저 제시하고, 마지막에는 실질적인 다음 단계를 제안합니다.

@@ -1,6 +1,6 @@
 ---
 name: claude-cross-review-protocol
-description: Agents that need Claude cross-review for changes must invoke Claude through MCP with deterministic review axes, normalized findings, and explicit adoption records.
+description: 변경 사항에 대해 Claude 교차 검토가 필요한 에이전트는 확정적 검토 축, 정규화된 결과 및 명시적 채택 기록을 사용하여 MCP를 통해 Claude를 호출해야 합니다.
 ---
 
 # Claude Cross Review Protocol
@@ -8,129 +8,130 @@ description: Agents that need Claude cross-review for changes must invoke Claude
 # Must
 
 ## Scope
-- You must apply this document when running Claude cross-review for code changes, document changes, configuration changes, rule-document changes, or workflow-design changes.
-- You must apply this document to Claude cross-review invocation, review normalization, and review-log reporting.
+- 코드 변경, 문서 변경, 구성 변경, 규칙 문서 변경 또는 워크플로 설계 변경에 대한 Claude 교차 검토를 실행할 때 이 문서를 적용해야 합니다.
+- Claude 교차 검토 호출, 검토 정규화 및 검토 로그 보고에 이 문서를 적용해야 합니다.
 
 ## Source of Truth
-- This document governs Claude cross-review invocation, review normalization, collaboration-log reporting, and NG/OK output rules in `./SKILL.md`; it does not govern runtime timeout controls, review-profile source content, or history-record creation criteria.
-- `../runtime-management_ai-collaboration-governance/SKILL.md` is the single source of truth for Claude collaboration runtime controls, timeout handling, fallback flow, and prompt-size control; consult it when deciding how to manage request size, retries, or timeout fallback, not for review-log schema decisions.
-- `../skill-management_skill-modify-history/SKILL.md` is the single source of truth for history-record obligations when rule documents are revised; consult it when deciding whether review-related rule revisions require history artifacts, not for Claude invocation or normalization rules.
-- `CLAUDE` is the single source of truth for review-policy profile content and review priorities; consult it when deciding which review concerns and priorities govern the review itself, not for protocol output structure.
+- 이 문서는 `./SKILL.md`에 있는 Claude 교차 검토 호출, 검토 정규화, 협업 로그 보고 및 NG/OK 출력 규칙을 관리합니다. 런타임 시간 초과 제어, 검토 프로필 소스 콘텐츠 또는 기록 생성 기준은 관리하지 않습니다.
+- `../runtime-management_ai-collaboration-governance/SKILL.md`는 Claude 협업 런타임 제어, 시간 초과 처리, 대체 흐름 및 프롬프트 크기 제어에 대한 유일한 기준 문서입니다. 요청 크기, 재시도 또는 시간 초과 대체 방식을 결정할 때 이 문서를 참조하십시오. 검토 로그 스키마 결정 시에는 이 문서를 참조하지 마십시오.
+- `../skill-management_skill-modify-history/SKILL.md`는 규칙 문서 수정 시 기록 의무에 대한 유일한 기준 문서입니다. 검토 관련 규칙 수정에 기록 아티팩트가 필요한지 여부를 결정할 때 이 문서를 참조하십시오. Claude 호출 또는 정규화 규칙 결정 시에는 이 문서를 참조하지 마십시오.
+- `CLAUDE`는 검토 정책 프로필 내용 및 검토 우선순위에 대한 유일한 정보 출처입니다. 프로토콜 출력 구조가 아닌, 검토 자체를 주도할 검토 관련 사항 및 우선순위를 결정할 때 이 문서를 참조하십시오.
 
 ## Source Availability Rules
-- Before invocation, you must verify readability of every source-of-truth document required for the current review step.
-- When a required source-of-truth document is unreadable or missing, you must stop cross-review and report `cross-review: blocked (reason: source-of-truth unavailable)`.
-- When cross-review is blocked by source-of-truth unavailability, you must request user decision before resuming.
+- 실행 전에 현재 검토 단계에 필요한 모든 원본 문서의 가독성을 확인해야 합니다.
+- 필수 원본 문서를 읽을 수 없거나 누락된 경우, 교차 검토를 중단하고 `교차 검토: 차단됨(이유: 원본 문서를 사용할 수 없음)`을 보고해야 합니다.
+- 원본 문서를 사용할 수 없어 교차 검토가 차단된 경우, 검토를 재개하기 전에 사용자에게 결정을 요청해야 합니다.
 
 ## Pre-Review Input Rules
-- Before invoking Claude, you must define the review phase as one of `plan-review`, `source-review`, `result-review`, or `re-review`.
-- Before invoking Claude, you must define one explicit review objective.
-- Before invoking Claude, you must define target file paths.
-- Before invoking Claude, you must define acceptance criteria.
-- Before invoking Claude, you must define exclusion scope.
-- Before invoking Claude, you must define agreed-items baseline that can be omitted from review output.
-- Before invoking Claude, you must confirm that all target paths are readable.
-- Before invoking Claude, you must confirm readability of `../runtime-management_ai-collaboration-governance/SKILL.md`.
-- Before invoking Claude, you must confirm readability of `CLAUDE`.
-- When review-policy source verification fails, you must stop cross-review and record `cross-review: blocked (reason: review policy unavailable)`.
-- When runtime-governance source verification fails, you must stop cross-review and record `cross-review: blocked (reason: runtime governance unavailable)`.
-- When at least one target path is unreadable, you must stop cross-review and record `cross-review: blocked (reason: unreadable path)`.
+- Claude를 실행하기 전에 검토 단계를 `계획 검토`, `자료 검토`, `결과 검토` 또는 `재검토` 중 하나로 정의해야 합니다.
+- Claude를 실행하기 전에 명확한 검토 목표를 하나 정의해야 합니다.
+- Claude를 실행하기 전에 대상 파일 경로를 정의해야 합니다.
+- Claude를 실행하기 전에 승인 기준을 정의해야 합니다.
+- Claude를 실행하기 전에 제외 범위를 정의해야 합니다.
+- Claude를 실행하기 전에 검토 출력에서 ​​제외할 수 있는 합의 항목 기준을 정의해야 합니다.
+- Claude를 실행하기 전에 모든 대상 경로를 읽을 수 있는지 확인해야 합니다.
+- Claude를 실행하기 전에 `../runtime-management_ai-collaboration-governance/SKILL.md` 파일의 가독성을 확인해야 합니다.
+- Claude를 실행하기 전에 `CLAUDE`의 가독성을 확인해야 합니다.
+- 검토 정책 소스 검증에 실패하면 교차 검토를 중지하고 `교차 검토: 차단됨(이유: 검토 정책을 사용할 수 없음)`을 기록해야 합니다.
+- 런타임 거버넌스 소스 검증에 실패하면 교차 검토를 중지하고 `교차 검토: 차단됨(이유: 런타임 거버넌스를 사용할 수 없음)`을 기록해야 합니다.
+- 하나 이상의 대상 경로를 읽을 수 없는 경우 교차 검토를 중지하고 `교차 검토: 차단됨(이유: 경로를 읽을 수 없음)`을 기록해야 합니다.
 
 ## Review Focus Rules
-- You must review only these mandatory axes unless the objective explicitly adds more axes:
-  - consistency
-  - degradation risk
-  - regression risk
-  - scope integrity
-  - evidence sufficiency
-- When the target includes text documents, you must add UTF-8 integrity and text-preservation checks.
-- You must omit commentary on already-agreed items when no new risk or contradiction is introduced.
-- You must escalate a finding as NG when at least one mandatory axis fails.
+- 목표에 명시적으로 추가 축이 포함되지 않는 한, 다음 필수 축만 검토해야 합니다.
+  - 일관성
+  - 품질 저하 위험
+  - 회귀 위험
+  - 범위 무결성
+  - 증거 충분성
+- 대상에 텍스트 문서가 포함된 경우, UTF-8 무결성 및 텍스트 보존 검사를 추가해야 합니다.
+- 새로운 위험이나 모순이 발생하지 않는 경우, 이미 합의된 항목에 대한 설명은 생략해야 합니다.
+- 필수 축 중 하나라도 충족하지 못하면 해당 항목을 NG(Not Good)로 보고해야 합니다.
 
 ## Invocation Rules
-- You must run one review objective per Claude invocation.
-- You must include review phase, objective, target paths, acceptance criteria, exclusion scope, agreed-items baseline, and mandatory review axes in each Claude request.
-- You must instruct Claude to return NG-only output and omit agreed items without new risk.
-- You must record invocation timestamp in ISO 8601 format.
-- You must record input summary for each invocation.
-- You must use the review-policy priorities defined in `CLAUDE` and must not substitute another review-policy file.
-- You must follow timeout, fallback, and prompt-size controls defined in `../runtime-management_ai-collaboration-governance/SKILL.md`.
-- You must invoke Claude through `mcp_servers.nowonbun_claude` and must not substitute CLI entry points inside this harness.
-- When Claude invocation fails because of timeout, transport failure, or MCP error, you must apply retry and fallback rules from `../runtime-management_ai-collaboration-governance/SKILL.md`.
+- Claude를 실행할 때마다 하나의 검토 목표를 실행해야 합니다.
+- 각 Claude 요청에는 검토 단계, 목표, 대상 경로, 승인 기준, 제외 범위, 합의 항목 기준선 및 필수 검토 축을 포함해야 합니다.
+- Claude에게 새로운 위험이 없는 합의 항목을 제외하고 NG 전용 출력을 반환하도록 지시해야 합니다.
+- 호출 타임스탬프를 ISO 8601 형식으로 기록해야 합니다.
+- 각 호출에 대한 입력 요약을 기록해야 합니다.
+- `CLAUDE`에 정의된 검토 정책 우선순위를 사용해야 하며 다른 검토 정책 파일로 대체해서는 안 됩니다.
+- `../runtime-management_ai-collaboration-governance/SKILL.md`에 정의된 시간 초과, 대체 및 프롬프트 크기 제어를 준수해야 합니다.
+- `mcp_servers.nowonbun_claude`를 통해 Claude를 호출해야 하며 이 하네스 내의 CLI 진입점을 대체해서는 안 됩니다.
+- 시간 초과, 전송 실패 또는 MCP 오류로 인해 Claude 호출이 실패하는 경우 `../runtime-management_ai-collaboration-governance/SKILL.md`에 있는 재시도 및 대체 규칙을 적용해야 합니다.
 
 ## Review Normalization Rules
-- You must normalize each Claude finding into these fields: `status`, `severity`, `finding`, `evidence`, `recommendation`, and `decision`.
-- Allowed status values are `verified`, `unverified`, and `error`.
-- `error` means invocation-level or tool-level failure that prevents finding verification, and it must not be used for a confirmed defect finding.
-- Allowed severity values are `Critical`, `High`, `Medium`, and `Low`.
-- Allowed decision values are `adopted`, `rejected`, `deferred`, and `pending`.
-- You must mark unverifiable statements as `unverified`.
-- You must attach at least one evidence source for each verified finding.
-- For error findings, you must attach failure evidence from execution output or tool response when available; if unavailable, you must record `evidence: unavailable` with failure reason.
-- You must preserve rejected findings with rejection reason.
-- You must set `decision: rejected` for all NG findings until a corrective patch is verified.
+- 각 Claude 발견 사항은`상태`, `심각도`, `결과`, `증거`, `권고`, `결정` 필드로 정규화해야 합니다.
+- 허용되는 상태 값은 `검증됨`, `미검증됨`, `오류`입니다.
+- `에러`는 발견 사항 검증을 방해하는 호출 수준 또는 도구 수준 오류를 의미하며, 확인된 결함 발견 사항에는 사용할 수 없습니다.
+- 허용되는 심각도 값은 `Critical`, `High`, `Medium`, `Low`입니다.
+- 허용되는 결정 값은 `채택됨`, `거부됨`, `보류됨`, `보류 중`입니다.
+- 검증할 수 없는 문장은 `미검증`로 표시해야 합니다.
+- 검증된 각 발견 사항에 대해 최소 하나 이상의 증거 자료를 첨부해야 합니다.
+- 오류 발견 사항의 경우, 실행 출력 또는 도구 응답에서 얻은 오류 증거를 사용할 수 있다면 첨부해야 합니다. 사용할 수 없는 경우, 오류 사유와 함께 `증적: 없음`을 기록해야 합니다.
+- 거부된 결과는 거부 사유와 함께 보존해야 합니다.
+- 수정 패치가 검증될 때까지 모든 NG 결과에 대해 `결정: 거부됨`로 설정해야 합니다.
 
 ## Review Log Format Rules
-- You must report cross-review results under a dedicated `Claude Collaboration Log` section.
-- A Claude Collaboration Log entry must include these fields:
-  - timestamp
-  - phase
-  - objective
-  - target paths
-  - mandatory axes
-  - input summary
-  - claude response summary
-  - adoption decision
-  - adoption reason
-- `claude response summary` must be one sentence, must be 200 characters or fewer, and must include NG count and adoption conclusion.
-- When NG count is zero, you must use `claude response summary: OK, no NG findings, agreed items omitted.`
-- When cross-review is blocked, you must report `cross-review: blocked` and the explicit block reason.
-- After each invocation, skip event, or blocked event, you must provide a user-facing conversation summary that includes `phase`, `cross-review status`, `summary`, `key findings`, and `next action`.
+- 교차 검토 결과는 별도의 `Claude Collaboration Log` 섹션에 보고해야 합니다.
+- Claude 협업 로그 항목에는 다음 필드가 포함되어야 합니다.
+  - 타임스탬프
+  - 단계
+  - 목표
+  - 대상 경로
+  - 필수 축
+  - 입력 요약
+  - Claude 응답 요약
+  - 채택 결정
+  - 채택 사유
+- `claude response summary`은 한 문장으로 작성해야 하며, 200자 이내여야 하고, 오답(NG) 개수와 채택 결론을 포함해야 합니다.
+- 오답 개수가 0개인 경우, `claude의 답변 요약: 이상 없음, 이상 소견 없음, 동의된 항목 생략.`을 사용해야 합니다.
+- 교차 검토가 차단된 경우, `cross-review: blocked`과 명확한 차단 사유를 보고해야 합니다.
+- 각 호출, 건너뛰기 이벤트 또는 차단 이벤트 후에는 `단계`, `교차 검토 상태`, `요약`, `주요 결과` 및 `다음 조치`을 포함하는 사용자에게 표시되는 대화 요약을 제공해야 합니다.
 
 ## Output Rules
-- You must produce normalized finding records for each Claude invocation.
-- You must produce one Claude Collaboration Log entry for each invocation or blocked event.
-- When NG findings exist, you must output only NG findings using this compact line format: `NG|<severity>|<path:line>|<failed-axis>|<fix>`.
-- When NG findings do not exist, you must output only `OK|no-ng|agreed-items-omitted`.
-- For `plan-review`, you must treat the plan itself as the review target even when no file diff exists yet.
-- For `source-review`, you must treat the modified source files and claimed invariants as the review target.
-- For `result-review`, you must treat the produced changes and claimed execution result as the review target.
-- For `re-review`, you must compare the latest corrective result against the previous NG findings.
-- When findings cause file changes, you must update the corresponding history artifacts required by active source-of-truth rules.
+- 각 Claude 실행에 대해 정규화된 발견 기록을 생성해야 합니다.
+- 각 실행 또는 차단 이벤트에 대해 하나의 Claude 협업 로그 항목을 생성해야 합니다.
+- NG 발견 사항이 있는 경우, 다음 간결한 줄 형식을 사용하여 NG 발견 사항만 출력해야 합니다. `NG|<심각도>|<경로:줄>|<실패 축>|<수정>`.
+- NG 발견 사항이 없는 경우, `OK|no-ng|합의된 항목 생략`만 출력해야 합니다.
+- `계획 검토`의 경우, 파일 차이가 아직 없더라도 계획 자체를 검토 대상으로 간주해야 합니다.
+- `소스 검토`의 경우, 수정된 소스 파일과 주장된 불변 조건을 검토 대상으로 간주해야 합니다.
+- `결과 검토`의 경우, 생성된 변경 사항과 주장된 실행 결과를 검토 대상으로 간주해야 합니다.
+- `재검토`의 경우, 최신 수정 결과를 이전 NG 발견 사항과 비교해야 합니다.
+- 발견 사항으로 인해 파일이 변경되는 경우, 활성 소스 오브 트루스 규칙에 따라 필요한 해당 이력 아티팩트를 업데이트해야 합니다.
 
 # Must NOT
 
-- You must not apply Claude suggestions directly without local evidence verification.
-- You must not merge `error` and `unverified` statuses into one status.
-- You must not use values outside the allowed sets defined in `## Review Normalization Rules`.
-- You must not omit rejection reasons for non-adopted Claude findings.
-- You must not claim cross-review completion when required log fields are missing.
-- You must not restate agreed items in review output unless new risk or contradiction is detected.
+- 로컬 증거 검증 없이 Claude 제안을 직접 적용해서는 안 됩니다.
+- `에러`와 `미확인` 상태를 하나의 상태로 병합해서는 안 됩니다.
+- `## Review Normalization Rules`에 정의된 허용된 값 집합 이외의 값을 사용해서는 안 됩니다.
+- 채택되지 않은 Claude 발견 사항에 대한 거부 사유를 생략해서는 안 됩니다.
+- 필수 로그 필드가 누락된 경우 교차 검토 완료를 주장해서는 안 됩니다.
+- 새로운 위험이나 모순이 발견되지 않는 한 검토 출력에서 ​​합의된 항목을 다시 명시해서는 안 됩니다.
 
 # Flow
 
-1. Verify source-of-truth readability required for this run.
-2. Define review phase, objective, target paths, acceptance criteria, exclusion scope, and agreed-items baseline.
-3. Define mandatory review axes and add UTF-8 integrity checks when text documents are in scope.
-4. Verify runtime-governance readability and apply its prompt-size and timeout controls before invocation.
-5. If a required source document or target path is unreadable, stop and record `cross-review: blocked` with reason.
-6. Invoke Claude through `mcp_servers.nowonbun_claude` with one objective and explicit NG-only instruction.
-7. If invocation fails, apply retry and fallback rules from `../runtime-management_ai-collaboration-governance/SKILL.md`.
-8. Normalize Claude findings into required fields and allowed values.
-9. Verify evidence for each finding and mark unverifiable items as `unverified`.
-10. Decide adoption status for each finding and record reasons.
-11. Write the Claude Collaboration Log entry, compact NG/OK output, and user-facing conversation summary.
-12. Update required history artifacts when review results changed files.
+1. 이번 실행에 필요한 소스 오브 트루스 가독성을 검증합니다.
+2. 검토 단계, 목표, 대상 경로, 승인 기준, 제외 범위 및 합의된 항목 기준선을 정의합니다.
+3. 필수 검토 축을 정의하고 텍스트 문서가 범위에 포함되는 경우 UTF-8 무결성 검사를 추가합니다.
+4. 런타임 거버넌스의 가독성을 확인하고 호출 전에 프롬프트 크기 및 시간 초과 제어를 적용합니다.
+5. 필수 소스 문서 또는 대상 경로를 읽을 수 없는 경우 중지하고 이유와 함께 `cross-review: blocked`을 기록합니다.
+6. 하나의 목표와 명시적인 NG 전용 지침을 사용하여 `mcp_servers.nowonbun_claude`를 통해 Claude를 호출합니다.
+7. 호출에 실패하면 `../runtime-management_ai-collaboration-governance/SKILL.md`의 재시도 및 대체 규칙을 적용합니다.
+8. Claude 결과를 필수 필드와 허용 값으로 정규화합니다.
+9. 각 결과에 대한 증거를 확인하고 확인 불가능한 항목은 `미확인`으로 표시합니다.
+10. 각 결과에 대한 채택 상태를 결정하고 이유를 기록합니다.
+11. Claude 협업 로그 항목, 간략한 NG/OK 출력 및 사용자에게 표시되는 대화 요약을 작성합니다.
+12. 검토 결과로 파일이 변경된 경우 필수 기록 아티팩트를 업데이트합니다.
 
 # Definition of Done
 
 ## Verification
-- Rules in `## Source Availability Rules` are satisfied before invocation.
-- Rules in `## Pre-Review Input Rules` are satisfied before invocation.
-- Rules in `## Review Focus Rules` are satisfied for each invocation.
-- Rules in `## Invocation Rules` are satisfied for each invocation.
-- Rules in `## Review Normalization Rules` are satisfied for each finding.
-- Rules in `## Review Log Format Rules` are satisfied for each invocation, skip event, or blocked event.
-- Phase-specific handling for `plan-review`, `source-review`, `result-review`, and `re-review` is satisfied.
-- Rules in `## Output Rules` are satisfied, including history updates when required.
-- No prohibited behavior in `# Must NOT` occurred during execution.
+- `## Source Availability Rules`의 규칙이 호출 전에 충족되었습니다.
+- `## Pre-Review Input Rules`의 규칙이 호출 전에 충족되었습니다.
+- `## Review Focus Rules`의 규칙이 각 호출마다 충족되었습니다.
+- `## Invocation Rules`의 규칙이 각 호출마다 충족되었습니다.
+- `## Review Normalization Rules`의 규칙이 각 결과에 대해 충족되었습니다.
+- `## Review Log Format Rules`의 규칙이 각 호출, 건너뛰기 이벤트 또는 차단된 이벤트마다 충족되었습니다.
+- `계획 검토`, `소스 검토`, `결과 검토`, `재검토`에 대한 단계별 처리가 충족되었습니다.
+- `## Output Rules`의 규칙이 충족되었으며, 필요한 경우 기록 업데이트가 포함됩니다.
+- 실행 중에 `# Must NOT`에 명시된 금지된 동작이 발생하지 않았습니다.
+

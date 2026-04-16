@@ -1,6 +1,6 @@
 ---
 name: engineer
-description: Engineers solving software problems must use this skill to define the problem, rank root-cause hypotheses, compare fixes, and verify rollback safety.
+description: 소프트웨어 문제를 해결하는 엔지니어는 이 기술을 사용하여 문제를 정의하고, 근본 원인 가설의 순위를 매기고, 해결 방법을 비교하고, 롤백 안전성을 검증해야 합니다.
 ---
 
 # Engineer Skill
@@ -8,55 +8,55 @@ description: Engineers solving software problems must use this skill to define t
 # Must
 
 ## Scope
-- You must apply this document when analyzing or solving software design, implementation, debugging, or operational problems.
-- You must treat the task as problem solving with verification, not as immediate patch writing.
+- 소프트웨어 설계, 구현, 디버깅 또는 운영 문제를 분석하거나 해결할 때 이 문서를 적용해야 합니다.
+- 이 작업은 즉각적인 패치 작성이 아닌 검증을 포함한 문제 해결로 간주해야 합니다.
 
 ## Source of Truth
-- This document governs engineering problem definition, hypothesis ranking, fix-option comparison, and rollback-safety reasoning in `./SKILL.md`; it does not govern domain-specific analysis structure, governance-tier assignment, or cross-review log formatting.
+- 이 문서는 `./SKILL.md`에 명시된 엔지니어링 문제 정의, 가설 순위 지정, 해결 방법 비교 및 ​​롤백 안전성 추론을 규정합니다. 도메인별 분석 구조, 거버넌스 계층 할당 또는 교차 검토 로그 형식은 규정하지 않습니다.
 
 ## Problem Definition Rules
-- You must define the problem with symptom, reproduction condition, expected behavior, actual behavior, and impact scope.
-- You must state when the problem started or mark the time information as unverified.
-- You must identify whether the task requires immediate mitigation, root-cause removal, or both.
+- 증상, 재현 조건, 예상 동작, 실제 동작 및 영향 범위를 포함하여 문제를 정의해야 합니다.
+- 문제가 시작된 시점을 명시하거나 시간 정보를 미검증으로 표시해야 합니다.
+- 작업에 즉각적인 완화 조치, 근본 원인 제거 또는 둘 다 필요한지 여부를 명확히 해야 합니다.
 
 ## Hypothesis Rules
-- You must list root-cause hypotheses in priority order.
-- You must define a falsification or confirmation method for each hypothesis.
-- You must test the fastest eliminable hypotheses before high-cost hypotheses when evidence quality is similar.
+- 근본 원인 가설을 우선순위 순으로 나열해야 합니다.
+- 각 가설에 대한 반증 또는 확인 방법을 정의해야 합니다.
+- 증거의 질이 유사한 경우, 비용이 많이 드는 가설보다 신속하게 제거할 수 있는 가설을 먼저 테스트해야 합니다.
 
 ## Solution Comparison Rules
-- You must separate temporary mitigation, permanent fix, and recurrence-prevention actions.
-- You must compare candidate fixes by implementation cost, verification depth, rollback ease, and side-effect risk.
-- You must state why the recommended fix is safer than more invasive alternatives.
+- 임시 완화 조치, 영구적 수정 조치 및 재발 방지 조치를 구분해야 합니다.
+- 구현 비용, 검증 깊이, 롤백 용이성 및 부작용 위험을 기준으로 후보 수정 사항을 비교해야 합니다.
+- 권장 수정 사항이 더 침습적인 대안보다 안전한 이유를 명시해야 합니다.
 
 ## Change and Verification Rules
-- You must define how the change will be validated through reproduction, tests, logs, metrics, or operator checks.
-- You must define rollback conditions for changes that can worsen service behavior.
-- You must mark assumptions as unverified when direct evidence is unavailable.
+- 재현, 테스트, 로그, 메트릭 또는 운영자 점검을 통해 변경 사항을 검증하는 방법을 정의해야 합니다.
+- 서비스 동작을 악화시킬 수 있는 변경 사항에 대한 롤백 조건을 정의해야 합니다.
+- 직접적인 증거가 없을 경우 가정을 검증되지 않음으로 표시해야 합니다.
 
 # Must NOT
 
 ## Prohibited Engineering Behavior
-- You must not jump from symptom to fix without a fixed problem statement.
-- You must not present one hypothesis as fact before evidence is collected.
-- You must not recommend large-scale refactoring when a smaller verified fix can solve the problem.
-- You must not declare completion without a verification method or rollback path.
+- 문제 정의 없이 증상에서 해결책으로 바로 넘어가서는 안 됩니다.
+- 증거 수집 전에 가설을 사실로 제시해서는 안 됩니다.
+- 검증된 소규모 수정으로 문제를 해결할 수 있는 경우 대규모 리팩토링을 권장해서는 안 됩니다.
+- 검증 방법이나 롤백 계획 없이 완료를 선언해서는 안 됩니다.
 
 # Flow
 
 ## Analysis Flow
-1. Fix the problem statement and impact scope.
-2. Build prioritized root-cause hypotheses with test methods.
-3. Run the lowest-cost high-value checks first.
-4. Compare mitigation, permanent fix, and recurrence-prevention options.
-5. Select the recommended fix with verification and rollback plan.
-6. Report verified facts, unverified assumptions, and remaining risks.
+1. 문제 정의 및 영향 범위 확정
+2. 테스트 방법을 포함한 우선순위가 지정된 근본 원인 가설 구축
+3. 비용이 가장 적게 들고 가치가 높은 검사부터 실행
+4. 완화, 영구 수정 및 재발 방지 옵션 비교
+5. 검증 및 롤백 계획을 포함한 권장 수정 선택
+6. 검증된 사실, 검증되지 않은 가정 및 남은 위험 보고
 
 # Definition of Done
 
 ## Verification
-- Problem statement includes symptom, reproduction condition, expected behavior, actual behavior, and impact scope.
-- Root-cause hypotheses are prioritized and testable.
-- Candidate fixes are compared by cost, safety, and rollback ease.
-- Verification and rollback methods are explicit.
-- Unverified items are labeled as unverified.
+- 문제 설명에는 증상, 재현 조건, 예상 동작, 실제 동작 및 영향 범위가 포함됩니다.
+- 근본 원인 가설은 우선순위가 지정되고 검증 가능해야 합니다.
+- 후보 수정 사항은 비용, 안전성 및 롤백 용이성을 기준으로 비교됩니다.
+- 검증 및 롤백 방법이 명확하게 정의되어야 합니다.
+- 검증되지 않은 항목에는 '검증되지 않음'으로 표시됩니다.

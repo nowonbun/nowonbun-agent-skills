@@ -1,6 +1,6 @@
 ---
 name: coding-assistant
-description: Engineers handling coding changes must use this skill to classify change risk, coordinate Codex and Claude review, and report verification results consistently.
+description: 코딩 변경을 처리하는 엔지니어는 이 스킬을 사용하여 변경 위험을 분류하고, Codex 및 Claude 검토를 조정하고, 검증 결과를 일관되게 보고해야 합니다.
 ---
 
 # Coding Assistant Skill
@@ -8,72 +8,72 @@ description: Engineers handling coding changes must use this skill to classify c
 # Must
 
 ## Scope
-- You must apply this document when handling code, configuration, or developer-document changes that need implementation planning, review, or verification.
-- You must apply the same review discipline to documentation and configuration changes when they can affect execution behavior.
+- 구현 계획, 검토 또는 검증이 필요한 코드, 구성 또는 개발자 문서 변경을 처리할 때 이 문서를 적용해야 합니다.
+- 실행 동작에 영향을 줄 수 있는 문서 및 구성 변경에도 동일한 검토 원칙을 적용해야 합니다.
 
 ## Source of Truth
-- This document governs coding-change coordination, change-risk framing, local verification planning, and review handoff structure in `./SKILL.md`; it does not govern Claude runtime transport controls, Claude review log schema, or general skill-document format rules.
-- `../runtime-management_claude-review-runtime/SKILL.md` is the single source of truth for Claude review applicability, runtime preflight, retry, and blocked-state handling; consult it when deciding how to start or recover a Claude review run, not for coding-change coordination structure.
-- `../tool-usage-management_claude-cross-review-protocol/SKILL.md` is the single source of truth for Claude review normalization, NG/OK output rules, and collaboration-log fields; consult it when deciding how review findings must be formatted and recorded, not for coding-task planning or local verification scope.
+- 이 문서는 `./SKILL.md`에 있는 코딩 변경 조정, 변경 위험 프레임워크, 로컬 검증 계획 및 검토 인계 구조를 규정합니다. Claude 런타임 전송 제어, Claude 검토 로그 스키마 또는 일반적인 스킬 문서 형식 규칙은 규정하지 않습니다.
+- `../runtime-management_claude-review-runtime/SKILL.md`는 Claude 리뷰 적용 가능성, 런타임 사전 검사, 재시도 및 차단 상태 처리와 관련된 모든 정보를 담고 있는 유일한 자료입니다. Claude 리뷰 실행을 시작하거나 복구하는 방법을 결정할 때 이 파일을 참조하십시오. 코드 변경 조정 구조를 결정할 때는 이 파일을 참조하지 마십시오.
+- `../tool-usage-management_claude-cross-review-protocol/SKILL.md`는 Claude 리뷰 정규화, NG/OK 출력 규칙 및 협업 로그 필드에 대한 모든 정보를 담고 있는 유일한 자료입니다. 리뷰 결과를 어떤 형식으로 기록하고 처리해야 하는지 결정할 때 이 파일을 참조하십시오. 코드 작업 계획이나 로컬 검증 범위를 결정할 때는 이 파일을 참조하지 마십시오.
 
 ## Change Classification Rules
-- You must classify each request as non-destructive or destructive before implementation.
-- You must treat schema changes, API contract changes, authentication or permission changes, large deletions, and workflow-breaking configuration changes as destructive.
-- You must document the approval requirement that follows from the classification.
+- 구현 전에 각 요청을 비파괴적 또는 파괴적 변경으로 분류해야 합니다.
+- 스키마 변경, API 계약 변경, 인증 또는 권한 변경, 대규모 삭제 및 워크플로를 방해하는 구성 변경은 파괴적 변경으로 처리해야 합니다.
+- 분류에 따른 승인 요구 사항을 문서화해야 합니다.
 
 ## Role Allocation Rules
-- Codex must own requirement breakdown, implementation plan, change execution, and final integration.
-- Claude review must own independent review, source investigation, and verification suggestions when Claude review is available and applicable.
-- You must keep review independent when the task requires high-risk or policy-sensitive verification.
+- Codex는 요구사항 분석, 구현 계획, 변경 실행 및 최종 통합을 담당해야 합니다.
+- Claude 검토 담당자는 Claude 검토가 가능하고 적용 가능한 경우 독립적인 검토, 소스 조사 및 검증 제안을 담당해야 합니다.
+- 작업에 고위험 또는 정책 민감 검증이 필요한 경우 검토의 독립성을 유지해야 합니다.
 
 ## Approval and Execution Rules
-- You must obtain user confirmation before destructive changes.
-- You must present the planned file scope and expected impact before executing a destructive change.
-- You must state the evidence path when MCP, issue history, database state, or external documentation is required.
+- 파괴적인 변경을 수행하기 전에 사용자 승인을 받아야 합니다.
+- 파괴적인 변경을 실행하기 전에 계획된 파일 범위와 예상되는 영향을 제시해야 합니다.
+- MCP, 문제 이력, 데이터베이스 상태 또는 외부 문서가 필요한 경우 증거 경로를 명시해야 합니다.
 
 ## Claude Review Rules
-- You must run Claude review as a mandatory gate for coding, configuration, and execution-affecting documentation changes.
-- You must run `plan-review` before execution starts when an actionable plan exists.
-- You must run `source-review` after source changes exist and before completion reporting.
-- You must run `result-review` after execution results and verification evidence are available.
-- When Claude review is run, you must follow `../runtime-management_claude-review-runtime/SKILL.md` for availability checks, fallback handling, and escalation behavior.
-- When Claude review is unavailable or fails, you must switch to an explicit alternative verification flow instead of silently skipping review.
+- 코딩, 구성 및 실행에 영향을 미치는 문서 변경에 대해 Claude 검토를 필수 관문으로 실행해야 합니다.
+- 실행 가능한 계획이 있는 경우 실행을 시작하기 전에 `plan-review`를 실행해야 합니다.
+- 소스 변경이 발생한 후 완료 보고 전에 `source-review`를 실행해야 합니다.
+- 실행 결과 및 검증 증거가 확보된 후 `result-review`를 실행해야 합니다.
+- Claude 검토를 실행할 때는 가용성 확인, 대체 처리 및 에스컬레이션 동작에 대해 `../runtime-management_claude-review-runtime/SKILL.md`를 따라야 합니다.
+- Claude 검토를 사용할 수 없거나 실패하는 경우, 검토를 자동으로 건너뛰는 대신 명시적인 대체 검증 흐름으로 전환해야 합니다.
 
 ## Alternative Verification Rules
-- You must separate policy review, implementation review, and command validation when Claude review is unavailable.
-- You must record executed commands separately from proposed commands.
-- You must record remaining risks when review depth is lower than planned.
+- Claude 검토를 사용할 수 없는 경우 정책 검토, 구현 검토 및 명령 유효성 검사를 분리해야 합니다.
+- 실행된 명령과 제안된 명령을 별도로 기록해야 합니다.
+- 검토 깊이가 계획보다 낮은 경우 남은 위험을 기록해야 합니다.
 
 ## Final Reporting Rules
-- You must report changed files, key modifications, impact scope, verification commands, and remaining issues.
-- You must report whether Claude review was attempted, which review execution path was used, and whether fallback verification was used.
-- You must distinguish verified facts from unverified assumptions in the final report.
+- 변경된 파일, 주요 수정 사항, 영향 범위, 검증 명령 및 남은 문제를 보고해야 합니다.
+- Claude 검토를 시도했는지 여부, 사용된 검토 실행 경로 및 대체 검증을 사용했는지 여부를 보고해야 합니다.
+- 최종 보고서에서 검증된 사실과 검증되지 않은 가정을 구분해야 합니다.
 
 # Must NOT
 
 ## Prohibited Collaboration Behavior
-- You must not implement destructive changes before user approval.
-- You must not present Claude review as completed when only a plan exists.
-- You must not hide review failure, timeout, or fallback execution.
-- You must not merge implementation conclusions and independent review conclusions into one unlabeled block.
-- You must not treat configuration or documentation changes as no-review changes when they alter execution behavior.
+- 사용자 승인 전에 파괴적인 변경을 구현해서는 안 됩니다.
+- 계획만 존재하는 상태에서 Claude 검토가 완료된 것으로 표시해서는 안 됩니다.
+- 검토 실패, 시간 초과 또는 대체 실행을 숨겨서는 안 됩니다.
+- 구현 결과와 독립적인 검토 결과를 레이블이 없는 하나의 블록으로 병합해서는 안 됩니다.
+- 실행 동작을 변경하는 구성 또는 문서 변경 사항을 검토가 필요 없는 변경 사항으로 처리해서는 안 됩니다.
 
 # Flow
 
 ## Change Handling Flow
-1. Classify the request as non-destructive or destructive.
-2. Define target files, expected impact, and approval requirement.
-3. Prepare the mandatory review sequence.
-4. Run `plan-review`.
-5. Execute implementation planning and changes through Codex.
-6. Run `source-review` and `result-review`, or explicit blocked/fallback handling when Claude review cannot complete.
-7. Report changed files, verification evidence, review result, and remaining risks.
+1. 요청을 비파괴적 또는 파괴적 요청으로 분류합니다.
+2. 대상 파일, 예상 영향 및 승인 요구 사항을 정의합니다.
+3. 필수 검토 시퀀스를 준비합니다.
+4. `plan-review`를 실행합니다.
+5. Codex를 통해 구현 계획 및 변경 사항을 실행합니다.
+6. `source-review` 및 `result-review`를 실행하거나, Claude 검토가 완료되지 않을 경우 명시적인 차단/대체 처리를 수행합니다.
+7. 변경된 파일, 검증 증거, 검토 결과 및 잔여 위험 요소를 보고합니다.
 
 # Definition of Done
 
 ## Verification
-- Change classification and approval requirement are documented.
-- Codex and Claude responsibilities are separated.
-- Destructive changes are blocked until user approval is obtained.
-- Mandatory review phases or blocked/fallback handling are recorded.
-- Final report includes changed files, impact scope, verification commands, and remaining risks.
+- 변경 분류 및 승인 요구 사항이 문서화되어 있습니다.
+- Codex와 Claude의 책임이 분리되어 있습니다.
+- 사용자 승인을 받을 때까지 파괴적인 변경은 차단됩니다.
+- 필수 검토 단계 또는 차단/대체 처리 방식이 기록됩니다.
+- 최종 보고서에는 변경된 파일, 영향 범위, 검증 명령 및 남아 있는 위험이 포함됩니다.

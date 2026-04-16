@@ -1,6 +1,6 @@
 ---
 name: reality-check
-description: Engineers challenging optimistic or biased judgments must use this skill to expose missing assumptions, downside risk, and conditional alternatives.
+description: 낙관적이거나 편향된 판단에 이의를 제기하는 엔지니어는 누락된 가정, 하방 위험, 조건부 대안을 드러내기 위해 이 스킬을 사용해야 합니다.
 ---
 
 # Reality Check Skill
@@ -8,48 +8,48 @@ description: Engineers challenging optimistic or biased judgments must use this 
 # Must
 
 ## Scope
-- You must apply this document when a proposal, forecast, or decision appears overly optimistic, selectively framed, or weakly stress-tested.
-- You must correct judgment quality, not attack the user's intent.
+- 제안, 예측 또는 결정이 지나치게 낙관적이거나, 선택적으로 구성되었거나, 스트레스 테스트가 미흡해 보일 때 이 문서를 적용해야 합니다.
+- 사용자의 의도를 공격하는 것이 아니라 판단의 질을 바로잡아야 합니다.
 
 ## Source of Truth
-- This document governs downside-risk surfacing, missing-assumption exposure, and conditional-alternative framing in `./SKILL.md`; it does not govern domain-specific workflow rules, governance-tier selection, or skill-document formatting.
+- 이 문서는 `./SKILL.md` 파일에서 하방 위험 파악, 누락된 가정 노출, 조건부 대안 제시를 규정합니다. 도메인별 워크플로 규칙, 거버넌스 계층 선택 또는 스킬 문서 서식은 규정하지 않습니다.
 
 ## Framing Rules
-- You must identify the most fragile assumption before arguing about the conclusion.
-- You must explain why that assumption is fragile through missing variables, execution cost, time delay, or downside exposure.
-- You must distinguish factual gaps from value judgments.
+- 결론에 대해 논하기 전에 가장 취약한 가정을 파악해야 합니다.
+- 누락된 변수, 실행 비용, 시간 지연 또는 하방 위험 노출 등을 통해 해당 가정이 왜 취약한지 설명해야 합니다.
+- 사실 관계의 공백과 가치 판단을 구분해야 합니다.
 
 ## Scenario Rules
-- You must compare optimistic, base, and failure scenarios.
-- You must state the condition that moves the decision from acceptable to unacceptable.
-- You must raise the required conservatism when downside loss is asymmetric or irreversible.
+- 낙관적 시나리오, 기본 시나리오, 그리고 실패 시나리오를 비교해야 합니다.
+- 결정이 수용 가능한 수준에서 수용 불가능한 수준으로 바뀌는 조건을 명시해야 합니다.
+- 하방 손실이 비대칭적이거나 돌이킬 수 없는 경우, 필요한 보수성을 높여야 합니다.
 
 ## Alternative Rules
-- You must provide at least one actionable alternative, safeguard, or staged rollout option.
-- You must provide a re-check condition when new evidence could change the judgment.
-- You must use numbers, ranges, or explicit conditions when credible quantification is available.
+- 실행 가능한 대안, 안전장치 또는 단계적 도입 방안을 최소 하나 이상 제시해야 합니다.
+- 새로운 증거가 판단을 변경할 수 있는 경우 재검토 조건을 제시해야 합니다.
+- 신뢰할 수 있는 정량적 자료가 있는 경우 숫자, 범위 또는 명시적인 조건을 사용해야 합니다.
 
 # Must NOT
 
 ## Prohibited Reality-Check Behavior
-- You must not mock, shame, or dismiss the user.
-- You must not argue only with tone or intuition.
-- You must not present the failure scenario alone without a base-case comparison.
-- You must not give a warning without a usable next step.
+- 사용자를 조롱하거나, 수치심을 주거나, 무시해서는 안 됩니다.
+- 어조나 직관에만 의존하여 논쟁해서는 안 됩니다.
+- 기본 사례와의 비교 없이 실패 시나리오만 제시해서는 안 됩니다.
+- 실질적인 다음 단계를 제시하지 않고 경고만 해서는 안 됩니다.
 
 # Flow
 
 ## Review Flow
-1. Identify the key claim and its most fragile assumption.
-2. Show missing variables or hidden downside.
-3. Compare optimistic, base, and failure scenarios.
-4. Define the condition that changes the recommendation.
-5. Provide a safer alternative or staged execution path.
+1. 핵심 주장과 그 주장의 가장 취약한 가정을 파악합니다.
+2. 누락된 변수 또는 숨겨진 단점을 제시합니다.
+3. 낙관적 시나리오, 기본 시나리오, 그리고 실패 시나리오를 비교합니다.
+4. 권장 사항이 변경되는 조건을 정의합니다.
+5. 더 안전한 대안 또는 단계별 실행 경로를 제시합니다.
 
 # Definition of Done
 
 ## Verification
-- The fragile assumption is identified explicitly.
-- Missing variables or downside exposures are stated with evidence or conditions.
-- Optimistic, base, and failure scenarios are compared.
-- A safer alternative or re-check condition is provided.
+- 취약한 가정이 명확하게 제시됩니다.
+- 누락된 변수 또는 하방 위험 요소가 근거 또는 조건과 함께 명시됩니다.
+- 낙관적 시나리오, 기본 시나리오 및 실패 시나리오가 비교됩니다.
+- 더 안전한 대안 또는 재검토 조건이 제시됩니다.

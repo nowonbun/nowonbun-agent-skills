@@ -1,6 +1,6 @@
 ---
 name: ai-agent
-description: Engineers designing AI agents must use this skill to define operating problems, decision boundaries, tool contracts, and verification plans.
+description: AI 에이전트를 설계하는 엔지니어는 이 스킬을 사용하여 운영 문제, 결정 경계, 도구 계약 및 검증 계획을 정의해야 합니다.
 ---
 
 # AI Agent Skill
@@ -8,76 +8,76 @@ description: Engineers designing AI agents must use this skill to define operati
 # Must
 
 ## Scope
-- You must apply this document when designing or reviewing an AI agent that combines LLM reasoning, tools, MCP servers, or workflow orchestration.
-- You must define the agent as an operating system for a task, not as a list of isolated features.
+- LLM 추론, 도구, MCP 서버 또는 워크플로 오케스트레이션을 결합하는 AI 에이전트를 설계하거나 검토할 때 이 문서를 적용해야 합니다.
+- 에이전트는 개별 기능 목록이 아닌 작업을 위한 운영 체제로 정의해야 합니다.
 
 ## Source of Truth
-- This document governs AI-agent problem framing, decision-boundary definition, tool-contract definition, and verification-plan structure in `./SKILL.md`; it does not govern coding-change review flow, cross-review runtime execution, or repository-wide skill format rules.
-- `../action-management_coding-assistant/SKILL.md` is the single source of truth for implementation-time collaboration, review sequencing, and change-reporting decisions; consult it when an AI-agent design task moves into concrete code-change execution, not for agent-design structure decisions.
+- 이 문서는 `./SKILL.md`에 있는 AI 에이전트 문제 정의, 결정 경계 정의, 도구 계약 정의 및 검증 계획 구조를 규정합니다. 코딩 변경 검토 흐름, 교차 검토 런타임 실행 또는 저장소 전체 스킬 형식 규칙은 규정하지 않습니다.
+- `../action-management_coding-assistant/SKILL.md`는 구현 시 협업, 검토 순서 및 변경 보고 결정에 대한 유일한 기준 문서입니다. AI 에이전트 설계 작업이 구체적인 코드 변경 실행 단계로 넘어갈 때 이 가이드라인을 참조하십시오. 에이전트 설계 구조 결정 시에는 사용하지 마십시오.
 
 ## Problem Definition Rules
-- You must define the operating problem before proposing architecture.
-- You must identify target users, failure cost, and success criteria before tool selection.
-- You must separate business goal, runtime constraint, and non-goal into different bullets.
+- 아키텍처를 제안하기 전에 운영 문제를 정의해야 합니다.
+- 도구를 선택하기 전에 대상 사용자, 실패 비용 및 성공 기준을 파악해야 합니다.
+- 비즈니스 목표, 런타임 제약 조건 및 비목표를 각각 별도의 항목으로 구분해야 합니다.
 
 ## Decision Boundary Rules
-- You must define which decisions the agent can make autonomously.
-- You must define which actions require user approval or operator approval.
-- You must define blocked actions that the agent must never execute.
+- 에이전트가 자율적으로 내릴 수 있는 결정을 정의해야 합니다.
+- 사용자 승인 또는 운영자 승인이 필요한 작업을 정의해야 합니다.
+- 에이전트가 절대 실행해서는 안 되는 차단된 작업을 정의해야 합니다.
 
 ## Pipeline Design Rules
-- You must document the pipeline in this order:
-  1. input collection
-  2. intent interpretation
-  3. context retrieval
-  4. plan generation
-  5. tool execution
-  6. result verification
-  7. response generation
-  8. logging and observability
-- You must define entry condition, output contract, and failure handling for each stage.
+- 파이프라인은 다음 순서대로 문서화해야 합니다.
+  1. 입력 수집
+  2. 의도 해석
+  3. 컨텍스트 검색
+  4. 계획 생성
+  5. 도구 실행
+  6. 결과 검증
+  7. 응답 생성
+  8. 로깅 및 관찰 가능성
+- 각 단계에 대한 진입 조건, 출력 계약 및 오류 처리를 정의해야 합니다.
 
 ## LLM and Tool Contract Rules
-- You must define each LLM call with explicit input, expected output, and rejection condition.
-- You must place LLM reasoning only on stages that require ambiguity resolution or synthesis.
-- You must define every MCP or external-tool integration with schema, timeout, retry policy, and failure-isolation behavior.
+- 각 LLM 호출은 명확한 입력, 예상 출력 및 거부 조건을 포함하여 정의해야 합니다.
+- LLM 추론은 모호성 해결 또는 합성이 필요한 단계에만 배치해야 합니다.
+- 모든 MCP 또는 외부 도구 통합은 스키마, 타임아웃, 재시도 정책 및 오류 격리 동작을 포함하여 정의해야 합니다.
 
 ## State and Memory Rules
-- You must separate session state, cache, and long-term storage by purpose.
-- You must define what data may be persisted and what data must remain ephemeral.
-- You must define how stale state is detected or invalidated.
+- 세션 상태, 캐시 및 장기 저장소는 목적별로 분리해야 합니다.
+- 어떤 데이터를 영구 저장할 수 있고 어떤 데이터를 임시로 유지해야 하는지 정의해야 합니다.
+- 오래된 상태를 감지하거나 무효화하는 방법을 정의해야 합니다.
 
 ## Observability and Verification Rules
-- You must define traceable identifiers for requests and tool-execution steps.
-- You must define logs or metrics that expose tool usage, model calls, validation failures, and operator interventions.
-- You must provide validation scenarios for success path, failure path, approval path, and rollback path.
+- 요청 및 도구 실행 단계에 대한 추적 가능한 식별자를 정의해야 합니다.
+- 도구 사용량, 모델 호출, 유효성 검사 실패 및 운영자 개입을 나타내는 로그 또는 메트릭을 정의해야 합니다.
+- 성공 경로, 실패 경로, 승인 경로 및 롤백 경로에 대한 유효성 검사 시나리오를 제공해야 합니다.
 
 # Must NOT
 
 ## Prohibited Design Behavior
-- You must not start with model choice before problem definition is fixed.
-- You must not merge LLM responsibility, application control, and audit responsibility into one undefined block.
-- You must not leave approval boundaries implicit.
-- You must not describe prompt text as the only control mechanism for safety or policy enforcement.
-- You must not omit failure handling for a stage that can call a tool or modify state.
+- 문제 정의가 확정되기 전에 모델 선택을 시작해서는 안 됩니다.
+- LLM 책임, 애플리케이션 제어 및 감사 책임을 정의되지 않은 하나의 블록으로 통합해서는 안 됩니다.
+- 승인 경계를 암묵적으로 남겨두어서는 안 됩니다.
+- 프롬프트 텍스트를 안전 또는 정책 시행을 위한 유일한 제어 메커니즘으로 설명해서는 안 됩니다.
+- 도구를 호출하거나 상태를 수정할 수 있는 단계에 대한 오류 처리를 생략해서는 안 됩니다.
 
 # Flow
 
 ## Design Flow
-1. Define the operating problem, target users, and success criteria.
-2. Define constraints, non-goals, and failure cost.
-3. Define autonomous, approval-required, and blocked decisions.
-4. Design the pipeline stages and per-stage contracts.
-5. Define LLM-call placement and tool/MCP contracts.
-6. Define state boundaries, observability, and verification scenarios.
-7. Hand off implementation-specific work to `../action-management_coding-assistant/SKILL.md` when coding changes are required.
+1. 운영 문제, 대상 사용자 및 성공 기준을 정의합니다.
+2. 제약 조건, 비목표 및 실패 비용을 정의합니다.
+3. 자율적, 승인 필요 및 차단된 결정을 정의합니다.
+4. 파이프라인 단계 및 단계별 계약을 설계합니다.
+5. LLM 호출 배치 및 도구/MCP 계약을 정의합니다.
+6. 상태 경계, 관찰 가능성 및 검증 시나리오를 정의합니다.
+7. 코딩 변경이 필요한 경우 구현 관련 작업은 `../action-management_coding-assistant/SKILL.md`에 전달합니다.
 
 # Definition of Done
 
 ## Verification
-- Problem definition exists before architecture description.
-- Decision boundaries are separated into autonomous, approval-required, and blocked actions.
-- Pipeline stages are documented in the required order with contracts and failure handling.
-- LLM and tool integrations have explicit contracts.
-- State separation and observability rules are documented.
-- Validation scenarios cover success, failure, approval, and rollback paths.
+- 문제 정의가 아키텍처 설명보다 먼저 존재합니다.
+- 의사 결정 경계는 자율 실행, 승인 필요, 차단된 작업으로 구분됩니다.
+- 파이프라인 단계는 계약 및 오류 처리와 함께 필요한 순서대로 문서화됩니다.
+- LLM 및 도구 통합에는 명확한 계약이 있습니다.
+- 상태 분리 및 관찰 가능성 규칙이 문서화됩니다.
+- 유효성 검사 시나리오는 성공, 실패, 승인 및 롤백 경로를 모두 포함합니다.

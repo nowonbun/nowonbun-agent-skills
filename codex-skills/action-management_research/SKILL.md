@@ -1,6 +1,6 @@
 ---
 name: research
-description: Engineers analyzing a topic must use this skill to define the question, separate fact from interpretation, compare viewpoints, and state uncertainty clearly.
+description: 주제를 분석하는 엔지니어는 질문을 정의하고, 사실과 해석을 구분하고, 다양한 관점을 비교하고, 불확실성을 명확하게 표현하기 위해 이 기술을 사용해야 합니다.
 ---
 
 # Research Skill
@@ -8,53 +8,53 @@ description: Engineers analyzing a topic must use this skill to define the quest
 # Must
 
 ## Scope
-- You must apply this document when researching or analyzing history, geopolitics, economics, technology, or similar topics for decision support.
-- You must structure the output for use in decisions, not only for summary.
+- 이 문서는 역사, 지정학, 경제, 기술 또는 이와 유사한 주제를 연구하거나 분석하여 의사결정을 지원할 때 반드시 활용해야 합니다.
+- 결과물은 요약뿐 아니라 의사결정에 활용할 수 있도록 구조화해야 합니다.
 
 ## Source of Truth
-- This document governs question framing, fact-versus-interpretation separation, viewpoint comparison, and uncertainty reporting in `./SKILL.md`; it does not govern domain-specific action workflows, MCP parameter validation, or skill-document format rules.
+- 이 문서는 `./SKILL.md` 파일에서 질문 구성, 사실과 해석의 구분, 관점 비교 및 ​​불확실성 보고에 대한 규칙을 정합니다. 단, 도메인별 작업 워크플로, MCP 매개변수 유효성 검사 또는 스킬 문서 형식 규칙은 이 문서의 적용 대상이 아닙니다.
 
 ## Question Definition Rules
-- You must define the question scope, time range, region, and required confidence level before collecting conclusions.
-- You must state why the question matters for the current decision or mark the purpose as unverified.
+- 결론을 도출하기 전에 질문의 범위, 시간 범위, 지역 및 필요한 신뢰 수준을 정의해야 합니다.
+- 해당 질문이 현재 결정에 중요한 이유를 명시하거나, 목적을 검증하지 않음으로 표시해야 합니다.
 
 ## Evidence Separation Rules
-- You must separate confirmed facts, interpretation, hypothesis, and forecast into distinct bullets or sections.
-- You must label the strength of a claim as confirmed fact, strong inference, or weak inference.
-- You must attach a date boundary when the topic depends on recent developments.
+- 확인된 사실, 해석, 가설, 예측은 각각 별도의 항목이나 섹션으로 구분해야 합니다.
+- 주장의 강도를 확인된 사실, 강력한 추론, 약한 추론으로 표시해야 합니다.
+- 주제가 최근 상황에 따라 달라지는 경우, 해당 기간의 범위를 명시해야 합니다.
 
 ## Viewpoint Comparison Rules
-- You must present at least two meaningful viewpoints when the topic has live disagreement.
-- You must state the evidence base, assumptions, and explanatory limits of each viewpoint.
-- You must expose structural causes in addition to direct triggers when both exist.
+- 의견 차이가 있는 주제의 경우, 최소 두 가지 이상의 의미 있는 관점을 제시해야 합니다.
+- 각 관점의 근거, 전제, 그리고 설명의 한계를 명시해야 합니다.
+- 구조적 원인이 직접적인 원인과 구조적 원인이 모두 존재하는 경우, 두 가지 원인 모두를 밝혀야 합니다.
 
 ## Uncertainty and Output Rules
-- You must express conclusions conditionally when the evidence is incomplete, contested, or time-sensitive.
-- You must separate immediate takeaways from follow-up questions or missing evidence.
-- You must identify what would materially change the conclusion.
+- 증거가 불완전하거나, 논쟁의 여지가 있거나, 시급한 경우에는 결론을 조건부로 제시해야 합니다.
+- 즉각적인 결론과 후속 질문 또는 부족한 증거를 구분해야 합니다.
+- 결론을 실질적으로 바꿀 수 있는 요소를 명시해야 합니다.
 
 # Must NOT
 
 ## Prohibited Research Behavior
-- You must not mix fact and interpretation in one unlabeled paragraph.
-- You must not force false balance when one view lacks serious evidence.
-- You must not present a time-sensitive conclusion without a date boundary.
-- You must not hide uncertainty behind definitive wording.
+- 사실과 해석을 구분 없이 하나의 문단에 혼합해서는 안 됩니다.
+- 한쪽 주장에 확실한 근거가 부족한데도 억지로 균형을 맞추려 해서는 안 됩니다.
+- 시의성을 명시하지 않고 결론을 제시해서는 안 됩니다.
+- 확정적인 표현 뒤에 불확실성을 숨겨서는 안 됩니다.
 
 # Flow
 
 ## Research Flow
-1. Define the question scope, purpose, time range, and confidence requirement.
-2. Collect and separate facts, interpretations, hypotheses, and forecasts.
-3. Compare major viewpoints and their assumptions.
-4. State structural causes, direct triggers, impacts, and limits.
-5. Conclude with conditional judgment, date boundary, and follow-up questions.
+1. 질문의 범위, 목적, 시간 범위 및 신뢰도 요구 사항을 정의합니다.
+2. 사실, 해석, 가설 및 예측을 수집하고 분류합니다.
+3. 주요 관점과 그 전제를 비교합니다.
+4. 구조적 원인, 직접적인 유발 요인, 영향 및 한계를 명시합니다.
+5. 조건부 판단, 기한 및 후속 질문을 제시하며 결론을 내립니다.
 
 # Definition of Done
 
 ## Verification
-- Question scope, purpose, time range, and confidence level are defined.
-- Facts, interpretations, hypotheses, and forecasts are separated.
-- Claim strength labels are present where conclusions are made.
-- Competing viewpoints and uncertainty limits are documented.
-- Final output separates immediate takeaways from follow-up questions.
+- 질문의 범위, 목적, 시간 범위 및 신뢰 수준이 정의됩니다.
+- 사실, 해석, 가설 및 예측이 구분됩니다.
+- 결론이 도출된 부분에는 주장 강도 표시가 있습니다.
+- 상반된 관점과 불확실성 한계가 기록됩니다.
+- 최종 결과물은 즉각적인 시사점과 후속 질문을 구분합니다.

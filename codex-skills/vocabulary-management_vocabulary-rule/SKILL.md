@@ -1,6 +1,6 @@
 ---
 name: vocabulary-rule
-description: Agents and authors must use this global vocabulary baseline to interpret term meanings and rule-strength expressions consistently across governed documents.
+description: 에이전트와 작성자는 관리되는 모든 문서에서 용어 의미와 규칙 강도 표현을 일관되게 해석하기 위해 이 전역 어휘 기준선을 사용해야 합니다.
 ---
 
 # Vocabulary Rule
@@ -8,98 +8,97 @@ description: Agents and authors must use this global vocabulary baseline to inte
 # Must
 
 ## Scope
-- You must apply this document to term and strength interpretation in `global_instructions`, `CLAUDE`, `AGENTS`, and `SKILL.md`-family documents.
-- `SKILL.md`-family means the root `SKILL.md` file and all companion files explicitly referenced from that `SKILL.md`.
-- You must apply this document before task-intent interpretation, workflow trigger interpretation, and write-action decisions.
-- All paths in this document are project-root-relative paths unless explicitly marked as absolute paths.
+- 이 문서는 `global_instructions`, `CLAUDE`, `AGENTS` 및 `SKILL.md` 계열 문서의 용어 및 강도 해석에 적용해야 합니다.
+- `SKILL.md` 계열은 루트 파일인 `SKILL.md`와 해당 `SKILL.md`에서 명시적으로 참조되는 모든 관련 파일을 의미합니다.
+- 이 문서는 작업 의도 해석, 워크플로 트리거 해석 및 쓰기 작업 결정 전에 적용해야 합니다.
+- 이 문서의 모든 경로는 명시적으로 절대 경로로 표시되지 않는 한 프로젝트 루트를 기준으로 하는 상대 경로입니다.
 
 ## Out of Scope
-- You must not define implementation details, architecture design details, or code-style rules directly in this document.
-- You must not define rationale-storage operations (storage location, retention period, or ticket linkage) in this document.
+- 이 문서에서 구현 세부 정보, 아키텍처 설계 세부 정보 또는 코드 스타일 규칙을 직접 정의해서는 안 됩니다.
+- 이 문서에서는 근거 저장 작업(저장 위치, 보존 기간 또는 티켓 연결)을 정의해서는 안 됩니다.
 
 ## Source of Truth
-- This document governs vocabulary interpretation, rule-strength interpretation, registry category boundaries, and term-normalization behavior in `./SKILL.md`; it does not govern constitution-authoring boundaries, skill-document format design, or history-record creation timing.
-- `../skill-management_constitution-rule/SKILL.md` is the single source of truth for constitution-authoring boundaries; consult it when deciding how constitution layers, priority, and prohibited behaviors must be authored, not for vocabulary meaning or rule-strength interpretation.
-- `../skill-management_skill-create-rule/SKILL.md` is the single source of truth for skill-document format constraints; consult it when deciding how a skill document must be structured or written, not for vocabulary meaning or registry category decisions.
-- `../skill-management_skill-modify-history/SKILL.md` is the single source of truth for rationale/history recording operations; consult it when deciding whether and how vocabulary-rule revisions must be recorded, not for vocabulary registry meaning or rule-strength interpretation.
+- 이 문서는 `./SKILL.md`에서 어휘 해석, 규칙 강도 해석, 레지스트리 범주 경계 및 용어 정규화 동작을 규정합니다. 단, 스킬 구성 작성 경계, 스킬 문서 형식 설계 또는 이력 기록 생성 시점은 규정하지 않습니다.
+- `../skill-management_constitution-rule/SKILL.md`는 스킬 구성 작성 경계에 대한 유일한 기준 문서입니다. 어휘 의미 또는 규칙 강도 해석이 아닌, 스킬 구성 계층, 우선순위 및 금지된 동작을 작성하는 방법을 결정할 때 이 문서를 참조하십시오.
+- `../skill-management_skill-create-rule/SKILL.md`는 스킬 문서 형식 제약 조건에 대한 유일한 기준 문서입니다. 어휘 의미 또는 레지스트리 범주 결정이 아닌, 스킬 문서의 구조 또는 작성 방법을 결정할 때 이 문서를 참조하십시오.
+- `../skill-management_skill-modify-history/SKILL.md` 파일은 근거/이력 기록 작업에 대한 유일한 기준점입니다. 어휘 규칙 수정 사항을 기록해야 하는지 여부와 방법을 결정할 때 이 파일을 참조하십시오. 어휘 레지스트리의 의미나 규칙 강도 해석을 위해 이 파일을 사용해서는 안 됩니다.
 
 ## Registry Control
-- You must maintain the active registry at `codex-skills/vocabulary-management/vocabulary-registry.md`.
-- The registry must contain at least one executable term entry at all times.
-- You must use only these categories: `priority`, `time`, `scope`, `state`, `risk`, `action`, `report-status`.
-- The category set above must be treated as sufficient because it covers decision axis, temporal axis, boundary axis, lifecycle axis, risk axis, operation axis, and reporting axis.
-- For each term entry, you must define `term`, `category`, `canonical meaning`, `decision rule`, `allowed values`, and `prohibited interpretations`.
+- `codex-skills/vocabulary-management/vocabulary-registry.md`에 활성 레지스트리를 유지 관리해야 합니다.
+- 레지스트리에는 항상 최소 하나 이상의 실행 가능한 용어 항목이 포함되어 있어야 합니다.
+- 다음 범주만 사용해야 합니다. `priority`, `time`, `scope`, `state`, `risk`, `action`, `report-status`
+- 위의 범주 집합은 결정 축, 시간 축, 경계 축, 수명 주기 축, 위험 축, 작업 축 및 보고 축을 모두 포함하므로 충분한 것으로 간주해야 합니다.
+- 각 규칙 항목에 대해 `용어`, `범주`, `표준 의미`, `결정 규칙`, `허용 값`, `금지된 해석`을 정의해야 합니다.
 
 ## Strength Definitions
-- `must` and `always` expressions must be interpreted as mandatory obligations.
-- `should` and `recommended` expressions must be interpreted as recommended actions that require recorded rationale when not followed.
-- `should not` expressions must be interpreted as discouraged actions that require recorded rationale when performed.
-- `must not` and `do not use` expressions must be interpreted as unconditional prohibitions.
-- Obligation, recommendation, and prohibition must not be mixed in one rule item.
+- `must` 및 `always` 표현은 의무적인 책임으로 해석되어야 합니다.
+- `should` 및 `recommended` 표현은 권장되는 행동으로 해석되어야 하며, 따르지 않을 경우 그 이유를 기록해야 합니다.
+- `should not` 표현은 권장되지 않는 행동으로 해석되어야 하며, 수행할 경우 그 이유를 기록해야 합니다.
+- `must not` 및 `do not use` 표현은 무조건적인 금지로 해석되어야 합니다.
+- 의무, 권장, 금지는 하나의 규칙 항목에 혼합될 수 없습니다.
 
 ## Term Definitions
-- `rule` means one sentence unit that instructs an actor behavior.
-- `verification` means a procedure that checks whether rules are followed.
-- `done` means a terminal state where completion checks are satisfied.
-- `exception` means a condition that narrowly overrides a default rule.
-- `single source of truth` means the final authority document for one meaning.
+- `rule`은 행위자의 행동을 지시하는 하나의 문장 단위입니다.
+- `verification`은 규칙이 준수되었는지 확인하는 절차입니다.
+- `done`은 완료 검사가 모두 충족된 최종 상태입니다. - '예외'란 기본 규칙을 간신히 무시하는 조건을 의미합니다.
+- `single source of truth`는 특정 의미에 대한 최종 권위 문서를 의미합니다.
 
 ## Global Execution Behavior
-- Before any write action, you must normalize ambiguous terms to this document definitions and the active registry.
-- If an unresolved term affects irreversible actions or shared state, you must stop and request user confirmation.
-- If unresolved terms remain for reversible actions, you must mark the assumption as `unverified` before proceeding.
-- If reversibility cannot be determined, you must treat the action as irreversible and request user confirmation.
-- If relative dates are used, you must convert them to absolute dates before final decision and reporting.
+- 쓰기 작업을 수행하기 전에 모호한 용어를 이 문서의 정의 및 활성 레지스트리에 맞게 정규화해야 합니다.
+- 해결되지 않은 용어가 되돌릴 수 없는 작업이나 공유 상태에 영향을 미치는 경우, 작업을 중지하고 사용자 확인을 요청해야 합니다.
+- 되돌릴 수 있는 작업에 대해 해결되지 않은 용어가 남아 있는 경우, 진행하기 전에 가정을 `미확인`으로 표시해야 합니다.
+- 되돌릴 수 있는지 여부를 판단할 수 없는 경우, 해당 작업을 되돌릴 수 없는 것으로 처리하고 사용자 확인을 요청해야 합니다.
+- 상대 날짜를 사용하는 경우, 최종 결정 및 보고 전에 절대 날짜로 변환해야 합니다.
 
 ## Priority Resolution
-- When interpretation conflicts occur, you must apply the priority model defined in `../skill-management_constitution-rule/SKILL.md` `# Must > ## Priority Model`.
-- You must treat the priority order as `global_instructions` > `AGENTS` unless a higher-layer delegation explicitly overrides it.
+- 해석 충돌이 발생하는 경우, `../skill-management_constitution-rule/SKILL.md`에 정의된 우선순위 모델을 적용해야 합니다. `# Must > ## Priority Model`.
+- 상위 계층 위임에서 명시적으로 재정의하지 않는 한, 우선순위는 `global_instructions` > `AGENTS`로 처리해야 합니다.
 
 ## History Path
-- The configured history path for this skill is `history/codex-skills/vocabulary-management_vocabulary-rule/vocabulary-rule/`.
-- When registry meaning or rule interpretation changes, you must record the revision in the configured history path.
+- 이 스킬에 대해 구성된 기록 경로는 `history/codex-skills/vocabulary-management_vocabulary-rule/vocabulary-rule/`입니다.
+- 레지스트리 의미 또는 규칙 해석이 변경되면 구성된 기록 경로에 수정 사항을 기록해야 합니다.
 
 # Must NOT
 
 ## Ambiguity
-- You must not use `appropriately`, `when needed`, `depending on situation`, `if possible`, or `important` without explicit decision criteria.
-- You must not redefine the same term with different meanings across documents.
+- 명확한 판단 기준 없이 `appropriately`, `when needed`, `depending on situation`, `if possible`, `important`과 같은 표현을 사용해서는 안 됩니다.
+- 문서마다 동일한 용어를 다른 의미로 재정의해서는 안 됩니다.
 
 ## Weakening
-- You must not weaken mandatory language into generic descriptive prose.
-- You must not downgrade prohibition language into recommendation language.
+- 필수 문구를 일반적인 설명 문구로 완화해서는 안 됩니다.
+- 금지 문구를 권고 문구로 격하해서는 안 됩니다.
 
 ## Duplication
-- You must not copy the same term definition into multiple documents.
-- If reuse is required, you must reference this document or the active registry instead of duplicating definition text.
+- 동일한 용어 정의를 여러 문서에 복사해서는 안 됩니다.
+- 재사용이 필요한 경우, 정의 텍스트를 복제하는 대신 이 문서 또는 활성 레지스트리를 참조해야 합니다.
 
 # Flow
 
 ## Authoring
-1. Extract key terms and strength expressions from target documents.
-2. Check conflicts against this document definitions and the active registry.
-3. If conflict exists, revise target documents to align with this document and registry.
-4. If a new term is required, add definition, example, and prohibited misunderstanding together.
+1. 대상 문서에서 핵심 용어와 강도 표현을 추출합니다.
+2. 이 문서의 정의 및 활성 레지스트리와 충돌 여부를 확인합니다.
+3. 충돌이 있는 경우, 대상 문서를 이 문서 및 레지스트리와 일치하도록 수정합니다.
+4. 새로운 용어가 필요한 경우, 정의, 예시, 그리고 오해의 소지가 있는 내용을 함께 추가합니다.
 
 ## Review
-1. Verify obligation/recommendation/prohibition expressions are not mixed.
-2. Verify ambiguous terms are not used without criteria.
-3. Verify single-source references are explicitly present.
-4. Verify unresolved-term handling includes unknown-reversibility fallback.
-5. Verify registry entries are complete and category values are inside the closed list.
-6. Present execution result and normalization log to the user as success/failure/no-op.
+1. 의무/권고/금지 표현이 혼합되지 않았는지 확인합니다.
+2. 기준 없이 모호한 용어가 사용되지 않았는지 확인합니다.
+3. 단일 출처 참조가 명시적으로 존재하는지 확인합니다.
+4. 미해결 용어 처리에 가역성 불확실 대체 기능이 포함되어 있는지 확인합니다.
+5. 레지스트리 항목이 완전하고 범주 값이 닫힌 목록 내에 있는지 확인합니다.
+6. 실행 결과 및 정규화 로그를 사용자에게 성공/실패/작업 없음으로 표시합니다.
 
 # Definition of Done
 
 ## Verification
-- Strength expressions are distinguishable per sentence as obligation/recommendation/prohibition.
-- Core term definitions exist without duplication.
-- No forbidden ambiguous-term usage is present.
-- Single-source reference documents are explicitly identified.
-- Active registry exists and contains at least one executable term entry.
-- If term meaning was revised, a history record exists in `history/codex-skills/vocabulary-management_vocabulary-rule/vocabulary-rule/`.
+- 강도 표현이 각 문장에서 의무/권고/금지로 명확하게 구분되는지 확인합니다.
+- 핵심 용어 정의가 중복 없이 존재하는지 확인합니다.
+- 금지된 모호한 용어 사용이 없는지 확인합니다.
+- 단일 출처 참조 문서가 명시적으로 식별되었는지 확인합니다.
+- 활성 레지스트리가 존재하며 실행 가능한 용어 항목이 하나 이상 포함되어 있는지 확인합니다.
+- 용어 의미가 수정된 경우, `history/codex-skills/vocabulary-management_vocabulary-rule/vocabulary-rule/` 경로에 변경 내역이 기록됩니다.
 
 ## Monitoring
-- The terminology-conflict checklist must be maintained at `codex-skills/vocabulary-management/vocabulary-terminology-conflict-checklist.md` by the designated document owner.
-- When a new governed document is added, you must include this document in the terminology-conflict checklist.
-- At least once per quarter, the designated document owner (human reviewer or automation maintainer) must sample governed documents and verify strength-expression consistency.
+- 지정된 문서 소유자는 `codex-skills/vocabulary-management/vocabulary-terminology-conflict-checklist.md` 경로에 용어 충돌 체크리스트를 유지 관리해야 합니다.
+- 새로운 관리 대상 문서가 추가되면 해당 문서를 용어 충돌 체크리스트에 포함해야 합니다.
+- 지정된 문서 소유자(사람 검토자 또는 자동화 관리자)는 분기별로 최소 한 번 이상 관리 대상 문서를 샘플링하여 강도 표현의 일관성을 검증해야 합니다.

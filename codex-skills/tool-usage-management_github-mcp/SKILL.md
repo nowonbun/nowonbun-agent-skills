@@ -1,6 +1,6 @@
 ---
 name: github-mcp
-description: Engineers using GitHub MCP must use this skill to separate GitHub API actions from git CLI work and validate repository target identifiers before write operations.
+description: GitHub MCP를 사용하는 엔지니어는 GitHub API 작업과 Git CLI 작업을 분리하고 쓰기 작업 전에 저장소 대상 식별자를 검증하기 위해 이 스킬을 사용해야 합니다.
 ---
 
 # GitHub MCP Skill
@@ -8,54 +8,54 @@ description: Engineers using GitHub MCP must use this skill to separate GitHub A
 # Must
 
 ## Scope
-- You must apply this document when using GitHub MCP tools for repository, issue, pull-request, review, branch, file, or comment operations.
-- You must treat GitHub MCP as remote GitHub API access, not as a replacement for local git CLI commit and push operations.
+- 저장소, 이슈, 풀 리퀘스트, 리뷰, 브랜치, 파일 또는 댓글 작업에 GitHub MCP 도구를 사용할 때 이 문서를 적용해야 합니다.
+- GitHub MCP는 로컬 Git CLI 커밋 및 푸시 작업을 대체하는 것이 아니라 원격 GitHub API 액세스로 간주해야 합니다.
 
 ## Source of Truth
-- This document governs GitHub MCP target validation, API-versus-git responsibility separation, and GitHub write-action handling in `./SKILL.md`; it does not govern shared workspace stop conditions, delegated runtime controls, or general skill-document structure.
-- `AGENTS` is the single source of truth for workspace execution triggers and workflow stop conditions; consult it when deciding whether a GitHub MCP task is allowed to proceed inside the current workspace workflow, not for repository-target validation rules.
-- `../runtime-management_work-runtime/SKILL.md` is the single source of truth for shared MCP pre-validation, shared stop conditions, and shared reporting controls delegated by AGENTS; consult it when deciding shared runtime checks that apply before MCP execution, not for GitHub-specific ownership or target-ID rules.
+- 이 문서는 `./SKILL.md`에 있는 GitHub MCP 대상 유효성 검사, API와 Git의 책임 분리 및 GitHub 쓰기 작업 처리에 대한 내용을 다룹니다. 공유 워크스페이스 종료 조건, 위임된 런타임 제어 또는 일반적인 스킬 문서 구조는 다루지 않습니다.
+- `AGENTS`는 워크스페이스 실행 트리거 및 워크플로 종료 조건에 대한 유일한 기준 문서입니다. GitHub MCP 작업이 현재 워크스페이스 워크플로 내에서 진행될 수 있는지 여부를 결정할 때 참조해야 하며, 저장소 대상 유효성 검사 규칙을 위해 참조해서는 안 됩니다.
+- `../runtime-management_work-runtime/SKILL.md`는 에이전트에서 위임하는 공유 MCP 사전 유효성 검사, 공유 중지 조건 및 공유 보고 제어에 대한 유일한 기준입니다. MCP 실행 전에 적용되는 공유 런타임 검사를 결정할 때 참조해야 하며, GitHub 관련 소유권 또는 대상 ID 규칙을 위해 참조해서는 안 됩니다.
 
 ## Operation Boundary Rules
-- You must use git CLI for local staging, commit, diff, and push operations.
-- You must use GitHub MCP for remote GitHub state such as issues, pull requests, review comments, branches, releases, repository files, and metadata.
-- You must state which part of the task is local git work and which part is GitHub MCP work before execution when both are involved.
+- 로컬 스테이징, 커밋, 차이점 비교 및 ​​푸시 작업에는 Git CLI를 사용해야 합니다.
+- 이슈, 풀 리퀘스트, 리뷰 댓글, 브랜치, 릴리스, 저장소 파일 및 메타데이터와 같은 원격 GitHub 상태에는 GitHub MCP를 사용해야 합니다.
+- Git 작업과 GitHub MCP 작업이 모두 관련된 경우, 실행 전에 작업의 어느 부분이 로컬 Git 작업이고 어느 부분이 GitHub MCP 작업인지 명시해야 합니다.
 
 ## Target Validation Rules
-- Before any GitHub MCP write operation, you must verify `owner`, `repo`, and target identifier fields required by the selected tool.
-- You must validate pull-request numbers, issue numbers, branch names, comment IDs, and file paths against the intended repository scope before writing.
-- You must verify that the selected write target matches the user request and current repository context.
+- GitHub MCP 쓰기 작업을 수행하기 전에 선택한 도구에 필요한 `owner`, `repo` 및 대상 식별자 필드를 확인해야 합니다.
+- 쓰기 작업을 수행하기 전에 풀 리퀘스트 번호, 이슈 번호, 브랜치 이름, 댓글 ID 및 파일 경로가 의도한 리포지토리 범위와 일치하는지 확인해야 합니다.
+- 선택한 쓰기 대상이 사용자 요청 및 현재 리포지토리 컨텍스트와 일치하는지 확인해야 합니다.
 
 ## Read-Before-Write Rules
-- Before adding review comments, replies, issue comments, PR updates, or merges, you must read the relevant issue, pull request, review thread, or file metadata when the current state is required for correctness.
-- Before file creation or update through GitHub MCP, you must verify branch name and existing file SHA when the target file already exists.
-- Before destructive remote actions such as closing issues, merging pull requests, deleting files, or changing branch targets, you must confirm that the action is in scope and reversible status is understood.
+- 리뷰 댓글, 답글, 이슈 댓글, PR 업데이트 또는 병합을 추가하기 전에 정확성을 위해 현재 상태가 필요한 경우 관련 이슈, 풀 리퀘스트, 리뷰 스레드 또는 파일 메타데이터를 읽어야 합니다.
+- GitHub MCP를 통해 파일을 생성하거나 업데이트하기 전에 대상 파일이 이미 존재하는 경우 브랜치 이름과 기존 파일의 SHA를 확인해야 합니다.
+- 이슈 닫기, 풀 리퀘스트 병합, 파일 삭제 또는 브랜치 대상 변경과 같은 파괴적인 원격 작업을 수행하기 전에 해당 작업이 범위 내에 있는지, 그리고 되돌릴 수 있는지 여부를 확인해야 합니다.
 
 ## Reporting Rules
-- After GitHub MCP write operations, you must report the repository target, execution result, failure reason if any, and re-run necessity.
-- You must distinguish remote GitHub changes from local workspace changes in the final report.
-- You must mark assumptions as `unverified` when repository state could not be read directly.
+- GitHub MCP 쓰기 작업 후에는 대상 저장소, 실행 결과, 실패 원인(있는 경우), 재실행 필요 여부를 보고해야 합니다.
+- 최종 보고서에서 원격 GitHub 변경 사항과 로컬 작업 공간 변경 사항을 구분해야 합니다.
+- 저장소 상태를 직접 읽을 수 없는 경우, 가정을 `미확인`으로 표시해야 합니다.
 
 # Must NOT
 
-- You must not describe git commit or git push as GitHub MCP actions.
-- You must not perform a GitHub MCP write with missing or mismatched repository identifiers.
-- You must not skip pre-read state checks when correctness depends on current issue, PR, branch, or file state.
-- You must not treat remote file deletion, PR merge, or issue closure as low-risk by default.
+- `git commit` 또는 `git push`를 GitHub MCP 작업으로 설명해서는 안 됩니다.
+- 저장소 식별자가 누락되었거나 일치하지 않는 경우 GitHub MCP 쓰기를 수행해서는 안 됩니다.
+- 정확성이 현재 이슈, PR, 브랜치 또는 파일 상태에 따라 달라지는 경우, 읽기 전 상태 검사를 건너뛰어서는 안 됩니다.
+- 원격 파일 삭제, PR 병합 또는 이슈 종료를 기본적으로 위험도가 낮은 작업으로 처리해서는 안 됩니다.
 
 # Flow
 
-1. Separate local git work from remote GitHub MCP work.
-2. Identify the exact repository, branch, issue, PR, comment, or file target.
-3. Read current GitHub state when required for correctness.
-4. Validate all required write parameters for the selected tool.
-5. Execute the GitHub MCP action.
-6. Report target identifiers, result, failure reason, and re-run necessity.
+1. 로컬 Git 작업과 원격 GitHub MCP 작업을 구분합니다.
+2. 정확한 대상 저장소, 브랜치, 이슈, PR, 댓글 또는 파일을 식별합니다.
+3. 정확성 확인을 위해 필요한 경우 현재 GitHub 상태를 읽습니다.
+4. 선택한 도구에 필요한 모든 쓰기 매개변수를 검증합니다.
+5. GitHub MCP 작업을 실행합니다.
+6. 대상 식별자, 결과, 실패 이유 및 재실행 필요 여부를 보고합니다.
 
 # Definition of Done
 
 ## Verification
-- Local git work and GitHub MCP work are explicitly separated.
-- Required repository identifiers and target IDs are validated before writes.
-- Read-before-write checks are performed when current state matters.
-- Final report includes target identifier, execution result, failure reason if any, and re-run necessity.
+- 로컬 Git 작업과 GitHub MCP 작업이 명확하게 분리됩니다.
+- 쓰기 전에 필요한 저장소 식별자와 대상 ID를 검증합니다.
+- 현재 상태가 중요한 경우 쓰기 전 읽기 검사를 수행합니다.
+- 최종 보고서에는 대상 식별자, 실행 결과, 실패 이유(있는 경우) 및 재실행 필요 여부가 포함됩니다.

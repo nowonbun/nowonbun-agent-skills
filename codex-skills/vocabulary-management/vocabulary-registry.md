@@ -1,106 +1,106 @@
 # Vocabulary Registry
 
 ## Entry Schema
-- Required fields: `term`, `category`, `canonical meaning`, `decision rule`, `allowed values`, `prohibited interpretations`, `evidence source`.
-- Category must be one of: `priority`, `time`, `scope`, `state`, `risk`, `action`, `report-status`.
+- 필수 입력 항목: `용어`, `범주`, `표준 의미`, `결정 규칙`, `허용 값`, `금지된 해석`, `증거 출처`
+- 범주는 `우선순위`, `시간`, `범위`, `상태`, `위험`, `조치`, `보고서 상태` 중 하나여야 합니다.
 
 ## Term Entries
 
 ### Entry 1
-- term: `should`
-- category: `priority`
-- canonical meaning: A recommended action that can be skipped only when rationale is recorded.
-- decision rule: If an instruction uses `should` or `recommended`, execution may proceed without that action only when the skip rationale is written in the final report.
-- allowed values: `follow`, `skip-with-rationale`
-- prohibited interpretations: `optional-without-reason`, `equivalent-to-must`, `equivalent-to-must-not`
-- evidence source: execution report text
+- 용어: `should`
+- 범주: `우선순위`
+- 표준 의미: 권장 조치로, 근거가 기록된 경우에만 건너뛸 수 있습니다.
+- 결정 규칙: 지침에 `should` 또는 `recommended`가 사용된 경우, 최종 보고서에 건너뛰기 근거가 기록된 경우에만 해당 조치 없이 실행을 진행할 수 있습니다.
+- 허용 값: `follow`, `skip-with-rationale`
+- 금지된 해석: `optional-without-reason`, `equivalent-to-must`, `equivalent-to-must-not`
+- 증거 출처: 실행 보고서 텍스트
 
 ### Entry 2
-- term: `today`
-- category: `time`
-- canonical meaning: The calendar date at execution time in the active timezone.
-- decision rule: Convert relative date words (`today`, `yesterday`, `tomorrow`) to `YYYY-MM-DD` before final execution decision and reporting.
-- allowed values: `YYYY-MM-DD`
-- prohibited interpretations: `server-unknown-timezone`, `leave-relative-expression`
-- evidence source: runtime date command output or tool response
+- 용어: `today`
+- 범주: `time`
+- 표준 의미: 활성 시간대의 실행 시점의 달력 날짜
+- 결정 규칙: 최종 실행 결정 및 보고 전에 상대 날짜 단어(`today`, `yesterday`, `tomorrow`)를 `YYYY-MM-DD`로 변환합니다.
+- 허용 값: `YYYY-MM-DD`
+- 금지된 해석: `server-unknown-timezone`, `leave-relative-expression`
+- 증거 출처: 런타임 날짜 명령 출력 또는 도구 응답
 
 ### Entry 3
-- term: `must`
-- category: `priority`
-- canonical meaning: A mandatory requirement with no discretionary skip.
-- decision rule: If an instruction uses `must` or `always`, execution must include that action unless a higher-priority explicit exception exists.
-- allowed values: `execute-as-required`
-- prohibited interpretations: `optional`, `recommended-only`, `skip-without-exception`
-- evidence source: execution logs or output artifacts
+- 용어: `must`
+- 범주: `priority`
+- 표준 의미: 선택적으로 건너뛸 수 없는 필수 요구 사항
+- 결정 규칙: 명령어에 `must` 또는 `always`가 사용된 경우, 더 높은 우선순위의 명시적 예외가 없는 한 해당 작업은 반드시 실행되어야 합니다.
+- 허용 값: `execute-as-required`
+- 금지된 해석: `optional`, `recommended-only`, `skip-without-exception`
+- 증거 출처: 실행 로그 또는 출력 아티팩트
 
 ### Entry 4
-- term: `must not`
-- category: `priority`
-- canonical meaning: An unconditional prohibition.
-- decision rule: If an instruction uses `must not` or equivalent prohibition, execution must block that action and apply stop/report handling if requested.
-- allowed values: `block-action`
-- prohibited interpretations: `soft-warning`, `discouraged-only`, `override-without-authority`
-- evidence source: refusal text, blocked command logs, or report record
+- 용어: `must not`
+- 범주: `priority`
+- 표준 의미: 무조건적인 금지.
+- 결정 규칙: 명령어에 `must not` 또는 이와 동등한 금지가 사용된 경우, 해당 작업은 실행이 차단되어야 하며, 요청 시 중지/보고 처리가 적용되어야 합니다.
+- 허용 값: `block-action`
+- 금지된 해석: `soft-warning`, `discouraged-only`, `override-without-authority`
+- 증거 출처: 거부 텍스트, 차단된 명령 로그 또는 보고서 기록
 
 ### Entry 5
-- term: `should not`
-- category: `priority`
-- canonical meaning: A discouraged action that requires explicit rationale if performed.
-- decision rule: If an instruction uses `should not`, avoid the action by default; if performed, include rationale in the final report.
-- allowed values: `avoid`, `perform-with-rationale`
-- prohibited interpretations: `same-as-must-not`, `free-to-ignore-without-rationale`
-- evidence source: final report text
+- 용어: `should not`
+- 범주: `priority`
+- 표준 의미: 수행 시 명확한 근거 제시가 필요한 권장되지 않는 조치
+- 결정 규칙: 지침에 `should not`이 사용된 경우, 기본적으로 해당 조치를 피하고, 수행한 경우 최종 보고서에 근거를 포함합니다.
+- 허용 값: `avoid`, `perform-with-rationale`
+- 금지된 해석: `same-as-must-not`, `free-to-ignore-without-rationale`
+- 증거 출처: 최종 보고서 텍스트
 
 ### Entry 6
-- term: `success(no-op)`
-- category: `report-status`
-- canonical meaning: The step succeeds because the target state is already compliant and no change was required.
-- decision rule: Report `success(no-op)` only when verification confirms no write/update is needed and the existing state matches the required state.
-- allowed values: `success(no-op)`
-- prohibited interpretations: `skipped-without-check`, `partial-failure`, `unknown-state`
-- evidence source: pre-check result and unchanged-state logs
+- 용어: `success(no-op)`
+- 범주: `report-status`
+- 표준 의미: 대상 상태가 이미 요구 조건을 충족하고 있어 변경이 필요하지 않으므로 단계가 성공합니다.
+- 결정 규칙: 검증 결과 쓰기/업데이트가 필요하지 않고 기존 상태가 요구 상태와 일치하는 경우에만 `success(no-op)`를 보고합니다.
+- 허용 값: `성공(작업 없음)`
+- 금지된 해석: `검사 없이 건너뛰기`, `부분 실패`, `알 수 없는 상태`
+- 증거 출처: 사전 검사 결과 및 변경되지 않은 상태 로그
 
 ### Entry 7
-- term: `unverified`
-- category: `state`
-- canonical meaning: A claim, assumption, or condition that was not validated by an accepted evidence source.
-- decision rule: Mark uncertain statements as `unverified` before proceeding when required by governing rules.
-- allowed values: `unverified`
-- prohibited interpretations: `verified-by-default`, `silent-assumption`
-- evidence source: response/report text containing explicit `unverified` label
+- 용어: `검증되지 않음`
+- 범주: `상태`
+- 표준 의미: 승인된 증거 출처에 의해 검증되지 않은 주장, 가정 또는 조건
+- 결정 규칙: 관련 규칙에 따라 필요한 경우 진행하기 전에 불확실한 진술을 `검증되지 않음`으로 표시합니다.
+- 허용 값: `검증되지 않음`
+- 금지된 해석: `기본적으로 검증됨`, `묵시적 가정`
+- 증거 출처: 명시적인 `검증되지 않음` 레이블이 포함된 응답/보고서 텍스트
 
 ### Entry 8
-- term: `irreversible action`
-- category: `risk`
-- canonical meaning: An action that cannot be reliably undone or can permanently affect shared/external state.
-- decision rule: If reversibility is unknown, treat as irreversible and request user confirmation before execution.
-- allowed values: `requires-confirmation-before-execution`
-- prohibited interpretations: `safe-by-default`, `assume-reversible-without-proof`
-- evidence source: risk assessment notes and confirmation prompt logs
+- 용어: `되돌릴 수 없는 작업`
+- 범주: `위험`
+- 표준 의미: 확실하게 되돌릴 수 없거나 공유/외부 상태에 영구적인 영향을 미칠 수 있는 작업
+- 결정 규칙: 되돌릴 수 있는지 여부가 불확실한 경우, 되돌릴 수 없는 것으로 간주하고 실행 전에 사용자 확인을 요청합니다.
+- 허용 값: `실행 전 확인 필요`
+- 금지된 해석: `기본적으로 안전`, `증명 없이 되돌릴 수 있다고 가정`
+- 근거 자료: 위험 평가 기록 및 확인 요청 로그
 
 ### Entry 9
-- term: `shared state`
-- category: `scope`
-- canonical meaning: Data, systems, or resources used by multiple actors/processes where one action can affect others.
-- decision rule: Actions affecting shared state require strict rule checks and stop/confirmation handling when ambiguity or conflict exists.
-- allowed values: `shared-resource-target`, `non-shared-target`
-- prohibited interpretations: `personal-local-only-by-default`, `ignore-cross-impact`
-- evidence source: target system metadata, path/repository context, or MCP target details
+- 용어: `공유 상태`
+- 범주: `범위`
+- 표준 의미: 여러 행위자/프로세스가 사용하는 데이터, 시스템 또는 리소스로, 하나의 작업이 다른 작업이나 프로세스에 영향을 미칠 수 있습니다.
+- 결정 규칙: 공유 상태에 영향을 미치는 작업은 엄격한 규칙 검사를 거쳐야 하며, 모호하거나 충돌이 발생할 경우 중지/확인 처리를 해야 합니다.
+- 허용 값: `shared-resource-target`, `non-shared-target`
+- 금지된 해석: `personal-local-only-by-default`, `ignore-cross-impact`
+- 증거 출처: 대상 시스템 메타데이터, 경로/저장소 컨텍스트 또는 MCP 대상 세부 정보
 
 ### Entry 10
-- term: `canonical path`
-- category: `scope`
-- canonical meaning: One normalized real filesystem path with resolved symlinks and no ambiguity.
-- decision rule: A write must stop if the target cannot be resolved to exactly one canonical real path.
-- allowed values: `single-resolved-real-path`
-- prohibited interpretations: `relative-or-ambiguous-path-ok`, `multiple-candidate-paths-ok`
-- evidence source: path resolution output (e.g., `realpath`) and write pre-check logs
+- 용어: `정규 경로`
+- 범주: `범위`
+- 정규 경로의 의미: 심볼릭 링크가 해결되고 모호성이 없는 하나의 정규화된 실제 파일 시스템 경로.
+- 결정 규칙: 대상이 정확히 하나의 정규 실제 경로로 해결될 수 없는 경우 쓰기 작업을 중지해야 합니다.
+- 허용 값: `단일 해결된 실제 경로`
+- 금지된 해석: `상대 경로 또는 모호한 경로 허용`, `다수의 후보 경로 허용`
+- 증거 출처: 경로 해결 출력(예: `realpath`) 및 쓰기 사전 검사 로그
 
 ### Entry 11
-- term: `exact match`
-- category: `action`
-- canonical meaning: Trigger comparison that requires the full input string to equal the defined trigger phrase.
-- decision rule: For exact-match workflows, do not start execution on partial, fuzzy, or prefix-only matches.
-- allowed values: `full-string-equality`
-- prohibited interpretations: `contains-match`, `prefix-match`, `semantic-approximation`
-- evidence source: trigger-evaluation logs or command input trace
+- 용어: `정확한 일치`
+- 범주: `작업`
+- 정규 경로의 의미: 전체 입력 문자열이 정의된 트리거 구문과 일치해야 하는 트리거 비교.
+- 결정 규칙: 정확한 일치 워크플로의 경우, 부분 일치, 모호한 일치 또는 접두사만 일치하는 경우에는 실행을 시작하지 않습니다.
+- 허용 값: `full-string-equality`
+- 금지된 해석: `contains-match`, `prefix-match`, `semantic-approximation`
+- 증거 출처: 트리거 평가 로그 또는 명령 입력 추적

@@ -1,6 +1,6 @@
 ---
 name: mariadb-mcp
-description: Engineers using the MariaDB MCP server must use this skill to verify connection scope, respect read-only permissions, and validate SQL before execution.
+description: MariaDB MCP 서버를 사용하는 엔지니어는 이 스킬을 사용하여 연결 범위를 확인하고, 읽기 전용 권한을 준수하며, 실행 전에 SQL 유효성을 검사해야 합니다.
 ---
 
 # MariaDB MCP Skill
@@ -8,55 +8,55 @@ description: Engineers using the MariaDB MCP server must use this skill to verif
 # Must
 
 ## Scope
-- You must apply this document when using MariaDB MCP tools for database health checks, permission checks, or SQL queries.
-- You must treat MariaDB MCP as a constrained database interface with explicit permission boundaries.
+- 데이터베이스 상태 확인, 권한 확인 또는 SQL 쿼리를 위해 MariaDB MCP 도구를 사용할 때 이 문서를 적용해야 합니다.
+- MariaDB MCP는 명시적인 권한 경계가 있는 제한된 데이터베이스 인터페이스로 취급해야 합니다.
 
 ## Source of Truth
-- This document governs MariaDB connection-scope checks, SQL validation, and read/write permission handling in `./SKILL.md`; it does not govern shared workspace stop conditions, delegated runtime controls, or general skill-document format rules.
-- `AGENTS` is the single source of truth for workspace execution triggers and workflow stop conditions; consult it when deciding whether a MariaDB MCP task is allowed to proceed inside the current workspace workflow, not for SQL validation or connection-scope rules.
-- `../runtime-management_work-runtime/SKILL.md` is the single source of truth for shared MCP validation, shared stop conditions, and shared reporting controls delegated by AGENTS; consult it when deciding common runtime checks that apply before MCP execution, not for MariaDB-specific query or permission rules.
+- 이 문서는 `./SKILL.md`에서 MariaDB 연결 범위 확인, SQL 유효성 검사 및 읽기/쓰기 권한 처리를 규정합니다. 공유 워크스페이스 종료 조건, 위임된 런타임 제어 또는 일반적인 스킬 문서 형식 규칙은 규정하지 않습니다.
+- `AGENTS`는 워크스페이스 실행 트리거 및 워크플로 종료 조건에 대한 유일한 기준 문서입니다. SQL 유효성 검사 또는 연결 범위 규칙이 아닌 MariaDB MCP 작업이 현재 워크스페이스 워크플로 내에서 진행될 수 있는지 여부를 결정할 때 `AGENTS`를 참조하십시오.
+- `../runtime-management_work-runtime/SKILL.md` 파일은 에이전트에서 위임하는 공유 MCP 유효성 검사, 공유 종료 조건 및 공유 보고 제어에 대한 유일한 기준점입니다. MariaDB 관련 쿼리 또는 권한 규칙이 아닌 MCP 실행 전에 적용되는 공통 런타임 검사를 결정할 때 이 파일을 참조하십시오.
 
 ## Connection and Permission Rules
-- Before running SQL, you must verify server reachability or permission summary when scope or capability is relevant to the task.
-- You must treat the active MariaDB MCP connection as scoped to database `stock` when current MCP responses confirm that database.
-- You must treat the current MariaDB MCP permissions as read-only when MCP responses show `select: true` and all write permissions as false.
+- SQL을 실행하기 전에 범위 또는 기능이 작업과 관련이 있는 경우 서버 연결 가능성 또는 권한 요약을 확인해야 합니다.
+- 현재 MCP 응답에서 데이터베이스가 `stock`으로 확인되면 활성 MariaDB MCP 연결을 해당 데이터베이스로 범위가 지정된 것으로 간주해야 합니다.
+- MCP 응답에서 `select: true`이고 모든 쓰기 권한이 false로 표시되면 현재 MariaDB MCP 권한을 읽기 전용으로 간주해야 합니다.
 
 ## Query Safety Rules
-- You must write SQL as one explicit statement per call.
-- You must use parameterized inputs when user-controlled values are injected into SQL.
-- You must validate table name, filter columns, and row-volume expectation before query execution.
-- You must keep queries inside the current permission boundary and expected result size.
+- SQL은 호출당 하나의 명시적인 문으로 작성해야 합니다.
+- 사용자 제어 값을 SQL에 삽입할 때는 매개변수화된 입력을 사용해야 합니다.
+- 쿼리 실행 전에 테이블 이름, 필터 열 및 행 볼륨 예상치를 검증해야 합니다.
+- 쿼리는 현재 권한 범위 및 예상 결과 크기 내에서 실행해야 합니다.
 
 ## Schema and Naming Rules
-- You must verify table naming patterns against actual schema evidence before assuming them.
-- You must treat market-specific stock tables as suffix-based only when current schema evidence confirms that convention.
-- You must mark schema assumptions as `unverified` when you cannot verify them from query results or current MCP responses.
+- 테이블 명명 패턴을 가정하기 전에 실제 스키마 증거와 비교하여 검증해야 합니다.
+- 시장별 주식 테이블은 현재 스키마 증거가 접미사 기반 명명 규칙을 확인하는 경우에만 접미사 기반으로 처리해야 합니다.
+- 쿼리 결과 또는 현재 MCP 응답에서 스키마 가정을 검증할 수 없는 경우 `미확인`으로 표시해야 합니다.
 
 ## Output Rules
-- You must report the executed SQL purpose before showing results.
-- You must summarize result meaning and row-count impact after execution.
-- When a query cannot be executed because of permission or validation limits, you must report the block reason and next action.
+- 결과를 표시하기 전에 실행된 SQL의 목적을 보고해야 합니다.
+- 실행 후 결과의 의미와 행 수에 미치는 영향을 요약해야 합니다.
+- 권한 또는 유효성 검사 제한으로 인해 쿼리를 실행할 수 없는 경우 차단 사유와 다음 조치를 보고해야 합니다.
 
 # Must NOT
 
-- You must not attempt `INSERT`, `UPDATE`, `DELETE`, DDL, or multi-statement execution when current permissions do not allow them.
-- You must not assume schema names, table names, or market suffixes without evidence.
-- You must not run unrestricted queries when filter or row-limit expectations are undefined.
-- You must not present inferred schema details as verified facts.
+- 현재 권한으로 허용되지 않는 경우 `INSERT`, `UPDATE`, `DELETE`, DDL 또는 여러 문장 실행을 시도해서는 안 됩니다.
+- 증거 없이 스키마 이름, 테이블 이름 또는 시장 접미사를 가정해서는 안 됩니다.
+- 필터 또는 행 제한에 대한 기대치가 정의되지 않은 경우 무제한 쿼리를 실행해서는 안 됩니다.
+- 추론된 스키마 세부 정보를 검증된 사실로 제시해서는 안 됩니다.
 
 # Flow
 
-1. Verify connection scope and permission boundary when relevant.
-2. Define the SQL purpose and expected result shape.
-3. Validate table names, filters, and row-volume expectation.
-4. Execute one read-only SQL statement within permission limits.
-5. Report result meaning, row-count impact, and any block reason.
+1. 관련이 있는 경우 연결 범위 및 권한 경계를 확인합니다.
+2. SQL의 목적과 예상 결과 형태를 정의합니다.
+3. 테이블 이름, 필터 및 예상 행 볼륨을 검증합니다.
+4. 권한 제한 내에서 읽기 전용 SQL 문 하나를 실행합니다.
+5. 결과 의미, 행 수에 미치는 영향 및 차단 이유를 보고합니다.
 
 # Definition of Done
 
 ## Verification
-- Connection scope and permission boundary are identified before risky or ambiguous SQL use.
-- SQL purpose, target tables, and filters are explicit.
-- The query stays within read-only and single-statement limits.
-- Schema assumptions are evidence-backed or marked `unverified`.
-- Output includes purpose, result meaning, and block reason when applicable.
+- 위험하거나 모호한 SQL을 사용하기 전에 연결 범위 및 권한 경계를 확인합니다.
+- SQL의 목적, 대상 테이블 및 필터를 명시적으로 지정합니다.
+- 쿼리가 읽기 전용 및 단일 문 제한 내에서 실행되도록 합니다.
+- 스키마 가정은 근거가 있거나 `unverified`으로 표시합니다.
+- 출력에는 목적, 결과 의미 및 차단 이유가 포함됩니다(해당하는 경우).

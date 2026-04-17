@@ -1,6 +1,6 @@
 ---
 name: stock-mcp
-description: Engineers using the StockSearcher MCP server must use this skill to validate market and date parameters, select the correct stock tool, and report query intent clearly.
+description: StockSearcher MCP 서버를 사용하는 엔지니어는 시장 및 날짜 매개변수를 검증하고, 올바른 주식 도구를 선택하고, 쿼리 의도를 명확하게 보고하기 위해 이 스킬을 사용해야 합니다.
 ---
 
 # Stock MCP Skill
@@ -8,56 +8,56 @@ description: Engineers using the StockSearcher MCP server must use this skill to
 # Must
 
 ## Scope
-- You must apply this document when using StockSearcher MCP tools for stock lists, price history, prediction dates, or prediction rows.
-- You must choose the tool based on the exact data need instead of reusing one tool for every stock question.
+- StockSearcher MCP 도구를 사용하여 주식 목록, 가격 변동 내역, 예측 날짜 또는 예측 행을 검색할 때 이 문서를 반드시 적용해야 합니다.
+- 모든 주식 관련 질문에 하나의 도구를 재사용하는 대신, 정확한 데이터 요구 사항에 따라 도구를 선택해야 합니다.
 
 ## Source of Truth
-- This document governs market/date parameter validation, stock-tool selection, and stock-query intent reporting in `./SKILL.md`; it does not govern shared workspace stop conditions, delegated runtime controls, or stock-analysis narrative structure.
-- `AGENTS` is the single source of truth for workspace execution triggers and workflow stop conditions; consult it when deciding whether a stock MCP task is allowed to proceed inside the current workspace workflow, not for market/date validation or stock-tool selection rules.
-- `../runtime-management_work-runtime/SKILL.md` is the single source of truth for shared MCP validation, shared stop conditions, and shared reporting controls delegated by AGENTS; consult it when deciding common runtime checks that apply before MCP execution, not for stock-specific parameter rules.
+- 이 문서는 `./SKILL.md`에 있는 시장/날짜 매개변수 검증, 주식 도구 선택 및 주식 쿼리 의도 보고에 대한 내용을 다룹니다. 공유 작업 공간 중지 조건, 위임된 런타임 제어 또는 주식 분석 설명 구조에 대한 내용은 다루지 않습니다.
+- `AGENTS`는 작업 공간 실행 트리거 및 워크플로 중지 조건에 대한 유일한 기준 문서입니다. 시장/날짜 검증 또는 주식 도구 선택 규칙이 아닌, 현재 작업 공간 워크플로 내에서 주식 MCP 작업이 진행될 수 있는지 여부를 결정할 때 `AGENTS`를 참조하십시오.
+- `../runtime-management_work-runtime/SKILL.md` 파일은 에이전트에서 위임하는 공유 MCP 유효성 검사, 공유 정지 조건 및 공유 보고 제어에 대한 유일한 기준점입니다. MCP 실행 전에 적용되는 공통 런타임 검사를 결정할 때 이 파일을 참조하십시오. 주식별 매개변수 규칙을 결정할 때는 이 파일을 참조하지 마십시오.
 
 ## Tool Selection Rules
-- You must use `list_stocks` when the task is to discover stock codes or names by market.
-- You must use `stock_data` when the task requires historical price or volume rows for one stock code.
-- You must use `list_predict_dates` when the task requires available prediction cutoff dates.
-- You must use `predict_rows` when the task requires prediction rows for one market and one cutoff date.
+- 시장별 주식 코드 또는 이름을 검색하는 작업에는 `list_stocks`를 사용해야 합니다.
+- 특정 주식 코드에 대한 과거 가격 또는 거래량 행이 필요한 작업에는 `stock_data`를 사용해야 합니다.
+- 예측 마감일이 필요한 작업에는 `list_predict_dates`를 사용해야 합니다.
+- 특정 시장과 특정 마감일에 대한 예측 행이 필요한 작업에는 `predict_rows`를 사용해야 합니다.
 
 ## Parameter Validation Rules
-- You must validate `market` before every stock MCP call when the tool accepts it.
-- You must use only supported market codes confirmed by current MCP behavior.
-- You must validate `code` before `stock_data`.
-- You must validate `as_of` before `predict_rows`.
-- You must validate date strings in `YYYY-MM-DD` format when date parameters are supplied.
+- 도구에서 `market` 매개변수를 허용하는 경우, 모든 주식 MCP 호출 전에 해당 매개변수의 유효성을 검사해야 합니다.
+- 현재 MCP 동작에서 확인된 지원되는 시장 코드만 사용해야 합니다.
+- `stock_data`를 호출하기 전에 `code`의 유효성을 검사해야 합니다.
+- `predict_rows`를 호출하기 전에 `as_of`의 유효성을 검사해야 합니다.
+- 날짜 매개변수가 제공되는 경우 날짜 문자열이 `YYYY-MM-DD` 형식인지 확인해야 합니다.
 
 ## Query Framing Rules
-- You must state whether the user wants discovery data, historical data, available prediction dates, or prediction results before calling the tool.
-- You must state the market explicitly when the task could apply to more than one market.
-- You must state row limits or date windows when the requested history range would otherwise be ambiguous.
+- 도구를 호출하기 전에 사용자가 탐색 데이터, 과거 데이터, 사용 가능한 예측 날짜 또는 예측 결과를 원하는지 명시해야 합니다.
+- 작업이 둘 이상의 시장에 적용될 수 있는 경우 시장을 명시적으로 지정해야 합니다.
+- 요청된 과거 범위가 모호해질 수 있는 경우 행 제한 또는 날짜 창을 명시해야 합니다.
 
 ## Output Rules
-- You must report which stock MCP tool was used and why.
-- You must summarize the returned rows in plain language instead of dumping raw output only.
-- You must mark unsupported market or missing required parameter cases as blocked with the exact missing field.
+- 어떤 주식 MCP 도구가 사용되었는지, 그리고 그 이유를 보고해야 합니다.
+- 원시 출력만 제공하는 대신 반환된 행을 일반적인 언어로 요약해야 합니다.
+- 지원되지 않는 시장 또는 필수 매개변수가 누락된 경우 누락된 필드를 정확하게 표시하여 차단됨으로 표시해야 합니다.
 
 # Must NOT
 
-- You must not call `predict_rows` without both `market` and `as_of`.
-- You must not call `stock_data` without both `market` and `code`.
-- You must not assume unsupported markets beyond the ones confirmed by current MCP behavior.
-- You must not use prediction data as if it were price-history data.
+- `market`과 `as_of` 매개변수 없이 `predict_rows`를 호출해서는 안 됩니다.
+- `market`과 `code` 매개변수 없이 `stock_data`를 호출해서는 안 됩니다.
+- 현재 MCP 동작에서 확인된 시장 외에 지원되지 않는 시장을 가정해서는 안 됩니다.
+- 예측 데이터를 가격 변동 이력 데이터처럼 사용해서는 안 됩니다.
 
 # Flow
 
-1. Identify whether the request is discovery, price history, prediction-date lookup, or prediction-row lookup.
-2. Select the matching stock MCP tool.
-3. Validate `market` and all required parameters for that tool.
-4. Execute the tool call.
-5. Report tool choice, returned result meaning, and any blocked parameter reason.
+1. 요청이 데이터 검색, 가격 변동 이력 조회, 예측 날짜 조회 또는 예측 행 조회인지 확인합니다.
+2. 해당 주식 MCP 도구를 선택합니다.
+3. `market` 및 해당 도구에 필요한 모든 매개변수를 검증합니다.
+4. 도구 호출을 실행합니다.
+5. 도구 선택, 반환 결과의 의미, 그리고 매개변수가 차단된 경우 그 이유를 보고합니다.
 
 # Definition of Done
 
 ## Verification
-- The selected stock MCP tool matches the user data need.
-- Required parameters are validated before execution.
-- Market support is evidence-backed.
-- Final output explains tool choice and result meaning.
+- 선택한 주식 MCP 도구가 사용자의 데이터 요구 사항과 일치합니다.
+- 실행 전에 필수 매개변수의 유효성을 검사합니다.
+- 시장 지원은 근거에 기반합니다.
+- 최종 출력에는 도구 선택 및 결과의 의미가 설명되어 있습니다.

@@ -27,7 +27,7 @@ description: Claude MCP 교차 검토를 실행해야 하는 에이전트는 이
 ## Source of Truth
 - 이 문서는 `./SKILL.md`에 명시된 Claude 리뷰 런타임 진입 조건, 리뷰 단계 적용 가능성, 로컬 사전 검사 및 프로토콜 인계 동작을 규정합니다. Claude 발견 정규화, 협업 로그 스키마 또는 이력 레코드 생성 기준은 규정하지 않습니다.
 - `../tool-usage-management_claude-cross-review-protocol/SKILL.md`는 Claude 호출 구조, 필수 리뷰 축, 발견 정규화 및 협업 로그 형식에 대한 유일한 기준 문서입니다. 런타임 진입 성공 후 리뷰 호출 구조 및 보고 방식을 결정할 때 이 문서를 참조하십시오. 단계 적용 가능성 또는 로컬 사전 검사 결정에는 이 문서를 참조하지 마십시오.
-- `../skill-management_skill-modify-history/SKILL.md`는 이 런타임 스킬 또는 프로토콜을 수정할 때 이력 레코드 의무 사항에 대한 유일한 기준 문서입니다. 수정 사항을 이력 아티팩트에 기록해야 하는지 여부 및 방법을 결정할 때 이 문서를 참조하십시오. Claude 리뷰 시작 동작에는 이 문서를 참조하지 마십시오.
+- `../skill-management_skill-modify-history/SKILL.md`는 이 런타임 스킬 또는 프로토콜을 수정할 때 이력 생성 동의 절차에 대한 유일한 기준 문서입니다. 수정 사항을 이력 아티팩트에 기록해야 하는지 여부 및 방법을 결정할 때 이 문서를 참조하십시오. Claude 리뷰 시작 동작에는 이 문서를 참조하지 마십시오.
 
 ## Local Preflight Rules
 - Claude MCP를 호출하기 전에 현재 환경에서 `mcp_servers.nowonbun_claude` 서버를 사용할 수 있는지 확인해야 합니다.
